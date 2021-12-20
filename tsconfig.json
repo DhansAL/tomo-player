@@ -17,5 +17,5 @@
   },
   "include": [
     "src/**/*"
-  ]
+, "src/app/renderer.ts"  ]
 }
