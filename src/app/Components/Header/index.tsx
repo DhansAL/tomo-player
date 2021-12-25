@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header() {
   const classes = useStyles();
-
+//TODO: make an env file and put production|dev thingy and make a config folder in backend for that
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -29,7 +29,7 @@ export default function Header() {
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            TomoPlayer V2
+            TomoPlayer V2 |dev
           </Typography>
           <IconButton  className={classes.menuButton} color="inherit" aria-label="online status">
             <SignalWifi2BarLock/>

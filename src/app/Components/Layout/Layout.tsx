@@ -4,6 +4,8 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import Header from '../Header';
+import { Container, Grid } from '@material-ui/core';
+import { Toolbar } from '@mui/material';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,19 +22,30 @@ export default function Layout() {
   const preventDefault = (event: React.SyntheticEvent) => event.preventDefault();
 
   return (
-      <>
+      
+      <div style={{margin:0,padding:0}}>
+      <Container  maxWidth="xl">
       <Header/>
      <Typography className={classes.root}>
-     <Link href="#" onClick={preventDefault} color="inherit">
+       <Toolbar>
+         <div style={{display:"flex", flexDirection:"row",color:"green"}}>
+        <Link href="#" style={{marginRight:"10px"}} onClick={preventDefault} color="inherit">
           OVERVIEW
       </Link>
-     <Link href="#" onClick={preventDefault} color="inherit">
+      <Link href="#"style={{marginRight:"10px"}} onClick={preventDefault} color="inherit">
           LIBRARY
       </Link>
-     <Link href="#" onClick={preventDefault} color="inherit">
+         <Link href="#"style={{marginRight:"10px"}} onClick={preventDefault} color="inherit">
           SETTINGS
-      </Link>
+      </Link> 
+    </div>
+    
+   
+  
+      </Toolbar>
     </Typography>
-    </>
+    </Container>
+    </div>
+    
   );
 }
