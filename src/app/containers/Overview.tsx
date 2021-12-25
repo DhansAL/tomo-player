@@ -9,6 +9,11 @@ export const Overview = () => {
         window.api.sendMsg(customMessage);
         // customMessage= "";
     }
+    const folderFunc =() =>{
+        // e.preventDefault();
+        // @ts-expect-error
+        window.api.foldfunc();
+    }
     return (
         <div>
         <Layout/>
@@ -16,8 +21,8 @@ export const Overview = () => {
             <Button variant="contained" color="primary" onClick={sendMessage}>
                send Message
              </Button>     
-             <Button variant="contained" color="primary" onClick={sendMessage}>
-               get memory usage
+             <Button variant="contained" color="primary" onClick={folderFunc}>
+               colldir test
              </Button>  
         </div>
     )
