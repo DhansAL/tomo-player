@@ -4,7 +4,8 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import Header from '../Header';
-import { Container, Grid } from '@material-ui/core';
+import { NavLink } from "react-router-dom";
+import { Container } from '@material-ui/core';
 import { Toolbar } from '@mui/material';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -19,25 +20,23 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Layout() {
   const classes = useStyles();
-  const preventDefault = (event: React.SyntheticEvent) => event.preventDefault();
 
   return (
       
-      <div style={{margin:0,padding:0}}>
       <Container  maxWidth="xl">
       <Header/>
      <Typography className={classes.root}>
        <Toolbar>
          <div style={{display:"flex", flexDirection:"row",color:"green"}}>
-        <Link href="#" style={{marginRight:"10px"}} onClick={preventDefault} color="inherit">
+        <NavLink  to ="/" style={{marginRight:"10px"}}  color="inherit">
           OVERVIEW
-      </Link>
-      <Link href="#"style={{marginRight:"10px"}} onClick={preventDefault} color="inherit">
+      </NavLink>
+      <NavLink  to ="/library" style={{marginRight:"10px"}}  color="inherit">
           LIBRARY
-      </Link>
-         <Link href="#"style={{marginRight:"10px"}} onClick={preventDefault} color="inherit">
+      </NavLink>
+         <NavLink  to ="/settings" style={{marginRight:"10px"}} color="inherit">
           SETTINGS
-      </Link> 
+      </NavLink> 
     </div>
     
    
@@ -45,7 +44,6 @@ export default function Layout() {
       </Toolbar>
     </Typography>
     </Container>
-    </div>
-    
+      
   );
 }
