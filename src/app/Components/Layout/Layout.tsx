@@ -38,9 +38,6 @@ export default function Layout() {
           SETTINGS
       </NavLink> 
     </div>
-    
-   
-  
       </Toolbar>
     </Typography>
     </Container>
