@@ -1,45 +1,47 @@
-import { Link, Route, Routes } from "solid-app-router";
-import { lazy } from "solid-js";
-// import { Layout } from "./Components/Layout";
-// import { Library } from "./Containers/Library";
-// import { Overview } from "./Containers/Overview";
-// import { Settings } from "./Containers/Settings";
+import { Route, Routes } from "solid-app-router";
 
-const Layout = () => {
-  return (
-    <>
-      <div>
-        <Link href="/">Overview</Link>
-        <Link href="/library">library</Link>
-      </div>
-    </>
-  );
-};
-const Overview = () => {
-  return (
-    <>
-      <Layout />
-      <div>overview component.</div>
-    </>
-  );
-};
-const Library = () => {
-  return (
-    <>
-      <Layout />
-      <div>library component</div>
-    </>
-  );
-};
-// const Overview = lazy(() => import("./Containers/Overview"));
+import { Link } from "solid-app-router";
+/**
+ * 
+ * @bug - Solid router seems to be not working as it is supposed to be with electron
+ * 
+ * due to this reason the build will be shifted back to react+electron 
+ * and wont return in any time soon. 
+ * 
+ * tbh i am disappointed :(
+ */
 
 export const App = () => {
+  const Nav = () => {
+    return (
+      <>
+      <div style={{display:"flex"}}>
+      <Link style={{"margin-right":"10px"}} href="/">homepage</Link>
+      <Link style={{"margin-right":"10px"}} href="/library">new component</Link>
+      </div> 
+      </>
+    );
+  };
+  const Homepage = () => {
+    return (
+      <>
+        <div>homepage component.</div>
+      </>
+    );
+  };
+  const Component1 = () => {
+    return (
+      <>
+        <div>new component.</div>
+      </>
+    );
+  };
   return (
     <>
+    <Nav/>
       <Routes>
-        <Route path="/" element={<Overview />} />
-        <Route path="/library" element={<Library />} />
-        {/* <Route path="/settings" element={<Settings/>}/> */}
+        <Route  path="/" element={<Homepage />} />
+        <Route path="/library" element={<Component1 />} />
       </Routes>
     </>
   );
