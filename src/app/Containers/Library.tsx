@@ -1,9 +1,11 @@
 import { Layout } from "../Components/Layout"
 
 export const Library = () => {
-    return (
+    return (<>
+            <Layout/>
         <div>
             library component
         </div>
+        </>
     )
 }
