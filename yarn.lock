@@ -241,6 +241,13 @@
     "@babel/helper-validator-option" "^7.16.7"
     "@babel/plugin-transform-typescript" "^7.16.7"
 
+"@babel/runtime@^7.8.7":
+  "integrity" "sha512-9E9FJowqAsytyOY6LG+1KuueckRL+aQW+mKvXRXnuFGyRAyepJPmEo9vgMfXUA6O9u3IeEdv9MAkppFcaQwogQ=="
+  "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.16.7.tgz"
+  "version" "7.16.7"
+  dependencies:
+    "regenerator-runtime" "^0.13.4"
+
 "@babel/template@^7.16.7":
   "integrity" "sha512-I8j/x8kHUrbYRTUxXrrMbfCa7jxkE7tZre39x3kjr9hvI82cK1FfqLygotcWN5kdPGWcLdWMHpSBavse5tWw3w=="
   "resolved" "https://registry.npmjs.org/@babel/template/-/template-7.16.7.tgz"
@@ -801,6 +808,11 @@
   dependencies:
     "mkdirp" "^1.0.4"
     "rimraf" "^3.0.2"
+
+"@popperjs/core@^2.10.1":
+  "integrity" "sha512-zrsUxjLOKAzdewIDRWy9nsV1GQsKBCWaGwsZQlCgr6/q+vjyZhFgqedLfFBuI9anTPEUT4APq9Mu0SZBTzIcGQ=="
+  "resolved" "https://registry.npmjs.org/@popperjs/core/-/core-2.11.0.tgz"
+  "version" "2.11.0"
 
 "@sindresorhus/is@^0.14.0":
   "integrity" "sha512-9NET910DNaIPngYnLLPeg+Ogzqsi9uM4mSboU5y6p8S5DzMTVEsJZrawi+BoDNUVBa2DhJqQYUFvMDfgU062LQ=="
@@ -2211,6 +2223,11 @@
   "resolved" "https://registry.npmjs.org/cssesc/-/cssesc-3.0.0.tgz"
   "version" "3.0.0"
 
+"csstype@^3.0.2":
+  "integrity" "sha512-2u44ZG2OcNUO9HDp/Jl8C07x6pU/eTR3ncV91SiK3dhG9TWvRVsCoJw14Ckx5DgWkzGA3waZWO3d7pgqpUI/XA=="
+  "resolved" "https://registry.npmjs.org/csstype/-/csstype-3.0.10.tgz"
+  "version" "3.0.10"
+
 "cuint@^0.2.2":
   "integrity" "sha1-QICG1AlVDCYxFVYZ6fp7ytw7mRs="
   "resolved" "https://registry.npmjs.org/cuint/-/cuint-0.2.2.tgz"
@@ -2484,6 +2501,14 @@
   "version" "0.2.0"
   dependencies:
     "utila" "~0.4"
+
+"dom-helpers@^5.2.0":
+  "integrity" "sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA=="
+  "resolved" "https://registry.npmjs.org/dom-helpers/-/dom-helpers-5.2.1.tgz"
+  "version" "5.2.1"
+  dependencies:
+    "@babel/runtime" "^7.8.7"
+    "csstype" "^3.0.2"
 
 "dom-serializer@^1.0.1":
   "integrity" "sha512-5c54Bk5Dw4qAxNOI1pFEizPSjVsx5+bpJKmL2kPn8JhBUq2q09tTCa3mjijun2NfK78NMouDYNMBkOrPZiS+ig=="
@@ -5910,6 +5935,11 @@
     "indent-string" "^4.0.0"
     "strip-indent" "^3.0.0"
 
+"regenerator-runtime@^0.13.4":
+  "integrity" "sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA=="
+  "resolved" "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz"
+  "version" "0.13.9"
+
 "regexp.prototype.flags@^1.2.0":
   "integrity" "sha512-JiBdRBq91WlY7uRJ0ds7R+dU02i6LKi8r3BuQhNXn+kmeLN+EfHhfjqMRis1zJxnlu88hq/4dx0P2OP3APRTOA=="
   "resolved" "https://registry.npmjs.org/regexp.prototype.flags/-/regexp.prototype.flags-1.3.1.tgz"
@@ -6405,10 +6435,33 @@
   "resolved" "https://registry.npmjs.org/solid-app-router/-/solid-app-router-0.1.14.tgz"
   "version" "0.1.14"
 
-"solid-js@^1.0.0", "solid-js@^1.2.6":
+"solid-bootstrap-core@^0.2.2":
+  "integrity" "sha512-1QdDQMDT3TT7RPtnBXqsNx6YlQJyVtdHb5eddTco0pUvdCpBqU5qC6cXyb+2pmmvyYIcSRcO+Q416W+W+10MNg=="
+  "resolved" "https://registry.npmjs.org/solid-bootstrap-core/-/solid-bootstrap-core-0.2.2.tgz"
+  "version" "0.2.2"
+  dependencies:
+    "@popperjs/core" "^2.10.1"
+    "dom-helpers" "^5.2.0"
+    "solid-react-transition" "^0.2.0"
+
+"solid-bootstrap@^0.2.3":
+  "integrity" "sha512-YOtmMQBOu7FkbJqaIlMaOOHBOGEvFqhevSMRzFDdtyx4qoVQWzhDuADFRGard0O+XaASor8bJ7jGGuJ7IftmpA=="
+  "resolved" "https://registry.npmjs.org/solid-bootstrap/-/solid-bootstrap-0.2.3.tgz"
+  "version" "0.2.3"
+  dependencies:
+    "dom-helpers" "^5.2.0"
+    "solid-bootstrap-core" "^0.2.2"
+    "solid-react-transition" "^0.2.0"
+
+"solid-js@^1.0.0", "solid-js@^1.2.5", "solid-js@^1.2.6":
   "integrity" "sha512-NvPHJ5Vj5f+ZJWIioickrC55seovSkDtm5NzSpnoUk3z4tATv0STpy5iuGNEn51ZORUcwpZzrMAtOCGziXU1XA=="
   "resolved" "https://registry.npmjs.org/solid-js/-/solid-js-1.2.6.tgz"
   "version" "1.2.6"
+
+"solid-react-transition@^0.2.0":
+  "integrity" "sha512-hyNchsJEmCzfLWsaQtdryeqT/OxqAW+o6/1IlpfuvuBwhoKaMAn6EV5wPWQPLybM7ED2jbEeYP0lvGHxt4AAgg=="
+  "resolved" "https://registry.npmjs.org/solid-react-transition/-/solid-react-transition-0.2.0.tgz"
+  "version" "0.2.0"
 
 "source-map-js@^1.0.1":
   "integrity" "sha512-4+TN2b3tqOCd/kaGRJ/sTYA0tR0mdXx26ipdolxcwtJVqEnqNYvlCAt1q3ypy4QMlYus+Zh34RNtYLoq2oQ4IA=="
