@@ -1,8 +1,4 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import App from './app.main'
-function render() {
-  ReactDOM.render(<App/>,  document.getElementById("root"));
-}
+import { render } from "solid-js/web";
+import {CountingComponent} from './app.main'
 
-render();
+render(() => <CountingComponent />, document.getElementById("app"));

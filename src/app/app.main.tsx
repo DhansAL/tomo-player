@@ -1,22 +1,14 @@
-import React from "react";
-import { Library } from "./containers/Library";
-import { Overview } from "./containers/Overview";
-import { HashRouter as Router, Route, Routes } from "react-router-dom";
-import { Settings } from "./containers/Settings";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { createSignal, onCleanup } from "solid-js";
 
-const App = () => {
-  return (
-    <>
-    <Router>
-      <Routes>
-      <Route path="/"  element = {<Overview/>}/>
-      <Route path="/library"  element ={<Library/>}/>
-      <Route path="/settings"  element ={<Settings/>}/>
-      </Routes>  
-    </Router>
-    </>
-  );
+export const CountingComponent = () => {
+    const [count, setCount] = createSignal(0);
+    const interval = setInterval(
+        () => {
+            console.log('intervalling');
+            setCount(c => c + 1);
+        },
+        1000
+    );
+    onCleanup(() => clearInterval(interval));
+    return <div>Count value is {count()}</div>;
 };
-
-export default App;
