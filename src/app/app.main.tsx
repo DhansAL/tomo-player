@@ -1,14 +1,46 @@
-import { createSignal, onCleanup } from "solid-js";
+import { Link, Route, Routes } from "solid-app-router";
+import { lazy } from "solid-js";
+// import { Layout } from "./Components/Layout";
+// import { Library } from "./Containers/Library";
+// import { Overview } from "./Containers/Overview";
+// import { Settings } from "./Containers/Settings";
 
-export const CountingComponent = () => {
-    const [count, setCount] = createSignal(0);
-    const interval = setInterval(
-        () => {
-            console.log('intervalling');
-            setCount(c => c + 1);
-        },
-        1000
-    );
-    onCleanup(() => clearInterval(interval));
-    return <div>Count value is {count()}</div>;
+const Layout = () => {
+  return (
+    <>
+      <div>
+        <Link href="/">Overview</Link>
+        <Link href="/library">library</Link>
+      </div>
+    </>
+  );
+};
+const Overview = () => {
+  return (
+    <>
+      <Layout />
+      <div>overview component.</div>
+    </>
+  );
+};
+const Library = () => {
+  return (
+    <>
+      <Layout />
+      <div>library component</div>
+    </>
+  );
+};
+// const Overview = lazy(() => import("./Containers/Overview"));
+
+export const App = () => {
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<Overview />} />
+        <Route path="/library" element={<Library />} />
+        {/* <Route path="/settings" element={<Settings/>}/> */}
+      </Routes>
+    </>
+  );
 };

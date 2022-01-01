@@ -1,4 +1,12 @@
 import { render } from "solid-js/web";
-import {CountingComponent} from './app.main'
+import { Router } from "solid-app-router";
+import { App } from "./app.main";
 
-render(() => <CountingComponent />, document.getElementById("app"));
+render(
+  () => (
+    <Router>
+      <App />
+    </Router>
+  ),
+  document.getElementById("app")
+);

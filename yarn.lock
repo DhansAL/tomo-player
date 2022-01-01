@@ -6400,7 +6400,12 @@
     "ip" "^1.1.5"
     "smart-buffer" "^4.1.0"
 
-"solid-js@^1.2.6":
+"solid-app-router@^0.1.14":
+  "integrity" "sha512-fnX+jCB5sDMbjq3od9qGtQNdlvHP2c6DG5STvMHVXyNuSEN+MdO7WJtZ58OpVpq6zWS4FYeYAh7NMEa7C2CcOA=="
+  "resolved" "https://registry.npmjs.org/solid-app-router/-/solid-app-router-0.1.14.tgz"
+  "version" "0.1.14"
+
+"solid-js@^1.0.0", "solid-js@^1.2.6":
   "integrity" "sha512-NvPHJ5Vj5f+ZJWIioickrC55seovSkDtm5NzSpnoUk3z4tATv0STpy5iuGNEn51ZORUcwpZzrMAtOCGziXU1XA=="
   "resolved" "https://registry.npmjs.org/solid-js/-/solid-js-1.2.6.tgz"
   "version" "1.2.6"
