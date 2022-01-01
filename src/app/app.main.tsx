@@ -3,6 +3,7 @@ import { Library } from "./containers/Library";
 import { Overview } from "./containers/Overview";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import { Settings } from "./containers/Settings";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
   return (
