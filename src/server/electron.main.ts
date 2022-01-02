@@ -19,6 +19,7 @@ const createWindow = (): void => {
     width: 800,
     webPreferences: {
       nodeIntegration: false,
+
       preload: path.join(process.cwd(), "./src/server/preload.ts"),
     },
   });

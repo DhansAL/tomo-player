@@ -28,6 +28,8 @@
 // this will get rendered in webpack
 
 import "./index";
+import "../../node_modules/bootstrap/dist/css/bootstrap.css";
+import "../../node_modules/bootstrap/dist/js/bootstrap";
 
 console.log(
   '👋 This message is being logged by "renderer.js", included via webpack'
