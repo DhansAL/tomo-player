@@ -34,8 +34,9 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
     console.log(isFile, "isfile main flag");
     //TODO: put this in a switch to direct when to throw error
     //FIXME: switch not working properly
-    switch ((props.isFile, isFile)) {
-      case props.isFile && isFile:
+
+    switch (props.isFile + "-" + isFile) {
+      case "true-true":
         setProperties({
           name,
           path,
@@ -45,7 +46,7 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
         });
         console.log("files set success", "isFile:", isFile);
         break;
-      case !props.isFile && !isFile:
+      case "false-false":
         setProperties({
           name,
           path,
@@ -54,7 +55,8 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
         });
         console.log("folders set success");
         break;
-      case !isFile && props.isFile:
+      //asked file sent folder
+      case "true-false":
         console.log(
           "you were supposed to drop files only",
           isFile,
@@ -62,7 +64,8 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
           "props"
         );
         break;
-      case !props.isFile && isFile:
+      //asked folder sent file
+      case "false-true":
         console.log("you should be dropping folders only");
       default:
         break;
