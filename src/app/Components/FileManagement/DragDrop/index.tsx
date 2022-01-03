@@ -29,35 +29,46 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
      * the main flag to throw error in case user gives file instead of folder or vice versa
      * sends the path of the dragged to main and checks is file or not.
      */
-    console.log(path);
     // @ts-expect-error
-    const isFile = await window.api.isFile(path);
-    console.log(isFile);
+    let isFile = await window.api.isFile(path);
+    console.log(isFile, "isfile main flag");
     //TODO: put this in a switch to direct when to throw error
-    if (props.isFile && isFile) {
-      setProperties({
-        name,
-        path,
-        size,
-        lastModified,
-        type,
-      });
-    } else {
-      console.log("drop a file only");
+    //FIXME: switch not working properly
+    switch ((props.isFile, isFile)) {
+      case props.isFile && isFile:
+        setProperties({
+          name,
+          path,
+          size,
+          lastModified,
+          type,
+        });
+        console.log("files set success", "isFile:", isFile);
+        break;
+      case !props.isFile && !isFile:
+        setProperties({
+          name,
+          path,
+          size,
+          lastModified,
+        });
+        console.log("folders set success");
+        break;
+      case !isFile && props.isFile:
+        console.log(
+          "you were supposed to drop files only",
+          isFile,
+          props.isFile,
+          "props"
+        );
+        break;
+      case !props.isFile && isFile:
+        console.log("you should be dropping folders only");
+      default:
+        break;
     }
 
-    if (!props.isFile && !isFile) {
-      setProperties({
-        name,
-        path,
-        size,
-        lastModified,
-      });
-    } else {
-      console.log("drop a folder only");
-    }
-
-    console.log(properties());
+    // console.log(properties());
   };
 
   return (
