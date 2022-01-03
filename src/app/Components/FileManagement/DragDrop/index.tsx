@@ -1,51 +1,62 @@
 import { Component, createSignal } from "solid-js";
 type DragDropProps = {
-  isFolder: boolean;
+  isFile: boolean;
 };
 /**
  * Reusable component to get the info of dropped folder or file  .
  * checks whether dropped item is folder or file and behaves accordingly
- * 
+ *
  * @returns Properties  properties of file or folder served to component(s)
  */
 
-export const DragDrop: Component<DragDropProps> = (
-  props: DragDropProps
-) => {
-  // console.log(props.isFolder);
-  const [properties, setProperties] = createSignal<null | FolderServed>(
-    null
-  );
+export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
+  const [properties, setProperties] = createSignal<null | FolderServed>(null);
 
   const handleDragOver = (e: DragEvent) => {
     e.stopPropagation();
     e.preventDefault();
   };
-  const handleDrop = (e: DragEvent) => {
+  const handleDrop = async (e: DragEvent) => {
     e.stopPropagation();
     e.preventDefault();
     // DataTransfer.files: FileList  A FileList is not an Array,
-    const allFilesFromEvent = e.dataTransfer.files; 
+    const allFilesFromEvent = e.dataTransfer.files;
 
     //    collect only one folder | file from all items dropped.
-    const { path, name, size, lastModified,type } = allFilesFromEvent[0];
-    if(props.isFolder){
+    const { path, name, size, lastModified, type } = allFilesFromEvent[0];
+
+    /**
+     * the main flag to throw error in case user gives file instead of folder or vice versa
+     * sends the path of the dragged to main and checks is file or not.
+     */
+    console.log(path);
+    // @ts-expect-error
+    const isFile = await window.api.isFile(path);
+    console.log(isFile);
+    //TODO: put this in a switch to direct when to throw error
+    if (props.isFile && isFile) {
+      setProperties({
+        name,
+        path,
+        size,
+        lastModified,
+        type,
+      });
+    } else {
+      console.log("drop a file only");
+    }
+
+    if (!props.isFile && !isFile) {
       setProperties({
         name,
         path,
         size,
         lastModified,
       });
+    } else {
+      console.log("drop a folder only");
     }
-    if(!props.isFolder){
-      setProperties({
-        name,
-        path,
-        size,
-        lastModified,
-        type
-      });
-    }
+
     console.log(properties());
   };
 
@@ -64,12 +75,10 @@ export const DragDrop: Component<DragDropProps> = (
         onDragOver={handleDragOver}
         onDrop={handleDrop}
       >
-        {props.isFolder ? "Drop Folder of your shows" : "drop the show to play"}
+        {props.isFile ? "Drop Folder of your shows" : "drop the show to play"}
         <div>
-{
-  (properties()!=null)?  properties().name : "name of file or folder"
-
-}
+          name :
+          {properties() != null ? properties().name : "name of file or folder"}
         </div>
       </div>
     </div>

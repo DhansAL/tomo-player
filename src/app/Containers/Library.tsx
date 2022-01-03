@@ -7,7 +7,7 @@ export const Library:Component = () => {
     return (<>
             <Layout/>
         <div>
-            <DragDrop isFolder={true} />
+            <DragDrop isFile={true} />
             <AddFileMenu/>
         </div>
         </>
