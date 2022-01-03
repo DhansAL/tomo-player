@@ -1,12 +1,13 @@
+import { Component } from "solid-js"
 import { AddFileMenu } from "../Components/FileManagement/AddFileMenu"
-import { DragDropFile } from "../Components/FileManagement/DragDropFile"
+import { DragDropFolder } from "../Components/FileManagement/DragDropFolder"
 import { Layout } from "../Components/Layout"
 
-export const Library = () => {
+export const Library:Component = () => {
     return (<>
             <Layout/>
         <div>
-            <DragDropFile/>
+            <DragDropFolder/>
             <AddFileMenu/>
         </div>
         </>
