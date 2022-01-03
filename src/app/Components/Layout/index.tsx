@@ -23,17 +23,6 @@ export const Layout = () => {
           </Nav.Link>
         </Nav.Item>
       </Nav>
-      {/* 
-        <Header/>
-        <Link  href="/">
-        Overview  
-        </Link>
-      <Link  href="/library">
-        library
-      </Link>
-      <Link  href="/settings">
-        settings
-      </Link> */}
     </>
   );
 };
