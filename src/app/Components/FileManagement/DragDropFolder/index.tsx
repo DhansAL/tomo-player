@@ -1,16 +1,17 @@
 /**
- * Reusable component to get the folderInfo of folder dropped .
+ * Reusable component to get the folderInfo of a folder dropped .
  *checks whether dropped item is folder. if not folder, throw error
 
  * @returns FileProperties - the path of folder served to collection component
  */
+
 // takes ONE folder  FOR NOW but will take multiple files too
 //how, just make the destructuring part in a loop
 // TODO: or file (in case reusing this component)
 // and give its properties
 /**
- *     name,
-      path,
+ *     name, // name of show (which includes media)
+      path, // path to the folder of show
       size,
       type,
       lastModified,
@@ -19,7 +20,7 @@
 import { Component, createSignal } from "solid-js";
 
 export const DragDropFolder: Component = () => {
-  const [FileProperties, setFileProperties] = createSignal<null | FileServed>(
+  const [FileProperties, setFileProperties] = createSignal<null | FolderServed>(
     null
   );
 
@@ -31,18 +32,14 @@ export const DragDropFolder: Component = () => {
     e.stopPropagation();
     e.preventDefault();
     const allFilesFromEvent = e.dataTransfer.files;
+    // DataTransfer.files: FileList  A FileList is not an Array,
 
-    //(property) DataTransfer.files: FileList
-    //Returns a FileList of the files being dragged, if any.
-    // A FileList is not an Array, but it does conform to its contract (has length and numeric indices), so we can "borrow" Array methods:
-
-    //we are going to collect only one folder at a time if its dropped
+    //we are going to collect only one folder at a time if its dropped for now
     const { path, name, size, type, lastModified } = allFilesFromEvent[0];
     setFileProperties({
       name,
       path,
       size,
-      type,
       lastModified,
     });
     console.log(FileProperties());
