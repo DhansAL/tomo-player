@@ -29,11 +29,9 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
      * the main flag to throw error in case user gives file instead of folder or vice versa
      * sends the path of the dragged to main and checks is file or not.
      */
+
     // @ts-expect-error
     let isFile = await window.api.isFile(path);
-    console.log(isFile, "isfile main flag");
-    //TODO: put this in a switch to direct when to throw error
-    //FIXME: switch not working properly
 
     switch (props.isFile + "-" + isFile) {
       case "true-true":
@@ -71,12 +69,12 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
         break;
     }
 
-    // console.log(properties());
+    console.log(properties());
   };
+
 
   return (
     <div>
-      drag drop component
       <div
         id="dropzone"
         style={{
@@ -89,7 +87,7 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
         onDragOver={handleDragOver}
         onDrop={handleDrop}
       >
-        {props.isFile ? "Drop Folder of your shows" : "drop the show to play"}
+        {props.isFile ? "drop the show to play":"Drop Folder of your shows"  }
         <div>
           name :
           {properties() != null ? properties().name : "name of file or folder"}
