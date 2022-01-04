@@ -1,10 +1,7 @@
 import {
   createSignal,
   createContext,
-  useContext,
-  Component,
   JSXElement,
-  JSX,
   Setter,
   Accessor,
 } from "solid-js";
@@ -27,7 +24,6 @@ export const FileFolderContextProvider = (
   const [propertiesForAll, setPropertiesForAll] = createSignal<
     undefined | null | FolderFileServed
   >({ lastModified: 0, name: "", path: "", size: 0 });
-  let store = [propertiesForAll, { setPropertiesForAll }];
   return (
     <FileFolderContext.Provider
       value={{ propertiesForAll, setPropertiesForAll }}

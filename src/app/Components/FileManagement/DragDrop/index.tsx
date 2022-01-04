@@ -1,3 +1,4 @@
+import { Alert } from "solid-bootstrap";
 import { Component, createSignal, useContext } from "solid-js";
 import { FileFolderContext } from "../../../Contexts/FileContext";
 type DragDropProps = {
@@ -11,6 +12,11 @@ type DragDropProps = {
  */
 
 export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
+  const [errorAlert, setErrorAlert] = createSignal<boolean>(false);
+  //TODO: make this signal a minor notice fadeaway component which shows minor details 
+  //of events , mini alert maybe
+  const [minorErrors, setMinorErrors] = createSignal<string>("seems good for now");
+  
   const [properties, setProperties] = createSignal<null | FolderFileServed>(
     null
   );
@@ -45,7 +51,7 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
           lastModified,
           type,
         });
-        console.log("files set success", "isFile:", isFile);
+        setMinorErrors("files set success"+ "isFile:"+`${isFile}`);
         break;
       case "false-false":
         setProperties({
@@ -54,44 +60,63 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
           size,
           lastModified,
         });
-        console.log("folders set success");
+        setMinorErrors("folders set success");
         break;
       //asked file sent folder
       case "true-false":
-        console.log(
-          "you were supposed to drop files only",
-          isFile,
-          props.isFile,
+        setMinorErrors(
+          "you were supposed to drop files only"+
+          `${isFile}`+
+          props.isFile+
           "props"
         );
         break;
       //asked folder sent file
       case "false-true":
-        console.log("you should be dropping folders only");
+        setMinorErrors("you should be dropping folders only");
       default:
         break;
     }
 
     console.log(properties());
   };
+
   // context api
   const globalFileProperties = useContext(FileFolderContext);
   const handleSetGlobalProperties = () => {
-    if (globalFileProperties) {
+    try {
       globalFileProperties.propertiesForAll().name = properties().name;
       globalFileProperties.propertiesForAll().path = properties().path;
       globalFileProperties.propertiesForAll().lastModified =
         properties().lastModified;
       globalFileProperties.propertiesForAll().type = properties().type;
       console.log(globalFileProperties.propertiesForAll(), "values in context");
+      //save global properties and delete local input
+      setProperties(
+    null
+      )
+    } catch (error) {
+      setErrorAlert(true);
+      console.log(error);
     }
   };
 
   return (
     <div>
-      <div>
-        <button onclick={handleSetGlobalProperties}>set globally</button>
-      </div>
+    
+      {errorAlert() ? (
+        <>
+        {/* TODO: currently the alert flag only throw error once as after dismissing alert the
+        flag stays true */}
+          <Alert variant="danger" dismissible transition onClose={()=>setErrorAlert(false)}>
+            <Alert.Heading>Check your folder added</Alert.Heading>
+            <p>
+              Aww yeah, you successfully added a file or not a proper directory path
+            </p>
+          </Alert>
+        </>
+      ) : null}
+      <div id="error">possible errors -{minorErrors()}</div>
       <div
         id="dropzone"
         style={{
@@ -122,6 +147,9 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
             type:
             {properties() != null ? properties().type : "type"}
           </div>
+          <div>
+        <button onclick={handleSetGlobalProperties}>set this folder</button>
+      </div>
         </div>
       </div>
     </div>
