@@ -9,33 +9,30 @@ import {
   Accessor,
 } from "solid-js";
 
-export type AuthUser = {
-  name: string;
-  email: string;
+type FileFolderContextType = {
+  propertiesForAll: Accessor<FolderFileServed> | null;
+  setPropertiesForAll: Setter<FolderFileServed>;
 };
-type UserContextType = {
-  user: Accessor<AuthUser> | null;
-  setUser: Setter<AuthUser>;
-};
-type UserContextProviderProps = {
+type FileFolderContextProviderProps = {
   children: JSXElement;
 };
-export const UserContext = createContext<UserContextType | null>(null);
+export const FileFolderContext = createContext<FileFolderContextType | null>(
+  null
+);
 
-export const UserContextProvider = (props: UserContextProviderProps) => {
-  const [user, setUser] = createSignal<null | AuthUser>({
-    name: "hellonane",
-    email: "lolemail@email.com",
-  });
-
+export const FileFolderContextProvider = (
+  props: FileFolderContextProviderProps
+) => {
+  // pass file or folder info of one item per time so no need to store all in an array
+  const [propertiesForAll, setPropertiesForAll] = createSignal<
+    undefined | null | FolderFileServed
+  >({ lastModified: 0, name: "", path: "", size: 0 });
+  let store = [propertiesForAll, { setPropertiesForAll }];
   return (
-    <UserContext.Provider
-      value={{
-        user,
-        setUser,
-      }}
+    <FileFolderContext.Provider
+      value={{ propertiesForAll, setPropertiesForAll }}
     >
       {props.children}
-    </UserContext.Provider>
+    </FileFolderContext.Provider>
   );
 };

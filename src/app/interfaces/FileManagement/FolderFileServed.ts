@@ -8,8 +8,8 @@
  *
  */
 
-interface FolderServed {
-  lastModified?: number;
+interface FolderFileServed {
+  lastModified: number;
   name: string;
   path: string;
   size: number;

@@ -1,4 +1,5 @@
-import { Component, createSignal } from "solid-js";
+import { Component, createSignal, useContext } from "solid-js";
+import { FileFolderContext } from "../../../Contexts/FileContext";
 type DragDropProps = {
   isFile: boolean;
 };
@@ -10,7 +11,9 @@ type DragDropProps = {
  */
 
 export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
-  const [properties, setProperties] = createSignal<null | FolderServed>(null);
+  const [properties, setProperties] = createSignal<null | FolderFileServed>(
+    null
+  );
 
   const handleDragOver = (e: DragEvent) => {
     e.stopPropagation();
@@ -71,9 +74,24 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
 
     console.log(properties());
   };
+  // context api
+  const globalFileProperties = useContext(FileFolderContext);
+  const handleSetGlobalProperties = () => {
+    if (globalFileProperties) {
+      globalFileProperties.propertiesForAll().name = properties().name;
+      globalFileProperties.propertiesForAll().path = properties().path;
+      globalFileProperties.propertiesForAll().lastModified =
+        properties().lastModified;
+      globalFileProperties.propertiesForAll().type = properties().type;
+      console.log(globalFileProperties.propertiesForAll(), "values in context");
+    }
+  };
 
   return (
     <div>
+      <div>
+        <button onclick={handleSetGlobalProperties}>set globally</button>
+      </div>
       <div
         id="dropzone"
         style={{

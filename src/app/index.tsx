@@ -1,15 +1,15 @@
 import { render } from "solid-js/web";
 import { hashIntegration, Router } from "solid-app-router";
 import { App } from "./app.main";
-import { UserContextProvider } from "./Contexts/FileContext";
+import { FileFolderContextProvider } from "./Contexts/FileContext";
 
 
 render(
   () => (
     <Router source={hashIntegration()}>
-      <UserContextProvider>
+      <FileFolderContextProvider>
       <App />
-      </UserContextProvider>
+      </FileFolderContextProvider>
     </Router>
   ),
   document.getElementById("app")
