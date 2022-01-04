@@ -72,7 +72,6 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
     console.log(properties());
   };
 
-
   return (
     <div>
       <div
@@ -81,16 +80,30 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
           borderRadius: "10px",
           margin: "10px auto",
           width: "55vw",
-          height: "40vh",
+          height: "50vh",
           border: "3px dotted crimson",
         }}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
       >
-        {props.isFile ? "drop the show to play":"Drop Folder of your shows"  }
+        {props.isFile ? "drop the show to play" : "Drop Folder of your shows"}
         <div>
-          name :
-          {properties() != null ? properties().name : "name of file or folder"}
+          <div>
+            name :
+            {properties() != null
+              ? properties().name
+              : "name of file or folder"}
+          </div>
+          <div>
+            path:
+            {properties() != null
+              ? properties().path
+              : "path of file or folder"}
+          </div>
+          <div>
+            type:
+            {properties() != null ? properties().type : "type"}
+          </div>
         </div>
       </div>
     </div>

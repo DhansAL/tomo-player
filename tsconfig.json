@@ -26,6 +26,9 @@
     "allowJs": true,
     "module": "commonjs",
     "skipLibCheck": true,
+    "lib": [
+      "es5", "es6", "dom", "dom.iterable"
+      ],
     "esModuleInterop": true,
     "noImplicitAny": true,
     "sourceMap": true,
