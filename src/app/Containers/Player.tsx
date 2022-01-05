@@ -14,7 +14,7 @@ export const Player = () => {
     //   globalFileProperties.propertiesForAll().path
     //   globalFileProperties.propertiesForAll().lastModified 
     //   globalFileProperties.propertiesForAll().type 
-      console.log(videoPath);
+      console.log(typeof(videoPath));
     
 }
     return (
