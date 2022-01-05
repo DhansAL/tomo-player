@@ -109,9 +109,9 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
         {/* TODO: currently the alert flag only throw error once as after dismissing alert the
         flag stays true */}
           <Alert variant="danger" dismissible transition onClose={()=>setErrorAlert(false)}>
-            <Alert.Heading>Check your folder added</Alert.Heading>
+            <Alert.Heading>Check your file added</Alert.Heading>
             <p>
-              Aww yeah, you successfully added a file or not a proper directory path
+              Aww yeah, you successfully added a folder or not a proper file path
             </p>
           </Alert>
         </>
@@ -148,7 +148,7 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
             {properties() != null ? properties().type : "type"}
           </div>
           <div>
-        <button onclick={handleSetGlobalProperties}>set this folder</button>
+        <button onclick={handleSetGlobalProperties}>set this file to play</button>
       </div>
         </div>
       </div>

@@ -22,6 +22,11 @@ export const Layout = () => {
             <Link href="/settings">settings</Link>
           </Nav.Link>
         </Nav.Item>
+        <Nav.Item>
+          <Nav.Link>
+            <Link href="/player">player</Link>
+          </Nav.Link>
+        </Nav.Item>
       </Nav>
     </>
   );
