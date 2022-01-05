@@ -22,12 +22,15 @@ export const PlayerVideo = () => {
         <div>
             <h1>player yo {videoPath}</h1>
         {
-            videoPath==""?null:    <video
+            videoPath==""?null: 
+               <video
             id="video1"
             ref={videoRef}
             // file:///C:/Users/DHANANJAY/Favorites/Links/450.lnk
-            src ={`myprotocol://`}
-          ></video>
+            src ={videoPath}
+          >
+
+          </video>
         }
 
       {/* <div className="controlsContainer">

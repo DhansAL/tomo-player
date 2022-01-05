@@ -20,6 +20,7 @@ const createWindow = (): void => {
     width: 800,
     webPreferences: {
       nodeIntegration: false,
+      webSecurity: false,
 
       preload: path.join(process.cwd(), "./src/server/preload.ts"),
     },
@@ -67,36 +68,16 @@ ipcMain.handle("is-file", async (_, path) => {
 // })
 
 // /////////\
-
-// app.whenReady().then(() => {
-//   protocol.registerSchemesAsPrivileged([
-//     { scheme: "priviliged", privileges: { bypassCSP: true } },
-//   ]);
-// });
-
-app.whenReady().then(() => {
-  protocol.registerFileProtocol("myprotocol", (request, callback) => {
-    const url = request.url.substr(7);
-    callback({ path: path.normalize(`${__dirname}/${url}`) });
-  });
-});
-
+// protocol.registerSchemesAsPrivileged([
+//   { scheme: "file://", privileges: { bypassCSP: true } },
+// ]);
 // ///////
-// app.on("ready", async () => {
-//   // Name the protocol whatever you want.
-//   const protocolName = "appProtocol";
-
-//   protocol.registerFileProtocol(protocolName, (request, callback) => {
-//     const url = request.url.replace(`${protocolName}://`, "");
-//     try {
-//       return callback(decodeURIComponent(url));
-//     } catch (error) {
-//       // Handle the error as needed
-//       console.error(error);
-//     }
+// app.whenReady().then(() => {
+//   protocol.registerFileProtocol("file", (request, callback) => {
+//     const pathname = decodeURI(request.url.replace("file:///", ""));
+//     const parts = pathname.split("?");
+//     callback(parts[0]);
 //   });
-
-//   // Create some window you can even use webPreferences: true
 // });
 app.on("ready", createWindow);
 
