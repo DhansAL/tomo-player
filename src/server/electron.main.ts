@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, dialog } from "electron";
+import { app, BrowserWindow, ipcMain, dialog, protocol } from "electron";
 import { lstatSync } from "original-fs";
 const path = require("path");
 
@@ -62,6 +62,42 @@ ipcMain.handle("is-file", async (_, path) => {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
+// app.on("ready",()=>{
+// protocol.ref
+// })
+
+// /////////\
+
+// app.whenReady().then(() => {
+//   protocol.registerSchemesAsPrivileged([
+//     { scheme: "priviliged", privileges: { bypassCSP: true } },
+//   ]);
+// });
+
+app.whenReady().then(() => {
+  protocol.registerFileProtocol("myprotocol", (request, callback) => {
+    const url = request.url.substr(7);
+    callback({ path: path.normalize(`${__dirname}/${url}`) });
+  });
+});
+
+// ///////
+// app.on("ready", async () => {
+//   // Name the protocol whatever you want.
+//   const protocolName = "appProtocol";
+
+//   protocol.registerFileProtocol(protocolName, (request, callback) => {
+//     const url = request.url.replace(`${protocolName}://`, "");
+//     try {
+//       return callback(decodeURIComponent(url));
+//     } catch (error) {
+//       // Handle the error as needed
+//       console.error(error);
+//     }
+//   });
+
+//   // Create some window you can even use webPreferences: true
+// });
 app.on("ready", createWindow);
 
 // Quit when all windows are closed, except on macOS. There, it's common
