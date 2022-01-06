@@ -3,8 +3,8 @@ import {
   BrowserWindow,
   ipcMain,
   dialog,
-  protocol,
   session,
+  protocol,
 } from "electron";
 import { lstatSync } from "original-fs";
 const path = require("path");
@@ -26,8 +26,8 @@ const createWindow = (): void => {
     height: 600,
     width: 800,
     webPreferences: {
-      preload: path.join(process.cwd(), "./src/server/preload.ts"),
       webSecurity: false, // FIXME: FIX PRIVILIGED PROTOCOL TO ALLOW file:// in dom
+      preload: path.join(process.cwd(), "./src/server/preload.ts"),
     },
   });
 
@@ -79,12 +79,22 @@ app.on("ready", () => {
       responseHeaders: {
         ...details.responseHeaders,
         "Content-Security-Policy": [
-          "default-src 'unsafe-inline' 'self';script-src 'self' 'unsafe-eval';  img-src https://* filesystem: data: ;  ",
+          "default-src 'unsafe-inline' 'self';script-src 'self' 'unsafe-eval';  img-src https://* filesystem: data: ; media-src file://* ",
         ],
       },
     });
   });
 });
+
+// protocol.registerSchemesAsPrivileged([
+//   {
+//     scheme: "file://",
+//     privileges: {
+//       standard: true,
+//       stream: true,
+//     },
+//   },
+// ]);
 
 app.on("ready", createWindow);
 

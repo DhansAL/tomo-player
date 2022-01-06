@@ -14,22 +14,15 @@ export const PlayerVideo = () => {
             <h1>player yo {videoPath}</h1>
         {
             videoPath==""?null: 
-               <img
+               <video
             id="video1"
             ref={videoRef}
-            src ={`https://www.gstatic.com/webp/gallery/4.sm.jpg`}
-          >
-
-          </img>
-        }
-        {
-            videoPath==""?null: 
-            <video
-            src = {`E:/voracious animes/kanojo okarishimasu/rent5.mp4`}
+            src ={videoPath}
           >
 
           </video>
         }
+
         </div>
     )
 }
