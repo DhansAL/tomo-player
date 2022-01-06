@@ -1,4 +1,11 @@
-import { app, BrowserWindow, ipcMain, dialog, protocol } from "electron";
+import {
+  app,
+  BrowserWindow,
+  ipcMain,
+  dialog,
+  protocol,
+  session,
+} from "electron";
 import { lstatSync } from "original-fs";
 const path = require("path");
 
@@ -19,9 +26,6 @@ const createWindow = (): void => {
     height: 600,
     width: 800,
     webPreferences: {
-      nodeIntegration: false,
-      webSecurity: false,
-
       preload: path.join(process.cwd(), "./src/server/preload.ts"),
     },
   });
@@ -66,11 +70,22 @@ ipcMain.handle("is-file", async (_, path) => {
 // app.on("ready",()=>{
 // protocol.ref
 // })
-
+app.on("ready", () => {
+  session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+    callback({
+      responseHeaders: {
+        ...details.responseHeaders,
+        "Content-Security-Policy": [
+          "default-src 'unsafe-inline' 'self';script-src 'self' 'unsafe-eval';  img-src https://* filesystem: data:  ",
+        ],
+      },
+    });
+  });
+});
 // /////////\
-// protocol.registerSchemesAsPrivileged([
-//   { scheme: "file://", privileges: { bypassCSP: true } },
-// ]);
+protocol.registerSchemesAsPrivileged([
+  { scheme: "sa://", privileges: { bypassCSP: true } },
+]);
 // ///////
 // app.whenReady().then(() => {
 //   protocol.registerFileProtocol("file", (request, callback) => {

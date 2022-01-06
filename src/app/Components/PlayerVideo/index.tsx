@@ -14,13 +14,13 @@ export const PlayerVideo = () => {
             <h1>player yo {videoPath}</h1>
         {
             videoPath==""?null: 
-               <video
+               <img
             id="video1"
             ref={videoRef}
-            src ={videoPath}
+            src ={`https://www.gstatic.com/webp/gallery/4.sm.jpg`}
           >
 
-          </video>
+          </img>
         }
         </div>
     )
