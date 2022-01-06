@@ -22,6 +22,14 @@ export const PlayerVideo = () => {
 
           </img>
         }
+        {
+            videoPath==""?null: 
+            <video
+            src = {`E:/voracious animes/kanojo okarishimasu/rent5.mp4`}
+          >
+
+          </video>
+        }
         </div>
     )
 }

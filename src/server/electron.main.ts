@@ -27,6 +27,7 @@ const createWindow = (): void => {
     width: 800,
     webPreferences: {
       preload: path.join(process.cwd(), "./src/server/preload.ts"),
+      webSecurity: false, // FIXME: FIX PRIVILIGED PROTOCOL TO ALLOW file:// in dom
     },
   });
 
@@ -70,30 +71,21 @@ ipcMain.handle("is-file", async (_, path) => {
 // app.on("ready",()=>{
 // protocol.ref
 // })
+
+//CSP REGISTERIES
 app.on("ready", () => {
   session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
     callback({
       responseHeaders: {
         ...details.responseHeaders,
         "Content-Security-Policy": [
-          "default-src 'unsafe-inline' 'self';script-src 'self' 'unsafe-eval';  img-src https://* filesystem: data:  ",
+          "default-src 'unsafe-inline' 'self';script-src 'self' 'unsafe-eval';  img-src https://* filesystem: data: ;  ",
         ],
       },
     });
   });
 });
-// /////////\
-protocol.registerSchemesAsPrivileged([
-  { scheme: "sa://", privileges: { bypassCSP: true } },
-]);
-// ///////
-// app.whenReady().then(() => {
-//   protocol.registerFileProtocol("file", (request, callback) => {
-//     const pathname = decodeURI(request.url.replace("file:///", ""));
-//     const parts = pathname.split("?");
-//     callback(parts[0]);
-//   });
-// });
+
 app.on("ready", createWindow);
 
 // Quit when all windows are closed, except on macOS. There, it's common
