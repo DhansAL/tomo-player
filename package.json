@@ -98,6 +98,7 @@
     "electron-squirrel-startup": "^1.0.0",
     "solid-app-router": "^0.1.14",
     "solid-bootstrap": "^0.2.3",
-    "solid-js": "^1.2.6"
+    "solid-js": "^1.2.6",
+    "solid-plyr": "^1.0.10"
   }
 }
