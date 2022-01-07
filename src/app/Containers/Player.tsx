@@ -20,11 +20,11 @@ export const Player = () => {
   return (
     //TODO: handle single video player and subtitles
     <>
-      <div>
         <Layout />
+      {/* <div>
         player will test context
         <button onclick={handleVideoPath}>check the context values</button>
-      </div>
+      </div> */}
       <PlayerVideo />
     </>
   );
