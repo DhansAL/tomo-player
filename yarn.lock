@@ -5681,7 +5681,7 @@
     "base64-js" "^1.5.1"
     "xmlbuilder" "^9.0.7"
 
-"plyr@^3.6.8":
+"plyr@^3.6.12", "plyr@^3.6.8":
   "integrity" "sha512-42WhYpMS/FEyX2unSEvhYtj1RvJgWvOsjZQFDongOQHA4eVzsyr7b06bzVpinMAOVC9e5H7RCbK+6CCAFIl2VQ=="
   "resolved" "https://registry.npmjs.org/plyr/-/plyr-3.6.12.tgz"
   "version" "3.6.12"
