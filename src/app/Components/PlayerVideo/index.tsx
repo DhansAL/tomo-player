@@ -1,5 +1,6 @@
 import { createEffect, createSignal, onMount, useContext } from "solid-js";
 import { FileFolderContext } from "../../Contexts/FileContext";
+import { Subtitles } from "../Subtitles";
 export const PlayerVideo = () => {
   // context api
   const globalFileProperties = useContext(FileFolderContext);
@@ -9,19 +10,23 @@ export const PlayerVideo = () => {
   let playerRef: HTMLVideoElement;
 
 
+//TODO: maybe make custom video player but it works for now
   return (
     <>   
-
+    <div>
       
-      classic html5 player
-      <video
+    <video
         id="player"
-        class="player"
+        // poster="E:\\wallpaperz\\lol.jpg"
+        ref={playerRef}
         controls
-        
-        style={{ height: "330px", width: "400px", }}
+        style={{ height: "100vh", width: "100vw", }}
         src="E:\\voracious animes\\kanojo okarishimasu\\rent9.mp4"
       ></video>
+      <Subtitles></Subtitles>
+    </div>
+
+ 
     </>
   );
 };

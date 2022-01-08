@@ -79,7 +79,7 @@ app.on("ready", () => {
       responseHeaders: {
         ...details.responseHeaders,
         "Content-Security-Policy": [
-          "default-src 'unsafe-inline' 'self';script-src 'self' 'unsafe-eval';  img-src https://* filesystem: data: ; media-src file://* ; ",
+          "default-src 'unsafe-inline' 'self';script-src 'self' 'unsafe-eval';  img-src file://* https://* filesystem: data: ; media-src file://* ; ",
         ],
       },
     });
