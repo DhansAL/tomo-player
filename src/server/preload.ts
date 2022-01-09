@@ -7,7 +7,6 @@ console.log("preload loaded successfully 👏");
     ipcRenderer.invoke("sendSubFile", subFile),
  }
  cant wrap in paranthesis why?
-
  * */
 const API = {
   //@ts-expect-error
@@ -15,13 +14,8 @@ const API = {
   //for subtitles
   // @ts-expect-error
 
-  sendSubFile: (subFile) => ipcRenderer.send("sendSubFile", subFile),
   //TODO: whiteList Channels
-  //@ts-expect-error
-  recieveSubBlob: (callback) =>
-    ipcRenderer.on("recieveSubBlob", (e, args) => {
-      callback(args);
-    }),
+  sendSubFile: (channel, subFile) => ipcRenderer.invoke("sendSubFile", subFile),
 };
 
 contextBridge.exposeInMainWorld("api", API);
