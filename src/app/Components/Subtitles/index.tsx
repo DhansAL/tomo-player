@@ -16,12 +16,15 @@ createEffect(()=>{
 })
 
 //Parsing
-let subfile = "E:\\voracious animes\\kanojo okarishimasu\\rent 1.srt"
+let subfile = "E:\\voracious animes\\kanojo okarishimasu\\rent 2.ass"
 const subdatafetch = async()=>{
-    console.log("ready to fetch");
     //@ts-expect-error
-    let subFileData = await window.api.sendSubFile("sendSubFile",subfile)
-    console.log(subFileData);
+    let fileBlob = await window.api.sendSubFile("sendSubFile",subfile);
+    console.log(fileBlob);
+    // console.log("ready to fetch");
+    // //@ts-expect-error
+    // let subFileData = await window.api.sendSubFile("sendSubFile",subfile)
+    // console.log(subFileData);
 }
 
     return (
