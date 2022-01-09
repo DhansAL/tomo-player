@@ -8,19 +8,24 @@ type subtitleProps = {
 export const Subtitles = (props: subtitleProps) => {
   // dont destructure props cuz it causes rerender  - solid issue
   const [sub, setSub] = createSignal("weiner");
-  const [loading, setloading] = createSignal(false);
 
   //Parsing
+  //getting the file
   let subfile = "E:\\voracious animes\\kanojo okarishimasu\\rent 2.ass"; //temp
+  let subObject;
 
   createEffect(() => {
-    const getArray = async () => {
-      return await subtitleGateaway(subfile);
-    };
-    let res = getArray();
-
-    console.log(res, props.time);
+    //IPC handling
+    //@ts-expect-error
+    window.api.sendSubFile(subfile);
+    //@ts-expect-error
+    window.api.recieveSubBlob((subBlob) => {
+      subObject = subBlob;
+      console.log(subObject);
+    });
   });
+  //   console.log(SUBBLOB());
+
   return (
     <>
       <div>current time to be consumed by subtitles {props.time}</div>

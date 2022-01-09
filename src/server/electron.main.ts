@@ -1,12 +1,4 @@
-import {
-  app,
-  BrowserWindow,
-  ipcMain,
-  dialog,
-  session,
-  protocol,
-  webContents,
-} from "electron";
+import { app, BrowserWindow, ipcMain, dialog, session } from "electron";
 import { readFile, lstatSync, readFileSync } from "original-fs";
 import path from "path";
 
@@ -101,10 +93,11 @@ ipcMain.handle("is-file", async (_, path) => {
 //   },
 // ]);
 
-//getting subfile to send filedata to parse
-ipcMain.handle("sendSubFile", async (_, subFile) => {
+//getting subfile to send filedata to parse -- migrated to non promise method
+// due to looping sub complication
+ipcMain.on("sendSubFile", async (e, subFile) => {
   let blobToSend = readFileSync(subFile, "utf-8");
-  return blobToSend;
+  e.sender.send("recieveSubBlob", blobToSend);
 });
 
 app.on("ready", createWindow);

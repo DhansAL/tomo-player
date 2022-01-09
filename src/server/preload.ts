@@ -15,9 +15,13 @@ const API = {
   //for subtitles
   // @ts-expect-error
 
-  sendSubFile: (channel, subFile) =>
-    //TODO: whiteList Channels
-    ipcRenderer.invoke("sendSubFile", subFile),
+  sendSubFile: (subFile) => ipcRenderer.send("sendSubFile", subFile),
+  //TODO: whiteList Channels
+  //@ts-expect-error
+  recieveSubBlob: (callback) =>
+    ipcRenderer.on("recieveSubBlob", (e, args) => {
+      callback(args);
+    }),
 };
 
 contextBridge.exposeInMainWorld("api", API);
