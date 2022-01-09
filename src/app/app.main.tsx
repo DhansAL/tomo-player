@@ -11,6 +11,7 @@ export const App = () => {
         <Route  path="/" element={<Overview />} />
         <Route path="/library" element={<Library />} />
         <Route path="/settings" element={<Settings />} />
+        {/* temporrary playerroutte */}
         <Route path="/player" element={<Player />} />
       </Routes>
     </>
