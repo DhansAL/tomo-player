@@ -12,17 +12,14 @@ export const Subtitles = (props: subtitleProps) => {
   //Parsing
   //getting the file
   let subfile = "E:\\voracious animes\\kanojo okarishimasu\\rent 2.ass"; //temp
-  let subObject;
 
+  //stick to async ipc
   createEffect(() => {
     //IPC handling
     //@ts-expect-error
     window.api.sendSubFile(subfile);
     //@ts-expect-error
-    window.api.recieveSubBlob((subBlob) => {
-      subObject = subBlob;
-      console.log(subObject);
-    });
+    window.api.recieveSubBlob((subBlob) => {});
   });
   //   console.log(SUBBLOB());
 
