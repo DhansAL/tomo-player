@@ -1,38 +1,31 @@
-import { createEffect, createSignal, onMount } from "solid-js"
+import { createEffect, createSignal, onMount } from "solid-js";
+import { subtitleGateaway } from "../../modules/subtitles/subtitleGateaway";
 
-type subtitleProps ={
-    playerRef : HTMLVideoElement;
-    time :number
-}
-export const Subtitles = (props:subtitleProps) => {
-    // dont destructure props cuz it causes rerender  - solid issue
-    const [time,setTime] = createSignal(props.time)
+type subtitleProps = {
+  time: number;
+  duration: number;
+};
+export const Subtitles = (props: subtitleProps) => {
+  // dont destructure props cuz it causes rerender  - solid issue
+  const [sub, setSub] = createSignal("weiner");
+  const [loading, setloading] = createSignal(false);
 
-onMount(()=>{
-    console.log(props.playerRef);
-})
-createEffect(()=>{
-    setTime(props.time)
-})
+  //Parsing
+  let subfile = "E:\\voracious animes\\kanojo okarishimasu\\rent 2.ass"; //temp
 
-//Parsing
-let subfile = "E:\\voracious animes\\kanojo okarishimasu\\rent 2.ass"
-const subdatafetch = async()=>{
-    //@ts-expect-error
-    let subFileBlob = await window.api.sendSubFile("sendSubFile",subfile);
-    console.log(subFileBlob);
-    
-}
+  createEffect(() => {
+    const getArray = async () => {
+      return await subtitleGateaway(subfile);
+    };
+    let res = getArray();
 
-    return (
-        <>
-        <div>
-           current time to be consumed by subtitles {time()} 
-        </div>
-           <div>
-               <button onclick={subdatafetch}>get data</button>
-               subtitle - 
-           </div>
-           </>
-    )
-}
+    console.log(res, props.time);
+  });
+  return (
+    <>
+      <div>current time to be consumed by subtitles {props.time}</div>
+      <div>subtitle - {sub()}</div>
+      <div>duration - {props.duration}</div>
+    </>
+  );
+};
