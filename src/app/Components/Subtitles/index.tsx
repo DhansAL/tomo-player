@@ -19,8 +19,8 @@ createEffect(()=>{
 let subfile = "E:\\voracious animes\\kanojo okarishimasu\\rent 2.ass"
 const subdatafetch = async()=>{
     //@ts-expect-error
-    let fileBlob = await window.api.sendSubFile("sendSubFile",subfile);
-    console.log(fileBlob);
+    let subFileBlob = await window.api.sendSubFile("sendSubFile",subfile);
+    console.log(subFileBlob);
     // console.log("ready to fetch");
     // //@ts-expect-error
     // let subFileData = await window.api.sendSubFile("sendSubFile",subfile)

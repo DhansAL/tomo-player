@@ -8,14 +8,11 @@ const API = {
 
   //try giving types to args the preload will fail to load
 
-  sendSubFile: (channel, subFile) => {
-    //whiteList Channels
-    let validChannels = ["sendSubFile"];
-    if (validChannels.includes(channel)) {
-      console.log("lets check your file");
-      ipcRenderer.invoke(channel, subFile);
-    }
-  },
+  sendSubFile: (channel, subFile) =>
+    //TODO: whiteList Channels
+    ipcRenderer.invoke("sendSubFile", subFile),
+
+  // },
 };
 
 contextBridge.exposeInMainWorld("api", API);
