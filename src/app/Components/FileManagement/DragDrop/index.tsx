@@ -41,6 +41,8 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
 
     // @ts-expect-error
     let isFile = await window.api.isFile(path);
+    console.log(isFile);
+    
 
     switch (props.isFile + "-" + isFile) {
       case "true-true":

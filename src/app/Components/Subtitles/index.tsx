@@ -5,28 +5,34 @@ type subtitleProps ={
     time :number
 }
 export const Subtitles = (props:subtitleProps) => {
-    const [pi,si] = createSignal(0)
-
+    // dont destructure props cuz it causes rerender ? solid native ?
+    const [time,setTime] = createSignal(props.time)
 
 onMount(()=>{
     console.log(props.playerRef);
-    
 })
 createEffect(()=>{
-    console.log("subtime update check via createEffect" , pi())
-
+    setTime(props.time)
 })
 
-const handleClick =()=>{
-    console.log(props.time)
-    // dont destructure props cuz it causes rerender ? solid native ?
+//Parsing
+let subfile = "E:\\voracious animes\\kanojo okarishimasu\\rent 1.srt"
+const subdatafetch = async()=>{
+    console.log("ready to fetch");
+    //@ts-expect-error
+    let subFileData = await window.api.sendSubFile("sendSubFile",subfile)
+    console.log(subFileData);
 }
-   
-  
+
     return (
+        <>
         <div>
-            <button onclick={handleClick}> getTime</button>
-           current time to be consumed by subtitles {pi()} 
+           current time to be consumed by subtitles {time()} 
         </div>
+           <div>
+               <button onclick={subdatafetch}>get data</button>
+               subtitle - 
+           </div>
+           </>
     )
 }
