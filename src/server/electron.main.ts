@@ -105,7 +105,6 @@ ipcMain.handle("is-file", async (_, path) => {
 ipcMain.handle("sendSubFile", async (_, subFile) => {
   let blobToSend = readFileSync(subFile, "utf-8");
   console.log(blobToSend);
-
   return blobToSend;
 });
 

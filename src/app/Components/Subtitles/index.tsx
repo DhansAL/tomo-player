@@ -5,7 +5,7 @@ type subtitleProps ={
     time :number
 }
 export const Subtitles = (props:subtitleProps) => {
-    // dont destructure props cuz it causes rerender ? solid native ?
+    // dont destructure props cuz it causes rerender  - solid issue
     const [time,setTime] = createSignal(props.time)
 
 onMount(()=>{
@@ -21,10 +21,7 @@ const subdatafetch = async()=>{
     //@ts-expect-error
     let subFileBlob = await window.api.sendSubFile("sendSubFile",subfile);
     console.log(subFileBlob);
-    // console.log("ready to fetch");
-    // //@ts-expect-error
-    // let subFileData = await window.api.sendSubFile("sendSubFile",subfile)
-    // console.log(subFileData);
+    
 }
 
     return (
