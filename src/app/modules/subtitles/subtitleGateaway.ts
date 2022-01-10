@@ -1,13 +1,12 @@
+//@ts-expect-error
+//reason - no type declarations
+import { parseSubs } from "frazy-parser";
 /**
  * The main parser for the app. This takes the path for subfile , reads the file synchronously
  * and then parses the blob into requiered formats and returns an iterable array
  * @param subFile path for subfile
  * @returns subArray iterable array of subtitles
  */
-
-//@ts-expect-error
-//reason - no type declarations
-import { parseSubs } from "frazy-parser";
 
 export const subtitleGateaway = async (subFile: string) => {
   //call different parsers according to file format check
