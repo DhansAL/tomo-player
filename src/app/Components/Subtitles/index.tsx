@@ -17,55 +17,35 @@ export const Subtitles = (props: subtitleProps) => {
     setLoad(true);
   });
 
+
   //sample obj
   // { "id": 1,
   //  "start": 0.8,
   //  "end": 2.38,
   //  "body": [{ "text": "（和也(かずや)）ああ…" }] 
   //  }
+  // createEffect(() => {
+  //   console.log(props.time * 1000);
+
+  // })
 
   let subIdx = 0;
-  createEffect(() => {
-    props.time; //current timestamp
-    //logic
+  window.setInterval(() => {
     if (subObj) {
       if (props.time * 1000 > subObj[subIdx].start * 1000 && props.time * 1000 < subObj[subIdx].end * 1000) {
         //show subtitle
         setSub(subObj[subIdx].body[0].text);
-
+        //250ms is the gap between 2 onTimeUpdate calls
         if ((props.time * 1000) + 250 || (props.time * 1000) - 250 > subObj[subIdx].end * 1000) {
           subIdx++;
         }
       } else {
         //dont show subtitle
-        console.log("you have to wait son", props.time * 1000, "start-", subObj[subIdx].start * 1000, "end", subObj[subIdx].end * 1000);
+        // console.log("you have to wait son", props.time * 1000, "start-", subObj[subIdx].start * 1000, "end", subObj[subIdx].end * 1000);
       }
     }
+  }, 240)
 
-  });
-
-  // createEffect(() => {
-  //   props.time
-  //   if (subObj) {
-  //     let i = Math.floor(props.time)
-  //     let start = subObj[i].start * 1000
-  //     let end = subObj[i].end * 1000;
-
-  //     if ((start < props.time * 1000
-  //       &&
-  //       end > props.time * 1000)) {
-
-  //       console.log("search for me now", "END-", end, "<-->", "START-", start);
-
-  //       if (props.time * 1000 < end * 1000) {
-  //         //we dont want to inc i till it passes the end
-  //         i = i - 1;
-  //       }
-  //     } else {
-  //       console.log("no subs to search", props.time * 1000);
-  //     }
-  //   }
-  // })
 
   return (
     <>
