@@ -4,32 +4,43 @@ import { subtitleGateaway } from "../../modules/subtitles/subtitleGateaway";
 type subtitleProps = {
   time: number;
   duration: number;
+  seektime: number
 };
 export const Subtitles = (props: subtitleProps) => {
   const [sub, setSub] = createSignal("weiner");
-  const [load, setLoad] = createSignal(false);
+  // const [load, setLoad] = createSignal(false);
 
   let subfile = "E:\\voracious animes\\kanojo okarishimasu\\rent 2.ass"; //temp
   let subObj: any;
   //stick to async ipc
   onMount(async () => {
     subObj = await subtitleGateaway(subfile);
-    setLoad(true);
+    console.log(subObj);
+
   });
 
-
-  //sample obj
-  // { "id": 1,
-  //  "start": 0.8,
-  //  "end": 2.38,
-  //  "body": [{ "text": "（和也(かずや)）ああ…" }] 
-  //  }
-  // createEffect(() => {
-  //   console.log(props.time * 1000);
-
-  // })
-
+  //the global idx of a current sub body
   let subIdx = 0;
+
+  //if seek occurs update the idx accordingly
+  createEffect(() => {
+    props.seektime;
+    //update the idx according to the seektime using binary search
+    if (subObj) {
+      for (let i = 0; i < subObj.length; i++) {
+        if (subObj[i].end * 1000 > props.seektime * 1000) {
+          if (props.seektime * 1000 < subObj[i].start * 1000) {
+            subIdx = (i - 1);
+            break
+          }
+          subIdx = (i);
+          break;
+        }
+      }
+    }
+  })
+
+  //main sub iterating function
   window.setInterval(() => {
     if (subObj) {
       if (props.time * 1000 > subObj[subIdx].start * 1000 && props.time * 1000 < subObj[subIdx].end * 1000) {
@@ -39,9 +50,6 @@ export const Subtitles = (props: subtitleProps) => {
         if ((props.time * 1000) + 250 || (props.time * 1000) - 250 > subObj[subIdx].end * 1000) {
           subIdx++;
         }
-      } else {
-        //dont show subtitle
-        // console.log("you have to wait son", props.time * 1000, "start-", subObj[subIdx].start * 1000, "end", subObj[subIdx].end * 1000);
       }
     }
   }, 240)
@@ -51,6 +59,7 @@ export const Subtitles = (props: subtitleProps) => {
     <>
       <div>current time to be consumed by subtitles {props.time}</div>
       <div>subtitle - {sub()}</div>
+      <div>seektime - {props.seektime}</div>
       <div>duration - {props.duration}</div>
     </>
   );

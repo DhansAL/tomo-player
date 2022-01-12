@@ -10,12 +10,17 @@ export const PlayerVideo = () => {
   let playerRef: HTMLVideoElement;
   const [time, setTime] = createSignal<number>(0);
   const [duration, setDuration] = createSignal<number>(0);
+  const [seektime, setSeektime] = createSignal<number>(0);
   const handleSetDuration = () => {
     setDuration(playerRef?.duration);
   };
   const handleTimeUpdate = () => {
     setTime(playerRef.currentTime);
   };
+  const handleSeek = () => {
+    setSeektime(playerRef.currentTime)
+    playerRef.pause()
+  }
 
   //TODO: maybe make custom video player but it works for now
   return (
@@ -25,6 +30,7 @@ export const PlayerVideo = () => {
           id="player"
           // poster="E:\\wallpaperz\\lol.jpg"
           ondurationchange={handleSetDuration}
+          onseeked={handleSeek}
           ref={playerRef}
           controls
           onTimeUpdate={handleTimeUpdate}
@@ -32,7 +38,7 @@ export const PlayerVideo = () => {
           src="E:\\voracious animes\\kanojo okarishimasu\\rent 2.mp4"
         ></video>
         <span>Subtitles</span>
-        <Subtitles time={time()} duration={duration()}></Subtitles>
+        <Subtitles time={time()} duration={duration()} seektime={seektime()}></Subtitles>
       </div>
     </>
   );
