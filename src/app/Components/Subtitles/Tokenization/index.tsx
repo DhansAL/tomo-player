@@ -1,10 +1,23 @@
+
+
+
 import { createEffect, createSignal, For } from "solid-js";
+
+
 
 const TinySegmenter = require("tiny-segmenter");
 
 type TokenProps = {
     toTokenize: string[];
 }
+
+
+/**
+ * Reusable component to tokenize (**JP) any sentence array or single word.
+ * creates an hoverable modal to see the details of the word.
+ *
+ * @param toTokenize string[ ] | string the sentence or word to tokenize.
+ */
 export const Tokenization = (props: TokenProps) => {
     const [segmentedSub, setSegmentedSub] = createSignal([])
     //tokenizer instance

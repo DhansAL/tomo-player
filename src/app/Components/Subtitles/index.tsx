@@ -7,6 +7,10 @@ type subtitleProps = {
   seektime: number;
 };
 
+/**
+ * Manages subtitle for the Player Component
+ * @param props the time ,duration and time seeked for adjusting the subtitle according to currentTime
+ */
 export const Subtitles = (props: subtitleProps) => {
   const [sub, setSub] = createSignal([]);
 
@@ -22,7 +26,7 @@ export const Subtitles = (props: subtitleProps) => {
 
   // FIXME: handle onRight/leftArrowClick
   //FIXME:  this is still faulty
-  // TODO: create a global function which runs on each timeChange and find the current sub by iterating, maybe use binary search?
+  // TODO: create a single function which runs on each timeChange and find the current sub by iterating, maybe use binary search?
 
   createEffect(() => {
     props.seektime;

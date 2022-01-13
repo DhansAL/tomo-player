@@ -1,6 +1,11 @@
-import { createEffect, createSignal, onMount, useContext } from "solid-js";
+import { createSignal, useContext } from "solid-js";
 import { FileFolderContext } from "../../Contexts/FileContext";
 import { Subtitles } from "../Subtitles";
+
+/**
+ * The parent player component. gets the path of video from context and 
+ * handles ref of video.
+ */
 export const PlayerVideo = () => {
   // context api
   const globalFileProperties = useContext(FileFolderContext);
@@ -27,7 +32,6 @@ export const PlayerVideo = () => {
       <div>
         <video
           id="player"
-          // poster="E:\\wallpaperz\\lol.jpg"
           ondurationchange={handleSetDuration}
           onseeked={handleSeek}
           ref={playerRef}

@@ -11,20 +11,10 @@ export const Player = () => {
     videoPath == ""
       ? console.log("please put a path first")
       : console.log(videoPath);
-
-    //   globalFileProperties.propertiesForAll().name
-    //   globalFileProperties.propertiesForAll().path
-    //   globalFileProperties.propertiesForAll().lastModified
-    //   globalFileProperties.propertiesForAll().type
   };
   return (
-    //TODO: handle single video player and subtitles
     <>
-        <Layout />
-      {/* <div>
-        player will test context
-        <button onclick={handleVideoPath}>check the context values</button>
-      </div> */}
+      <Layout />
       <PlayerVideo />
     </>
   );
