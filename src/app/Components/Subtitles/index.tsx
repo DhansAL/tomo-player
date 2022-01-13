@@ -21,16 +21,13 @@ export const Subtitles = (props: subtitleProps) => {
     subObj = await subtitleGateaway(subfile);
   });
 
-  // FIXME: handle onRight/leftArrowClick
-  //FIXME:  this is still faulty
-  //main sub iterating function
   let subInterval = window.setInterval(() => {
+    //TODO: make this faster
     if (subObj) {
-      //lets try binary search 
       for (let i = 0; i < subObj.length; i++) {
         if (subObj[i].end * 1000 > props.time * 1000) {
           if (props.time * 1000 < subObj[i].start * 1000) {
-            setSub(subObj[i - 1].body[0].text);
+            subObj[i - 1] ? setSub(subObj[i - 1].body[0].text) : setSub([])
             break;
           }
           setSub(subObj[i].body[0].text);

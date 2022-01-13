@@ -1,16 +1,10 @@
-
-
-
 import { createEffect, createSignal, For } from "solid-js";
-
-
 
 const TinySegmenter = require("tiny-segmenter");
 
 type TokenProps = {
     toTokenize: string[];
 }
-
 
 /**
  * Reusable component to tokenize (**JP) any sentence array or single word.
@@ -20,7 +14,6 @@ type TokenProps = {
  */
 export const Tokenization = (props: TokenProps) => {
     const [segmentedSub, setSegmentedSub] = createSignal([])
-    //tokenizer instance
     const segmenter = new TinySegmenter();
     createEffect(() => {
         props.toTokenize;
@@ -29,11 +22,11 @@ export const Tokenization = (props: TokenProps) => {
     })
     const handleModal = (token: string) => {
         console.log(token);
-
     }
 
     return (
-        <div style={{ display: "flex", alignItems: "center", }}>
+        <div style={{ display: "flex", alignItems: "center", border: "solid 3px red" }}>
+            the tokenized sub
             <For each={segmentedSub()}>
                 {(token, i) =>
                     <>
@@ -47,6 +40,7 @@ export const Tokenization = (props: TokenProps) => {
 
 
             </For>
+
         </div>
     )
 }
