@@ -1,4 +1,4 @@
-import { createEffect, createSignal } from "solid-js";
+import { createEffect, createSignal, For } from "solid-js";
 
 const TinySegmenter = require("tiny-segmenter");
 
@@ -13,12 +13,28 @@ export const Tokenization = (props: TokenProps) => {
         props.toTokenize;
         let segmentedSub = segmenter.segment(props.toTokenize);
         setSegmentedSub(segmentedSub);
-
     })
+    const handleModal = (token: string) => {
+        console.log(token);
+
+    }
 
     return (
-        <div>
-            tokenizing -   {segmentedSub()}
+        <div style={{ display: "flex", alignItems: "center", }}>
+            <For each={segmentedSub()}>
+                {(token, i) =>
+                    <>
+                        <span style={{
+                            wordSpacing: "20px",
+                            color: "green",
+                            cursor: "pointer",
+                        }} onMouseOver={() => handleModal(token)}>{token}</span>
+                    </>
+                }
+
+
+            </For>
         </div>
     )
 }
+
