@@ -7002,6 +7002,11 @@
   "resolved" "https://registry.npmjs.org/thunky/-/thunky-1.1.0.tgz"
   "version" "1.1.0"
 
+"tiny-segmenter@^0.2.0":
+  "integrity" "sha1-T5ERXvqpDR+YtIFiOw3MgwqeGmk="
+  "resolved" "https://registry.npmjs.org/tiny-segmenter/-/tiny-segmenter-0.2.0.tgz"
+  "version" "0.2.0"
+
 "tmp-promise@^1.0.5":
   "integrity" "sha512-8+Ah9aB1IRXCnIOxXZ0uFozV1nMU5xiu7hhFVUSxZ3bYu+psD4TzagCzVbexUCgNNGJnsmNDQlS4nG3mTyoNkw=="
   "resolved" "https://registry.npmjs.org/tmp-promise/-/tmp-promise-1.1.0.tgz"
