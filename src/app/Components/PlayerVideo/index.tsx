@@ -22,7 +22,6 @@ export const PlayerVideo = () => {
     playerRef.pause()
   }
 
-  //TODO: maybe make custom video player but it works for now
   return (
     <>
       <div>

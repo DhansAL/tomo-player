@@ -1,28 +1,27 @@
-import { createEffect, createSignal, onMount } from "solid-js";
+import { createEffect, createSignal, onCleanup, onMount } from "solid-js";
 
 import { subtitleGateaway } from "../../modules/subtitles/subtitleGateaway";
 type subtitleProps = {
   time: number;
   duration: number;
-  seektime: number
+  seektime: number;
 };
 export const Subtitles = (props: subtitleProps) => {
   const [sub, setSub] = createSignal("weiner");
-  // const [load, setLoad] = createSignal(false);
 
   let subfile = "E:\\voracious animes\\kanojo okarishimasu\\rent 2.ass"; //temp
   let subObj: any;
-  //stick to async ipc
+
   onMount(async () => {
     subObj = await subtitleGateaway(subfile);
     console.log(subObj);
-
   });
 
   //the global idx of a current sub body
   let subIdx = 0;
 
   //if seek occurs update the idx accordingly
+  //FIXME:  this is still faulty
   createEffect(() => {
     props.seektime;
     //update the idx according to the seektime using binary search
@@ -30,30 +29,40 @@ export const Subtitles = (props: subtitleProps) => {
       for (let i = 0; i < subObj.length; i++) {
         if (subObj[i].end * 1000 > props.seektime * 1000) {
           if (props.seektime * 1000 < subObj[i].start * 1000) {
-            subIdx = (i - 1);
-            break
+            subIdx = i - 1;
+            break;
           }
-          subIdx = (i);
+          subIdx = i;
           break;
         }
       }
     }
-  })
+  });
 
   //main sub iterating function
-  window.setInterval(() => {
+
+  let subInterval = window.setInterval(() => {
     if (subObj) {
-      if (props.time * 1000 > subObj[subIdx].start * 1000 && props.time * 1000 < subObj[subIdx].end * 1000) {
+      if (
+        props.time * 1000 > subObj[subIdx].start * 1000 &&
+        props.time * 1000 < subObj[subIdx].end * 1000
+      ) {
         //show subtitle
         setSub(subObj[subIdx].body[0].text);
-        //250ms is the gap between 2 onTimeUpdate calls
-        if ((props.time * 1000) + 250 || (props.time * 1000) - 250 > subObj[subIdx].end * 1000) {
+        //250ms(avg) is the gap between 2 onTimeUpdate calls
+        if (
+          props.time * 1000 + 250 ||
+          props.time * 1000 - 250 > subObj[subIdx].end * 1000
+        ) {
           subIdx++;
         }
       }
     }
-  }, 240)
+  }, 240);
 
+  onCleanup(() => {
+    window.clearInterval(subInterval);
+  });
 
   return (
     <>
