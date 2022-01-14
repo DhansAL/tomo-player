@@ -45,7 +45,8 @@ app.on("ready", () => {
       responseHeaders: {
         ...details.responseHeaders,
         "Content-Security-Policy": [
-          "default-src 'unsafe-inline' 'self';script-src 'self' 'unsafe-eval';  img-src file://* https://* filesystem: data: ; media-src file://* ; ",
+          //FIXME: connect-src needs update
+          "default-src 'unsafe-inline' 'self';script-src 'self' 'unsafe-eval';  img-src file://* https://* filesystem: data: ; media-src file://* ; connect-src * ",
         ],
       },
     });

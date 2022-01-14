@@ -102,6 +102,7 @@
     "solid-bootstrap": "^0.2.3",
     "solid-js": "^1.2.6",
     "solid-plyr": "^1.0.10",
-    "tiny-segmenter": "^0.2.0"
+    "tiny-segmenter": "^0.2.0",
+    "unofficial-jisho-api": "^2.2.2"
   }
 }

@@ -1,4 +1,6 @@
 import { createEffect, createSignal, For } from "solid-js";
+import { Button, OverlayTrigger, Popover } from "solid-bootstrap";
+import { JishoPopover } from "../../Jisho";
 
 const TinySegmenter = require("tiny-segmenter");
 
@@ -30,17 +32,25 @@ export const Tokenization = (props: TokenProps) => {
             <For each={segmentedSub()}>
                 {(token, i) =>
                     <>
-                        <span style={{
-                            wordSpacing: "20px",
-                            color: "green",
-                            cursor: "pointer",
-                        }} onMouseOver={() => handleModal(token)}>{token}</span>
+
+                        <OverlayTrigger
+                            trigger="click"
+                            offset={[0, 8]}
+                            placement="top"
+                            overlay={
+                                <Popover id="popover-basic">
+                                    <Popover.Header as="h3"> {token}</Popover.Header>
+                                    <Popover.Body>
+                                        <JishoPopover word={token} />
+                                    </Popover.Body>
+                                </Popover>
+                            }
+                        >
+                            <Button >{token}</Button>
+                        </OverlayTrigger>
                     </>
                 }
-
-
             </For>
-
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import { createEffect, createSignal, onCleanup, onMount } from "solid-js";
+import { createSignal, onCleanup, onMount } from "solid-js";
 import { subtitleGateaway } from "../../modules/subtitles/subtitleGateaway";
 import { Tokenization } from "./Tokenization";
 type subtitleProps = {
