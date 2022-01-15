@@ -50,31 +50,50 @@ export const JishoPopover = (props: JishoProps) => {
         <Kandict kanji={kanjiServed()} showKandict={handleKanjiShow} />
       ) : (
         <div>
-          <Index each={wordData()}>
+          <For each={wordData()}>
             {(word, i) => (
               <>
                 <div class="main">
-                  <div>
-                    <p>
-                      {word().jlpt.length
-                        ? `${word().jlpt}`.replace("jlpt-", "")
-                        : "unknown jlpt level"}
-                    </p>
-                  </div>
-                  <div style={{ display: "flex" }}>
-                    <div>{word().is_common ? <strong>CW</strong> : ""}</div>
-                    __
+                  <div style={{ display: "flex", flexDirection: "row" }}>
                     <div>
-                      <strong>{word().senses[0].parts_of_speech[0]}</strong>
+                      <p>
+                        {word.jlpt.length
+                          ? `${word.jlpt}`.replace("jlpt-", "")
+                          : "unknown jlpt level"}
+                      </p>
+                    </div>
+                    ||
+                    <div>
+                      {word.is_common ? <strong>CW</strong> : "Unknown"}
+                    </div>
+                    ||
+                    <div>
+                      <strong>{word.senses[0].parts_of_speech[0]}</strong>
                     </div>
                   </div>
                   {/* slug */}
-                  <div></div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      border: "3px solid red",
+                      height: "77px",
+                    }}
+                  >
+                    <For each={word.slug.split("")}>
+                      {(kanji: string) => (
+                        <>
+                          {/* TODO: why kanji and not kanji() */}
+                          <strong>{kanji}</strong>
+                        </>
+                      )}
+                    </For>
+                  </div>
                 </div>
                 <hr />
               </>
             )}
-          </Index>
+          </For>
         </div>
       )}
     </>
