@@ -1,5 +1,5 @@
 import { Spinner } from "solid-bootstrap";
-import { createEffect, createSignal } from "solid-js";
+import { createEffect, createSignal, Index } from "solid-js";
 import JishoAPI from "unofficial-jisho-api";
 
 /**
@@ -35,7 +35,31 @@ export const JishoPopover = (props: JishoProps) => {
           <span className="visually-hidden">Loading...</span>
         </Spinner>
       ) : (
-        <div>i loaded</div>
+        <div>
+          <Index each={wordData()}>
+            {(word, i) => (
+              <>
+                <div class="main">
+                  <div>
+                    <p>
+                      {word().jlpt.length
+                        ? `${word().jlpt}`.replace("jlpt-", "")
+                        : "unknown jlpt level"}
+                    </p>
+                  </div>
+                  <div style={{ display: "flex" }}>
+                    <div>{word().is_common ? <strong>CW</strong> : ""}</div>
+                    __
+                    <div>
+                      <strong>{word().senses[0].parts_of_speech[0]}</strong>
+                    </div>
+                  </div>
+                </div>
+                <hr />
+              </>
+            )}
+          </Index>
+        </div>
       )}
     </>
   );
