@@ -1,10 +1,10 @@
 import { Spinner } from "solid-bootstrap";
-import { createEffect, createSignal, For, Index } from "solid-js";
+import { createEffect, createSignal, For, Index, Component } from "solid-js";
 import JishoAPI from "unofficial-jisho-api";
 import { Kandict } from "./Kandict";
 
 /**
- *  reusable component to get kanji and word definitions in a popover style.
+ *  reusable component to get kanji and word definitions in a popover.
  */
 
 //TODO: start with backend to avoid CORS .
@@ -34,9 +34,10 @@ export const JishoPopover = (props: JishoProps) => {
   const [kanjiServed, setKanjiServed] = createSignal<null | string>(null);
 
   const handleKanjiShow = () => {
-    setShowKandict(false);
+    setShowKandict(!showKandict());
   };
-  //regex to underline&search only kanji characters
+
+  //regex to check if the word is kana or not
   const regex = /[\u3000-\u303f\u3040-\u309f]|[\u30a0-\u30ff]/;
 
   return (
@@ -54,6 +55,8 @@ export const JishoPopover = (props: JishoProps) => {
             {(word, i) => (
               <>
                 <div class="main">
+                  reading -{" "}
+                  <ruby>{JSON.stringify(word.japanese[0].reading)}</ruby>
                   <div style={{ display: "flex", flexDirection: "row" }}>
                     <div>
                       <p>
@@ -81,13 +84,31 @@ export const JishoPopover = (props: JishoProps) => {
                     }}
                   >
                     <For each={word.slug.split("")}>
-                      {(kanji: string) => (
+                      {(singleWord: string) => (
                         <>
-                          {/* TODO: why kanji and not kanji() */}
-                          <strong>{kanji}</strong>
+                          {/* TODO: why singleWord and not singleWord() */}
+
+                          {/* kana?show normally:kanji case */}
+                          {regex.test(singleWord) ? (
+                            <p>{singleWord}</p>
+                          ) : (
+                            <h4
+                              style={{ cursor: "pointer", fontsize: "22px" }}
+                              onclick={handleKanjiShow}
+                              onmouseover={() => setKanjiServed(singleWord)}
+                            >
+                              {singleWord}
+                            </h4>
+                          )}
                         </>
                       )}
                     </For>
+                    <p>
+                      {JSON.stringify(word.senses[0].english_definitions).slice(
+                        1,
+                        -1
+                      )}
+                    </p>
                   </div>
                 </div>
                 <hr />
