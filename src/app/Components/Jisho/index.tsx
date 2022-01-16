@@ -78,7 +78,7 @@ export const JishoPopover = (props: JishoProps) => {
                   <div
                     style={{
                       display: "flex",
-                      flexDirection: "column",
+                      flexDirection: "row",
                       border: "3px solid red",
                       height: "77px",
                     }}

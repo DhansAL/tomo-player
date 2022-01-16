@@ -28,7 +28,7 @@ export const Tokenization = (props: TokenProps) => {
 
     return (
         <div style={{ display: "flex", alignItems: "center", border: "solid 3px red" }}>
-            the tokenized sub
+            the tokenized sub -
             <For each={segmentedSub()}>
                 {(token, i) =>
                     <>
@@ -40,13 +40,13 @@ export const Tokenization = (props: TokenProps) => {
                             overlay={
                                 <Popover id="popover-basic">
                                     <Popover.Header as="h3"> {token}</Popover.Header>
-                                    <Popover.Body style={{ overflow: "scroll", height: "130px", width: "280px" }}>
+                                    <Popover.Body style={{ overflow: "scroll", height: "230px", width: "280px" }}>
                                         <JishoPopover word={token} />
                                     </Popover.Body>
                                 </Popover>
                             }
                         >
-                            <Button >{token}</Button>
+                            <h4>({token})</h4>
                         </OverlayTrigger>
                     </>
                 }
