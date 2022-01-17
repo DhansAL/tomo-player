@@ -1,5 +1,6 @@
 import { Alert, Container } from "solid-bootstrap";
 import { Component, createSignal, useContext } from "solid-js";
+import { checkDroppedFile } from "../../../modules/droppedCheck/checkDroppedFile";
 import { FileFolderContext } from "../../../Contexts/FileContext";
 import "./index.css"
 type DragDropProps = {
@@ -7,17 +8,20 @@ type DragDropProps = {
 };
 /**
  * Reusable component to get the info of dropped folder or file  .
+ * //TODO: use this as a popover onClick
  * checks whether dropped item is folder or file and behaves accordingly
  *
- * @returns Properties  properties of file or folder served to component(s)
+ * sets PropertiesForAll(contextApi) of file or folder served to component(s)
  */
 
 export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
-  //TODO: make this signal a minor notice fadeaway component which shows minor details 
-  //of events , mini alert maybe
   const [properties, setProperties] = createSignal<null | FolderFileServed>(
     null
   );
+  //alert utils
+  //FIXME: MAKE ALERTS IN A STORE AND PUT A DEFAULT SET CASE WHICH IS TO BE SET AFTER EACH ALERT.
+  const [alertType, setAlertType] = createSignal({ variant: "danger", heading: "add something", body: "" })
+  const [errorAlert, setAlert] = createSignal<boolean>(false);
 
   const handleDragOver = (e: DragEvent) => {
     e.stopPropagation();
@@ -36,14 +40,18 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
      * the main flag to throw error in case user gives file instead of folder or vice versa
      * sends the path of the dragged elemnet to main process and checks is file or not.
      */
-
     // @ts-expect-error
     let isFile = await window.api.isFile(path);
-    console.log(isFile);
-
 
     switch (props.isFile + "-" + isFile) {
       case "true-true":
+        //check if the file format is supported , if not alert and return & if true set the path and play the file
+        if (!checkDroppedFile(true, name)) {
+          setAlert(true)
+          setAlertType((current) => ({ ...current, variant: "danger", body: `Dropped file format is not supported right now. "${name}"`, heading: "Unsupported file format dropped." }));
+          break;
+        }
+
         setProperties({
           name,
           path,
@@ -51,28 +59,30 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
           lastModified,
           type,
         });
-        setErrorAlert(true)
+        setAlert(true)
         setAlertType((current) => ({ ...current, variant: "success", body: `File dropped successfully!.File dropped successfully. You dropped "${path}"`, heading: "File sucessfully dropped." }));
 
         break;
+
       case "false-false":
+        //goes to collection 
         setProperties({
           name,
           path,
           size,
           lastModified,
         });
-        setErrorAlert(true)
+        setAlert(true)
         setAlertType((current) => ({ ...current, variant: "success", body: `Folder dropped successfully!.Try acessing the folder in your collection. You dropped "${path}"`, heading: "Folder sucessfully dropped." }));
         break;
       //asked file sent folder
       case "true-false":
-        setErrorAlert(true)
+        setAlert(true)
         setAlertType((current) => ({ ...current, variant: "warning", body: `you are supposed to drop a file here. You dropped "${path}"`, heading: "OOPS! you dropped a Folder here" }));
         break;
       //asked folder sent file
       case "false-true":
-        setErrorAlert(true)
+        setAlert(true)
         setAlertType((current) => ({ ...current, variant: "warning", body: `you are supposed to drop folder here. You dropped "${path}"`, heading: "OOPS! you dropped a file here" }));
       default:
         break;
@@ -96,29 +106,27 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
         null
       )
     } catch (error) {
-      setErrorAlert(true);
+      setAlert(true);
       console.log(error);
     }
   };
-  //alert utils
-  const [alertType, setAlertType] = createSignal({ variant: "", heading: "", body: "" })
-  const [errorAlert, setErrorAlert] = createSignal<boolean>(false);
+
 
 
   return (
     <div className="up">
-      <Container fluid >
-        {errorAlert() ? (
-          <>
-            <Alert variant={alertType().variant} dismissible transition onClose={() => setErrorAlert(false)}>
+      {errorAlert() ? (
+        <>
+          <Container fluid >
+            <Alert variant={alertType().variant} dismissible transition onClose={() => setAlert(false)}>
               <Alert.Heading>{alertType().heading}</Alert.Heading>
               <p>
                 {alertType().body}
               </p>
             </Alert>
-          </>
-        ) : null}
-      </Container>
+          </Container>
+        </>
+      ) : null}
 
       <div
         id="dropzone"
