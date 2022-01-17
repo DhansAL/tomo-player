@@ -1,4 +1,4 @@
-import { createSignal, useContext } from "solid-js";
+import { createSignal, onMount, useContext } from "solid-js";
 import { FileFolderContext } from "../../Contexts/FileFolderContext";
 import { Subtitles } from "../Subtitles";
 
@@ -9,7 +9,12 @@ import { Subtitles } from "../Subtitles";
 export const PlayerVideo = () => {
   // context api
   const globalFileProperties = useContext(FileFolderContext);
-  let videoPath = globalFileProperties.propertiesForAll().path;
+  let videoPath = ""
+  onMount(() => {
+
+    videoPath = globalFileProperties.propertiesForAll().path;
+
+  })
 
   //ref
   let playerRef: HTMLVideoElement;
@@ -38,7 +43,7 @@ export const PlayerVideo = () => {
           controls
           onTimeUpdate={handleTimeUpdate}
           style={{ height: "100vh", width: "100vw" }}
-          src="E:\\voracious animes\\kanojo okarishimasu\\rent 2.mp4"
+          src={videoPath}
         ></video>
         <span>Subtitles</span>
         <Subtitles time={time()} duration={duration()} seektime={seektime()}></Subtitles>

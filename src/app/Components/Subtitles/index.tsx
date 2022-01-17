@@ -1,4 +1,5 @@
-import { createSignal, onCleanup, onMount } from "solid-js";
+import { createSignal, onCleanup, onMount, useContext } from "solid-js";
+import { FileFolderContext } from "../../Contexts/FileFolderContext";
 import { subtitleGateaway } from "../../modules/subtitles/subtitleGateaway";
 import { Tokenization } from "./Tokenization";
 type subtitleProps = {
@@ -14,11 +15,15 @@ type subtitleProps = {
 export const Subtitles = (props: subtitleProps) => {
   const [sub, setSub] = createSignal([]);
 
-  let subfile = "E:\\voracious animes\\kanojo okarishimasu\\rent 2.ass"; //temp
+  // context api
+  const globalFileProperties = useContext(FileFolderContext);
+  let subfile = globalFileProperties.propertiesForAll().subfilePath;
   let subObj: any;
 
   onMount(async () => {
-    subObj = await subtitleGateaway(subfile);
+    if (subfile !== "") {
+      subObj = await subtitleGateaway(subfile);
+    }
   });
 
   let subInterval = window.setInterval(() => {

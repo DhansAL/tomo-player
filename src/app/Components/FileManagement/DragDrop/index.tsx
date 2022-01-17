@@ -33,27 +33,27 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
         e.stopPropagation();
         e.preventDefault();
         let infoOfDragged = e.dataTransfer.files;
-        //FIXME: pick the subfile format if subfile dropped else pick mediafile stuff
-        let path: string, name: string, size, lastModified, type, subpath;
-        if (checkDroppedFile(true, infoOfDragged[0].name)) {
-            //TODO: checkout these paranthesis.
-            ({ path, lastModified, name, size, type } = infoOfDragged[0])
-            console.log(name);
-            // path = infoOfDragged[0].path;
-            //     name = infoOfDragged[0].name;
-            //     size = infoOfDragged[0].size;
-            //     lastModified = infoOfDragged[0].lastModified;
-            //     type = infoOfDragged[0].type;
-            subpath = infoOfDragged[1].path
-            console.log(subpath, "subfile", path, "mediafile", "case1");
-        }
-        else {
-            ({ path, lastModified, name, size, type } = infoOfDragged[1])
-            console.log(name);
-            subpath = infoOfDragged[0].path
-            console.log(subpath, "subfile", path, "mediafile", "case2");
 
+        let path: string, name: string, size, lastModified, type, subpath;
+
+        //selection 1 is mediafile
+        try {
+            if (checkDroppedFile(true, infoOfDragged[0].name)) {
+                ({ path, lastModified, name, size, type } = infoOfDragged[0])
+                if (infoOfDragged[1].path === undefined) { }
+                subpath = infoOfDragged[1].path
+            }
+            //selection 2 is mediafile
+            else {
+                ({ path, lastModified, name, size, type } = infoOfDragged[1])
+                subpath = infoOfDragged[0].path
+            }
+        } catch (error) {
+            setAlert(true)
+            setAlertType((current) => ({ ...current, variant: "danger", body: "please drop all the requiered files.", heading: "Files are missing" }));
+            return;
         }
+
 
         /**
          * the main flag to throw error in case user gives file instead of folder or vice versa
