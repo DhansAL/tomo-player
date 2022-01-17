@@ -1,8 +1,8 @@
 import { useContext } from "solid-js";
-import { FileFolderContext } from "../../../Contexts/FileContext";
+import { FileFolderContext } from "../../../Contexts/FileFolderContext";
 
 export const AddFileMenu = () => {
-       // context api
+  // context api
   const globalFileProperties = useContext(FileFolderContext);
   const fetchContext = () => {
 
@@ -10,13 +10,13 @@ export const AddFileMenu = () => {
     //   globalFileProperties.propertiesForAll().path
     //   globalFileProperties.propertiesForAll().lastModified 
     //   globalFileProperties.propertiesForAll().type 
-      console.log(globalFileProperties.propertiesForAll());
-    
+    console.log(globalFileProperties.propertiesForAll());
+
   };
-    return (
-        <div>
-            AddFileMneu will test context
-            <button onclick={fetchContext}>check the context values</button>
-        </div>
-    )
+  return (
+    <div>
+      AddFileMneu will test context
+      <button onclick={fetchContext}>check the context values</button>
+    </div>
+  )
 }

@@ -1,5 +1,5 @@
 import { createSignal, useContext } from "solid-js";
-import { FileFolderContext } from "../../Contexts/FileContext";
+import { FileFolderContext } from "../../Contexts/FileFolderContext";
 import { Subtitles } from "../Subtitles";
 
 /**

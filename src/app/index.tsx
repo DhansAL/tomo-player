@@ -1,7 +1,7 @@
 import { render } from "solid-js/web";
 import { hashIntegration, Router } from "solid-app-router";
 import { App } from "./app.main";
-import { FileFolderContextProvider } from "./Contexts/FileContext";
+import { FileFolderContextProvider } from "./Contexts/FileFolderContext";
 
 
 render(

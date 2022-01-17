@@ -1,6 +1,6 @@
 import { Layout } from "../Components/Layout";
 import { useContext } from "solid-js";
-import { FileFolderContext } from "../Contexts/FileContext";
+import { FileFolderContext } from "../Contexts/FileFolderContext";
 import { PlayerVideo } from "../Components/PlayerVideo";
 
 export const Player = () => {
