@@ -5,6 +5,7 @@
  * @param path - path of the folder|file
  * @param size - size of the folder|file
  * @param type - type of the file(only)
+ * @param subfilePath - path of the subfile in case of file transfer
  *
  */
 
@@ -14,4 +15,5 @@ interface FolderFileServed {
   path: string;
   size: number;
   type?: string;
+  subfilePath?: string;
 }

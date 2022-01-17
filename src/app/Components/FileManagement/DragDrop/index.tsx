@@ -31,10 +31,25 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
     e.stopPropagation();
     e.preventDefault();
     // DataTransfer.files: FileList  A FileList is not an Array,
-    const allFilesFromEvent = e.dataTransfer.files;
+    const infoOfDragged = e.dataTransfer.files;
+    // why its taking the mp4 format file first??
+    console.log("PLEASE WORK", infoOfDragged);
 
-    //    collect only one folder | file from all items dropped.
-    const { path, name, size, lastModified, type } = allFilesFromEvent[0];
+    //   if !props.isFile collect only one folder from all items dropped.
+    const { path, name, size, lastModified, type } = infoOfDragged[0];
+
+
+    // a bad fix but if we're choosing file we need subpath too so we set the subpath from second selection
+    let subpath = ""
+    if (props.isFile) {
+      if (infoOfDragged[1] === undefined) {
+        setAlert(true)
+        setAlertType((current) => ({ ...current, variant: "danger", body: `You need the sub file too, don't you?`, heading: "Missing subfile." }));
+        return
+      }
+      subpath = infoOfDragged[1].path;
+    }
+
 
     /**
      * the main flag to throw error in case user gives file instead of folder or vice versa
@@ -42,6 +57,7 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
      */
     // @ts-expect-error
     let isFile = await window.api.isFile(path);
+
 
     switch (props.isFile + "-" + isFile) {
       case "true-true":
@@ -51,6 +67,10 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
           setAlertType((current) => ({ ...current, variant: "danger", body: `Dropped file format is not supported right now. "${name}"`, heading: "Unsupported file format dropped." }));
           break;
         }
+        if (subpath === null || undefined) {
+          setAlert(true)
+          setAlertType((current) => ({ ...current, variant: "danger", body: `where's the subfile bro?`, heading: "Missing subfile." }));
+        }
 
         setProperties({
           name,
@@ -58,6 +78,7 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
           size,
           lastModified,
           type,
+          subfilePath: subpath,
         });
         setAlert(true)
         setAlertType((current) => ({ ...current, variant: "success", body: `File dropped successfully!.File dropped successfully. You dropped "${path}"`, heading: "File sucessfully dropped." }));
@@ -100,6 +121,7 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
       globalFileProperties.propertiesForAll().lastModified =
         properties().lastModified;
       globalFileProperties.propertiesForAll().type = properties().type;
+      globalFileProperties.propertiesForAll().subfilePath = properties().subfilePath;
       console.log(globalFileProperties.propertiesForAll(), "values in context");
       //save global properties and delete local input
       setProperties(
@@ -157,6 +179,10 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
           <div>
             type:
             {properties() != null ? properties().type : "type"}
+          </div>
+          <div>
+
+            {props.isFile && properties() != null ? properties()?.subfilePath : "type"}
           </div>
           <div>
             <button onclick={handleSetGlobalProperties}>set this file to play</button>
