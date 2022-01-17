@@ -6,16 +6,16 @@ import { LibraryMain } from "../Components/LibraryMain"
 
 
 
-export const Library:Component = () => {
- 
+export const Library: Component = () => {
+
     return (<>
-            <Layout/>
-       
+        <Layout />
+
         <div>
-            <AddFileMenu/>
+            {/* <AddFileMenu/> */}
             <DragDrop isFile={true} />
-            <LibraryMain/>
+            <LibraryMain />
         </div>
-        </>
+    </>
     )
 }

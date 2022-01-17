@@ -8,7 +8,7 @@ render(
   () => (
     <Router source={hashIntegration()}>
       <FileFolderContextProvider>
-      <App />
+        <App />
       </FileFolderContextProvider>
     </Router>
   ),

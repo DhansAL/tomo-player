@@ -1,6 +1,7 @@
-import { Alert } from "solid-bootstrap";
+import { Alert, Container } from "solid-bootstrap";
 import { Component, createSignal, useContext } from "solid-js";
 import { FileFolderContext } from "../../../Contexts/FileContext";
+import "./index.css"
 type DragDropProps = {
   isFile: boolean;
 };
@@ -12,10 +13,8 @@ type DragDropProps = {
  */
 
 export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
-  const [errorAlert, setErrorAlert] = createSignal<boolean>(false);
   //TODO: make this signal a minor notice fadeaway component which shows minor details 
   //of events , mini alert maybe
-  const [minorErrors, setMinorErrors] = createSignal<string>("seems good for now");
   const [properties, setProperties] = createSignal<null | FolderFileServed>(
     null
   );
@@ -35,7 +34,7 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
 
     /**
      * the main flag to throw error in case user gives file instead of folder or vice versa
-     * sends the path of the dragged to main and checks is file or not.
+     * sends the path of the dragged elemnet to main process and checks is file or not.
      */
 
     // @ts-expect-error
@@ -52,7 +51,9 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
           lastModified,
           type,
         });
-        setMinorErrors("files set success" + "isFile:" + `${isFile}`);
+        setErrorAlert(true)
+        setAlertType((current) => ({ ...current, variant: "success", body: `File dropped successfully!.File dropped successfully. You dropped "${path}"`, heading: "File sucessfully dropped." }));
+
         break;
       case "false-false":
         setProperties({
@@ -61,20 +62,18 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
           size,
           lastModified,
         });
-        setMinorErrors("folders set success");
+        setErrorAlert(true)
+        setAlertType((current) => ({ ...current, variant: "success", body: `Folder dropped successfully!.Try acessing the folder in your collection. You dropped "${path}"`, heading: "Folder sucessfully dropped." }));
         break;
       //asked file sent folder
       case "true-false":
-        setMinorErrors(
-          "you were supposed to drop files only" +
-          `${isFile}` +
-          props.isFile +
-          "props"
-        );
+        setErrorAlert(true)
+        setAlertType((current) => ({ ...current, variant: "warning", body: `you are supposed to drop a file here. You dropped "${path}"`, heading: "OOPS! you dropped a Folder here" }));
         break;
       //asked folder sent file
       case "false-true":
-        setMinorErrors("you should be dropping folders only");
+        setErrorAlert(true)
+        setAlertType((current) => ({ ...current, variant: "warning", body: `you are supposed to drop folder here. You dropped "${path}"`, heading: "OOPS! you dropped a file here" }));
       default:
         break;
     }
@@ -101,22 +100,26 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
       console.log(error);
     }
   };
+  //alert utils
+  const [alertType, setAlertType] = createSignal({ variant: "", heading: "", body: "" })
+  const [errorAlert, setErrorAlert] = createSignal<boolean>(false);
+
 
   return (
-    <div>
+    <div className="up">
+      <Container fluid >
+        {errorAlert() ? (
+          <>
+            <Alert variant={alertType().variant} dismissible transition onClose={() => setErrorAlert(false)}>
+              <Alert.Heading>{alertType().heading}</Alert.Heading>
+              <p>
+                {alertType().body}
+              </p>
+            </Alert>
+          </>
+        ) : null}
+      </Container>
 
-      {errorAlert() ? (
-        <>
-
-          <Alert variant="danger" dismissible transition onClose={() => setErrorAlert(false)}>
-            <Alert.Heading>Check your file added</Alert.Heading>
-            <p>
-              Aww yeah, you successfully added a folder or not a proper file path
-            </p>
-          </Alert>
-        </>
-      ) : null}
-      <div id="error">possible errors -{minorErrors()}</div>
       <div
         id="dropzone"
         style={{
@@ -130,7 +133,7 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
         onDrop={handleDrop}
       >
         {props.isFile ? "drop the show to play" : "Drop Folder of your shows"}
-        <div>
+        <div >
           <div>
             name :
             {properties() != null
@@ -152,6 +155,6 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
