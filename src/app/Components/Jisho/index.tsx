@@ -1,5 +1,5 @@
 import { Spinner } from "solid-bootstrap";
-import { createEffect, createSignal, For, Index, Component } from "solid-js";
+import { createEffect, createSignal, For, ErrorBoundary } from "solid-js";
 import JishoAPI from "unofficial-jisho-api";
 import { Kandict } from "./Kandict";
 
@@ -8,6 +8,12 @@ import { Kandict } from "./Kandict";
  */
 
 //TODO: start with backend to avoid CORS .
+/**
+ * FIXME: throw error component on
+ * 1. !data.length
+ * 2. slug == number
+ *
+ */
 
 type JishoProps = {
   word: string;
@@ -21,7 +27,6 @@ export const JishoPopover = (props: JishoProps) => {
   const loadDataFromJisho = async () => {
     setIsLoading(true);
     let wordData = await jisho.searchForPhrase(props.word);
-    console.log(wordData);
     setWordData(wordData.data);
     setIsLoading(false);
   };
@@ -42,6 +47,13 @@ export const JishoPopover = (props: JishoProps) => {
 
   return (
     <>
+      {/* <ErrorBoundary
+        fallback={
+          <>
+            <h5>cant get this word :(</h5>
+          </>
+        }
+      > */}
       {isLoading() ? (
         <Spinner animation="border" role="status">
           <span className="visually-hidden">Loading...</span>
@@ -117,6 +129,7 @@ export const JishoPopover = (props: JishoProps) => {
           </For>
         </div>
       )}
+      {/* </ErrorBoundary> */}
     </>
   );
 };

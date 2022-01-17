@@ -16,7 +16,6 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
   //TODO: make this signal a minor notice fadeaway component which shows minor details 
   //of events , mini alert maybe
   const [minorErrors, setMinorErrors] = createSignal<string>("seems good for now");
-  
   const [properties, setProperties] = createSignal<null | FolderFileServed>(
     null
   );
@@ -42,7 +41,7 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
     // @ts-expect-error
     let isFile = await window.api.isFile(path);
     console.log(isFile);
-    
+
 
     switch (props.isFile + "-" + isFile) {
       case "true-true":
@@ -53,7 +52,7 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
           lastModified,
           type,
         });
-        setMinorErrors("files set success"+ "isFile:"+`${isFile}`);
+        setMinorErrors("files set success" + "isFile:" + `${isFile}`);
         break;
       case "false-false":
         setProperties({
@@ -67,9 +66,9 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
       //asked file sent folder
       case "true-false":
         setMinorErrors(
-          "you were supposed to drop files only"+
-          `${isFile}`+
-          props.isFile+
+          "you were supposed to drop files only" +
+          `${isFile}` +
+          props.isFile +
           "props"
         );
         break;
@@ -95,7 +94,7 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
       console.log(globalFileProperties.propertiesForAll(), "values in context");
       //save global properties and delete local input
       setProperties(
-    null
+        null
       )
     } catch (error) {
       setErrorAlert(true);
@@ -105,12 +104,11 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
 
   return (
     <div>
-    
+
       {errorAlert() ? (
         <>
-        {/* TODO: currently the alert flag only throw error once as after dismissing alert the
-        flag stays true */}
-          <Alert variant="danger" dismissible transition onClose={()=>setErrorAlert(false)}>
+
+          <Alert variant="danger" dismissible transition onClose={() => setErrorAlert(false)}>
             <Alert.Heading>Check your file added</Alert.Heading>
             <p>
               Aww yeah, you successfully added a folder or not a proper file path
@@ -150,8 +148,8 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
             {properties() != null ? properties().type : "type"}
           </div>
           <div>
-        <button onclick={handleSetGlobalProperties}>set this file to play</button>
-      </div>
+            <button onclick={handleSetGlobalProperties}>set this file to play</button>
+          </div>
         </div>
       </div>
     </div>

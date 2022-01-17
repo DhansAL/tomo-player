@@ -22,14 +22,11 @@ export const Tokenization = (props: TokenProps) => {
         let segmentedSub = segmenter.segment(props.toTokenize);
         setSegmentedSub(segmentedSub);
     })
-    const handleModal = (token: string) => {
-        console.log(token);
-    }
 
     return (
         <div style={{ display: "flex", alignItems: "center", border: "solid 3px red" }}>
             the tokenized sub -
-            <For each={segmentedSub()}>
+            <For each={segmentedSub()} fallback={<div>cant get this word</div>}>
                 {(token, i) =>
                     <>
 
@@ -46,7 +43,7 @@ export const Tokenization = (props: TokenProps) => {
                                 </Popover>
                             }
                         >
-                            <h4>({token})</h4>
+                            <h4>{token}</h4>
                         </OverlayTrigger>
                     </>
                 }
