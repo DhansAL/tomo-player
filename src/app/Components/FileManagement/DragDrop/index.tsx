@@ -9,7 +9,6 @@ type DragDropProps = {
 };
 /**
  * Reusable component to get the info of dropped folder or file  .
- * //TODO: use this as a popover onClick
  * checks whether dropped item is folder or file and behaves accordingly
  *
  * sets PropertiesForAll(contextApi) of file or folder served to component(s)
@@ -35,25 +34,29 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
         let infoOfDragged = e.dataTransfer.files;
 
         let path: string, name: string, size, lastModified, type, subpath;
-
         //selection 1 is mediafile
-        try {
-            if (checkDroppedFile(true, infoOfDragged[0].name)) {
-                ({ path, lastModified, name, size, type } = infoOfDragged[0])
-                if (infoOfDragged[1].path === undefined) { }
-                subpath = infoOfDragged[1].path
-            }
-            //selection 2 is mediafile
-            else {
-                ({ path, lastModified, name, size, type } = infoOfDragged[1])
-                subpath = infoOfDragged[0].path
-            }
-        } catch (error) {
-            setAlert(true)
-            setAlertType((current) => ({ ...current, variant: "danger", body: "please drop all the requiered files.", heading: "Files are missing" }));
-            return;
-        }
+        if (props.isFile) {
 
+            try {
+                if (checkDroppedFile(true, infoOfDragged[0].name)) {
+                    ({ path, lastModified, name, size, type } = infoOfDragged[0])
+                    if (infoOfDragged[1].path === undefined) { }
+                    subpath = infoOfDragged[1].path
+                }
+                //selection 2 is mediafile
+                else {
+                    ({ path, lastModified, name, size, type } = infoOfDragged[1])
+                    subpath = infoOfDragged[0].path
+                }
+            } catch (error) {
+                setAlert(true)
+                setAlertType((current) => ({ ...current, variant: "danger", body: "please drop all the requiered files.", heading: "Files are missing" }));
+                return;
+            }
+        }
+        if (!props.isFile) {
+            ({ path, lastModified, name, size, type } = infoOfDragged[0])
+        }
 
         /**
          * the main flag to throw error in case user gives file instead of folder or vice versa
@@ -62,13 +65,12 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
         // @ts-expect-error
         let isFile = await window.api.isFile(path);
 
-
         switch (props.isFile + "-" + isFile) {
             case "true-true":
                 //check if the file format is supported , if not alert and return & if true set the path and play the file
                 if (!checkDroppedFile(true, name)) {
                     setAlert(true)
-                    setAlertType((current) => ({ ...current, variant: "danger", body: `Dropped file format is not supported right now. "${name}"`, heading: "Unsupported file format dropped." }));
+                    setAlertType((current) => ({ ...current, variant: "danger", body: `Dropped video file format is not supported right now. "${name}"`, heading: "Unsupported Video file format dropped." }));
                     break;
 
                 }
@@ -99,7 +101,7 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
                     lastModified,
                 });
                 setAlert(true)
-                setAlertType((current) => ({ ...current, variant: "success", body: `Folder dropped successfully!.Try acessing the folder in your collection. You dropped "${path}"`, heading: "Folder sucessfully dropped." }));
+                setAlertType((current) => ({ ...current, variant: "success", body: `Folder dropped successfully!.Try accessing the folder in your collection. You dropped "${path}"`, heading: "Folder sucessfully dropped." }));
                 break;
             //asked file sent folder
             case "true-false":
@@ -121,18 +123,29 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
     const globalFileProperties = useContext(FileFolderContext);
     const handleSetGlobalProperties = () => {
         try {
-            globalFileProperties.propertiesForAll().name = properties().name;
-            globalFileProperties.propertiesForAll().path = properties().path;
-            globalFileProperties.propertiesForAll().lastModified = properties().lastModified;
-            globalFileProperties.propertiesForAll().type = properties().type;
-            globalFileProperties.propertiesForAll().subfilePath = properties().subfilePath;
-            console.log(globalFileProperties.propertiesForAll(), "values in context");
-            //save global properties and delete local input
-            setProperties(
-                null
-            )
+            if (!props.isFile) {
+                globalFileProperties.propertiesForAll().name = properties().name;
+                globalFileProperties.propertiesForAll().path = properties().path;
+                globalFileProperties.propertiesForAll().lastModified = properties().lastModified;
+                globalFileProperties.propertiesForAll().size = properties().size;
+                console.log(globalFileProperties.propertiesForAll(), "values in context, sent folder");
+                setProperties(null)
+            } else {
+                globalFileProperties.propertiesForAll().name = properties().name;
+                globalFileProperties.propertiesForAll().path = properties().path;
+                globalFileProperties.propertiesForAll().lastModified = properties().lastModified;
+                globalFileProperties.propertiesForAll().size = properties().size;
+                globalFileProperties.propertiesForAll().type = properties().type;
+                globalFileProperties.propertiesForAll().subfilePath = properties().subfilePath;
+                console.log(globalFileProperties.propertiesForAll(), "values in context,sent file to play");
+                setProperties(
+                    null
+                )
+            }
+
         } catch (error) {
             setAlert(true);
+            setAlertType((current) => ({ ...current, variant: "warning", body: `You didn't selected anything. try selecting a file or a directory `, heading: "OOPS! got some error eh?" }));
             console.log(error);
         }
     };
@@ -159,14 +172,13 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
                 style={{
                     borderRadius: "10px",
                     margin: "10px auto",
-                    width: "55vw",
-                    height: "50vh",
-                    border: "3px dotted crimson",
+                    width: "inherit",
+                    height: "53vh",
                 }}
                 onDragOver={handleDragOver}
                 onDrop={handleDrop}
             >
-                {props.isFile ? "drop the show to play" : "Drop Folder of your shows"}
+                {props.isFile ? <h1>drop the show to play</h1> : <h1>Drop Folder of your shows</h1>}
                 <div >
                     <div>
                         name :
@@ -185,8 +197,8 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
                         {properties() != null ? properties().type : "type"}
                     </div>
                     <div>
-
-                        {props.isFile && properties() != null ? properties()?.subfilePath : "type"}
+                        subfile path:
+                        {props.isFile && properties() != null ? properties()?.subfilePath : "path to subfile"}
                     </div>
                     <div>
                         <button onclick={handleSetGlobalProperties}>set this file to play</button>

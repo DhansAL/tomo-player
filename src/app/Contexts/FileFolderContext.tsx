@@ -24,7 +24,7 @@ export const FileFolderContextProvider = (
   // pass file or folder info of one item per time so no need to store all in an array
   const [propertiesForAll, setPropertiesForAll] = createSignal<
     undefined | null | FileFolderServed
-  >({ lastModified: 0, name: "", path: "", size: 0, subfilePath: "" });
+  >({ lastModified: 0, name: "", path: "", size: 0 });
   return (
     <FileFolderContext.Provider
       value={{ propertiesForAll, setPropertiesForAll }}

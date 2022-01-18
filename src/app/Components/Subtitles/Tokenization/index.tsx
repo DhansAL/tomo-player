@@ -17,6 +17,7 @@ type TokenProps = {
 export const Tokenization = (props: TokenProps) => {
     const [segmentedSub, setSegmentedSub] = createSignal([])
     const segmenter = new TinySegmenter();
+
     createEffect(() => {
         props.toTokenize;
         let segmentedSub = segmenter.segment(props.toTokenize);

@@ -1,8 +1,13 @@
+import { PopToChoose } from "./PopToChoose";
 
 export const LibraryMain = () => {
     return (
         <div>
-            the list ep component of library
+            The main library component
+            <div>
+                <PopToChoose />
+            </div>
         </div>
+
     )
 }
