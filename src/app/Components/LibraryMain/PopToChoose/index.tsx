@@ -7,8 +7,8 @@ export const PopToChoose = () => {
     const handleClose = () => setShow(false);
 
     return (
-        <div>
-            <Button variant="primary" onClick={handleOpen}>add collection</Button>
+        <div >
+            <Button variant="success" onClick={handleOpen}>add collection or play video</Button>
 
             <Modal
                 show={show()}
@@ -18,7 +18,8 @@ export const PopToChoose = () => {
                 centered
             >
                 <Modal.Body>
-                    <DragDrop isFile={true} />
+                    {/* select folder collection on library */}
+                    <DragDrop isFile={false} />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={handleClose}>Close</Button>
