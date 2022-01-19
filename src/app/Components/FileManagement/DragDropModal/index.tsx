@@ -1,9 +1,9 @@
 import { Button, Modal } from "solid-bootstrap"
 import { createSignal } from "solid-js"
-import { DragDrop } from "../../FileManagement/DragDrop";
+import { DragDrop } from "./DragDrop";
 
 
-export const PopToChoose = () => {
+export const DragDropModal = () => {
     const [show, setShow] = createSignal(false);
 
 

@@ -1,8 +1,8 @@
 import { Alert, Container } from "solid-bootstrap";
 import { Component, createSignal, useContext } from "solid-js";
-import { checkDroppedFile } from "../../../modules/droppedCheck/checkDroppedFile";
-import { FileFolderContext } from "../../../Contexts/FileFolderContext";
-import { FileFolderServed } from "../../../interfaces/FileManagement/FileFolderServed";
+import { checkDroppedFile } from "../../../../modules/droppedCheck/checkDroppedFile";
+import { FileFolderContext } from "../../../../Contexts/FileFolderContext";
+import { FileFolderServed } from "../../../../interfaces/FileManagement/FileFolderServed";
 
 type DragDropProps = {
     isFile: boolean;

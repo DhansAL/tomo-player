@@ -1,7 +1,6 @@
 import { Col, Container, Row } from "solid-bootstrap";
 import { Collections } from "./Collections";
 import { MediaSubsList } from "./MediaSubsList";
-import { PopToChoose } from "./PopToChoose";
 import { ShowDetails } from "./ShowDetails";
 
 export const LibraryMain = () => {
@@ -9,9 +8,7 @@ export const LibraryMain = () => {
         <div
             class="bg-dark vw-100 vh-100 " style={{ overflow: "hidden" }}
         >
-            <div>
-                <PopToChoose />
-            </div>
+            {/* can have a context here to transfer data of selected files here */}
             <div style={{ margin: "5px", padding: "3px" }}>
                 <Row>
                     <Col xs={4} >
