@@ -5,9 +5,13 @@ import { FileFolderContext } from
 export const Collections = () => {
     const globalFolderProperties = useContext(FileFolderContext);
     //as we get the collection name we push that on local storage
+    const [collections, setCollections] = createSignal([])
 
     // get collection name and then
     onMount(() => {
+        //check if local storage exists
+        // if(localStorage.getItem)
+
 
     })
 
