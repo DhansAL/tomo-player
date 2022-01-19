@@ -1,6 +1,6 @@
 import { Col, Container, Row } from "solid-bootstrap";
 import { Collections } from "./Collections";
-import { MediaSubs } from "./MediaSubs";
+import { MediaSubsList } from "./MediaSubsList";
 import { PopToChoose } from "./PopToChoose";
 import { ShowDetails } from "./ShowDetails";
 
@@ -18,7 +18,7 @@ export const LibraryMain = () => {
                         <Collections />
                     </Col>
                     <Col xs={4} >
-                        <MediaSubs />
+                        <MediaSubsList />
                     </Col>
                     <Col xs={3} >
                         <ShowDetails />

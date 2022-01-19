@@ -1,5 +1,5 @@
 
-export const MediaSubs = () => {
+export const MediaSubsList = () => {
     return (
         <div>
             <div style={{ background: "green" }}>

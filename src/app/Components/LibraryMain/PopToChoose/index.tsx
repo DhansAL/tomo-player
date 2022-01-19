@@ -1,10 +1,16 @@
 import { Button, Modal } from "solid-bootstrap"
 import { createSignal } from "solid-js"
 import { DragDrop } from "../../FileManagement/DragDrop";
+
+
 export const PopToChoose = () => {
     const [show, setShow] = createSignal(false);
+
+
     const handleOpen = () => setShow(true);
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setShow(false);
+    }
 
     return (
         <div >
@@ -28,3 +34,4 @@ export const PopToChoose = () => {
         </div>
     )
 }
+
