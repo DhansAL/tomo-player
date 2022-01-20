@@ -2,8 +2,10 @@ import { Button, Modal } from "solid-bootstrap"
 import { createSignal } from "solid-js"
 import { DragDrop } from "./DragDrop";
 
-
-export const DragDropModal = () => {
+type DragDropProps = {
+    isfile: boolean;
+}
+export const DragDropModal = (props: DragDropProps) => {
     const [show, setShow] = createSignal(false);
 
 
@@ -25,7 +27,7 @@ export const DragDropModal = () => {
             >
                 <Modal.Body>
                     {/* select folder collection on library */}
-                    <DragDrop isFile={false} />
+                    <DragDrop isFile={props.isfile} />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={handleClose}>Close</Button>

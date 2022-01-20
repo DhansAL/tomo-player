@@ -1,18 +1,25 @@
-import { createEffect, createSignal, onMount, useContext } from "solid-js";
+import { createEffect, createSignal, createUniqueId, onMount, useContext } from "solid-js";
+import { FileFolderServed } from "../../../interfaces/FileManagement/FileFolderServed";
 import { FileFolderContext } from
     "../../../Contexts/FileFolderContext";
+// import { CollectionList } from "../../../data/Collections/Collections";
 
 export const Collections = () => {
     const globalFolderProperties = useContext(FileFolderContext);
     //as we get the collection name we push that on local storage
-    const [collections, setCollections] = createSignal([])
+    const [currentCollection, setCurrentCollection] = createSignal<FileFolderServed | null>(null)
 
     // get collection name and then
     onMount(() => {
-        //check if local storage exists
-        // if(localStorage.getItem)
+        if (globalFolderProperties.propertiesForAll().name !== "") {
+            setCurrentCollection(globalFolderProperties.propertiesForAll())
+            console.log(currentCollection(), "currently in library");
+            // console.log(CollectionList);
 
+        }
 
+        // CollectionList.push({
+        // })
     })
 
     //FIXME: when the modal is closed rerender the component.
@@ -21,8 +28,7 @@ export const Collections = () => {
         <div>
             {/* <button onclick={fetchContext}>check the context values</button> */}
             <div style={{ background: "green" }}>
-                COLLECTIONS
-                name: {globalFolderProperties.propertiesForAll().name}
+                current collection = {JSON.stringify(currentCollection())}
             </div>
         </div>
     )

@@ -9,7 +9,7 @@ export const Overview = () => {
             <div>
                 overview component.
                 <div>
-                    <DragDropModal />
+                    <DragDropModal isfile={false} />
                 </div>
             </div>
         </>

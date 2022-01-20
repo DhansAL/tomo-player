@@ -15,9 +15,7 @@ type DragDropProps = {
  */
 
 export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
-    const [properties, setProperties] = createSignal<null | FileFolderServed>(
-        null
-    );
+    const [properties, setProperties] = createSignal<null | FileFolderServed>(null);
 
     //alert utils
     //FIXME: MAKE ALERTS IN A STORE AND PUT A DEFAULT SET CASE WHICH IS TO BE SET AFTER EACH ALERT.
@@ -121,31 +119,28 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
 
     // context api
     const globalFileProperties = useContext(FileFolderContext);
+
     const handleSetGlobalProperties = () => {
         try {
-            if (!props.isFile) {
-                globalFileProperties.propertiesForAll().name = properties().name;
-                globalFileProperties.propertiesForAll().path = properties().path;
-                globalFileProperties.propertiesForAll().lastModified = properties().lastModified;
-                globalFileProperties.propertiesForAll().size = properties().size;
-                console.log(globalFileProperties.propertiesForAll(), "values in context, sent folder");
-                setProperties(null)
+            if (properties() === null) {
+                setAlert(true);
+                setAlertType((current) => ({ ...current, variant: "warning", body: `You didn't selected anything. try selecting a file or a directory `, heading: "OOPS! got some error eh?" }));
+                return
             } else {
-                globalFileProperties.propertiesForAll().name = properties().name;
-                globalFileProperties.propertiesForAll().path = properties().path;
-                globalFileProperties.propertiesForAll().lastModified = properties().lastModified;
-                globalFileProperties.propertiesForAll().size = properties().size;
-                globalFileProperties.propertiesForAll().type = properties().type;
-                globalFileProperties.propertiesForAll().subfilePath = properties().subfilePath;
-                console.log(globalFileProperties.propertiesForAll(), "values in context,sent file to play");
-                setProperties(
-                    null
-                )
+                if (!props.isFile) {
+                    globalFileProperties.setPropertiesForAll(properties())
+                    console.log(globalFileProperties.propertiesForAll(), "values in context, sent folder");
+                    setProperties(null)
+                } else {
+                    globalFileProperties.setPropertiesForAll(properties())
+                    console.log(globalFileProperties.propertiesForAll(), "values in context,sent file to play");
+                    setProperties(null)
+                }
             }
 
         } catch (error) {
             setAlert(true);
-            setAlertType((current) => ({ ...current, variant: "warning", body: `You didn't selected anything. try selecting a file or a directory `, heading: "OOPS! got some error eh?" }));
+            setAlertType((current) => ({ ...current, variant: "secondary", body: `unknown error${error}`, heading: "Unknown error" }));
             console.log(error);
         }
     };
@@ -182,23 +177,23 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
                 <div >
                     <div>
                         name :
-                        {properties() != null
+                        {properties() !== null
                             ? properties().name
                             : "name of file or folder"}
                     </div>
                     <div>
                         path:
-                        {properties() != null
+                        {properties() !== null
                             ? properties().path
                             : "path of file or folder"}
                     </div>
                     <div>
                         type:
-                        {properties() != null ? properties().type : "type"}
+                        {properties() !== null ? properties().type : "type"}
                     </div>
                     <div>
                         subfile path:
-                        {props.isFile && properties() != null ? properties()?.subfilePath : "path to subfile"}
+                        {props.isFile && properties() !== null ? properties()?.subfilePath : "path to subfile"}
                     </div>
                     <div>
                         <button onclick={handleSetGlobalProperties}>set this file to play</button>
