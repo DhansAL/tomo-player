@@ -1,25 +1,20 @@
-import { createEffect, createSignal, createUniqueId, onMount, useContext } from "solid-js";
+import { createEffect, createSignal, createUniqueId, For, onMount, useContext } from "solid-js";
 import { FileFolderServed } from "../../../interfaces/FileManagement/FileFolderServed";
-import { FileFolderContext } from
-    "../../../Contexts/FileFolderContext";
-// import { CollectionList } from "../../../data/Collections/Collections";
 
+
+// FIXME: there was never a need to make the folder properties available globally lol local storage handles my stuff
+
+
+//why the hell its here, shift this to dragdrop
 export const Collections = () => {
-    const globalFolderProperties = useContext(FileFolderContext);
-    //as we get the collection name we push that on local storage
-    const [currentCollection, setCurrentCollection] = createSignal<FileFolderServed | null>(null)
 
-    // get collection name and then
+    const [currentCollection, setCurrentCollection] = createSignal<FileFolderServed[]>()
+
     onMount(() => {
-        if (globalFolderProperties.propertiesForAll().name !== "") {
-            setCurrentCollection(globalFolderProperties.propertiesForAll())
-            console.log(currentCollection(), "currently in library");
-            // console.log(CollectionList);
-
+        if (localStorage.getItem("Collections")) {
+            console.log("buribyuri we have localstorage");
+            setCurrentCollection(JSON.parse(localStorage.getItem("Collections")))
         }
-
-        // CollectionList.push({
-        // })
     })
 
     //FIXME: when the modal is closed rerender the component.
@@ -28,7 +23,19 @@ export const Collections = () => {
         <div>
             {/* <button onclick={fetchContext}>check the context values</button> */}
             <div style={{ background: "green" }}>
-                current collection = {JSON.stringify(currentCollection())}
+                <h1>collections cumming</h1>
+                <For each={currentCollection()}>
+                    {
+                        (col) =>
+                            <>
+                                <p>{col.name}</p>
+                                path:
+                                <span>{col.path}</span>
+                            </>
+                    }
+                </For>
+
+
             </div>
         </div>
     )

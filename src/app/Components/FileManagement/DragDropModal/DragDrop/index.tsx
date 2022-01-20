@@ -1,5 +1,5 @@
 import { Alert, Container } from "solid-bootstrap";
-import { Component, createSignal, useContext } from "solid-js";
+import { Component, createSignal, onMount, useContext } from "solid-js";
 import { checkDroppedFile } from "../../../../modules/droppedCheck/checkDroppedFile";
 import { FileFolderContext } from "../../../../Contexts/FileFolderContext";
 import { FileFolderServed } from "../../../../interfaces/FileManagement/FileFolderServed";
@@ -20,6 +20,19 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
     //alert utils
     //FIXME: MAKE ALERTS IN A STORE AND PUT A DEFAULT SET CASE WHICH IS TO BE SET AFTER EACH ALERT.
     const [alertType, setAlertType] = createSignal({ variant: "danger", heading: "add something", body: "" })
+
+    // make localstorage for Collections
+    onMount(() => {
+        if (localStorage.getItem("Collections") === null) {
+            let collectionArray: FileFolderServed[] = [];
+            localStorage.setItem("Collections", JSON.stringify(collectionArray));
+        }
+        else {
+            console.log(localStorage.getItem("Collections"), "buribyuri we have localstorage");
+        }
+    })
+
+
     const [errorAlert, setAlert] = createSignal<boolean>(false);
 
     const handleDragOver = (e: DragEvent) => {
@@ -130,11 +143,22 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
                 if (!props.isFile) {
                     globalFileProperties.setPropertiesForAll(properties())
                     console.log(globalFileProperties.propertiesForAll(), "values in context, sent folder");
+
+                    //push in localstorage collection
+                    if (localStorage.getItem("Collections")) {
+                        let arr = JSON.parse(localStorage.getItem("Collections"))
+                        arr.push(properties());
+                        localStorage.setItem("Collections", JSON.stringify(arr))
+                        console.log("successfully pushed into local storage");
+
+                    }
+
                     setProperties(null)
                 } else {
                     globalFileProperties.setPropertiesForAll(properties())
                     console.log(globalFileProperties.propertiesForAll(), "values in context,sent file to play");
                     setProperties(null)
+
                 }
             }
 
