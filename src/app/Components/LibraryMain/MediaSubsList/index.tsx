@@ -1,6 +1,7 @@
-import { createEffect, createSignal, useContext } from "solid-js"
+import { createEffect, createSignal, For, useContext } from "solid-js"
 import { checkDroppedFile } from "../../../modules/droppedCheck/checkDroppedFile";
 import { LibraryContext } from "../../../Contexts/LibraryContext"
+import { ListGroup } from "solid-bootstrap";
 
 export const MediaSubsList = () => {
     const collectionPath = useContext(LibraryContext)
@@ -21,6 +22,7 @@ export const MediaSubsList = () => {
             console.log(filesInCollection());
 
             // filterFiles
+            //TODO: put this all in config and use regex maybe
             let video = filesInCollection().filter(video => video.includes(".mp4") ||
                 video.includes(".3gp") ||
                 video.includes(".avi") ||
@@ -39,7 +41,38 @@ export const MediaSubsList = () => {
     return (
         <div>
             <div style={{ background: "green" }}>
-                MEDIA&SUBS
+                <h4> VideoFiles in this collection</h4>
+                <div style={{ height: "200px", overflow: "scroll" }}>
+                    <ListGroup>
+                        <For each={videoFiles()}>
+                            {
+                                (video, i) =>
+                                    <>
+                                        <ListGroup.Item style={{ cursor: "pointer" }}>
+                                            <span  >{video}</span>
+                                        </ListGroup.Item>
+                                    </>
+                            }
+                        </For>
+                    </ListGroup>
+                </div>
+                <hr />
+                <h4> Subfiles in this collection</h4>
+
+                <div style={{ height: "200px", overflow: "scroll" }}>
+                    <ListGroup>
+                        <For each={subFiles()}>
+                            {
+                                (sub, i) =>
+                                    <>
+                                        <ListGroup.Item style={{ cursor: "pointer" }}>
+                                            <span  >{sub}</span>
+                                        </ListGroup.Item>
+                                    </>
+                            }
+                        </For>
+                    </ListGroup>
+                </div>
             </div>
         </div>
     )
