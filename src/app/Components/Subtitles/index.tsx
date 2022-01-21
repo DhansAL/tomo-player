@@ -18,6 +18,7 @@ export const Subtitles = (props: subtitleProps) => {
   // context api
   const globalFileProperties = useContext(FileFolderContext);
   let subfile = globalFileProperties.propertiesForAll().subfilePath;
+
   let subObj: any;
 
   onMount(async () => {

@@ -28,7 +28,7 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
             localStorage.setItem("Collections", JSON.stringify(collectionArray));
         }
         else {
-            console.log(localStorage.getItem("Collections"), "buribyuri we have localstorage");
+
         }
     })
 
@@ -127,7 +127,6 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
                 break;
         }
 
-        console.log(properties());
     };
 
     // context api
@@ -149,7 +148,6 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
                         let arr = JSON.parse(localStorage.getItem("Collections"))
                         arr.push(properties());
                         localStorage.setItem("Collections", JSON.stringify(arr))
-                        console.log("successfully pushed into local storage");
 
                     }
 

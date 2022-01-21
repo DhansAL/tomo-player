@@ -10,6 +10,8 @@ export const Overview = () => {
                 overview component.
                 <div>
                     <DragDropModal isfile={false} />
+                    <hr />
+                    <DragDropModal isfile={true} />
                 </div>
             </div>
         </>

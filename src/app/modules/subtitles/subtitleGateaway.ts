@@ -16,7 +16,7 @@ export const subtitleGateaway = async (subFile: string) => {
 
   //@ts-expect-error
   //raw blob to be parsed
-  let subFileBlob = await window.api.sendSubFile("sendSubFile", subFile);
+  let subFileBlob = await window.api.sendSubFile(subFile);
   //iterable object
   const subObject = parseSubs(subFileBlob);
   return subObject;
