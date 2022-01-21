@@ -15,6 +15,8 @@ export const Collections = () => {
     })
     const handleSendList = (path: string) => {
         collectionPath.setPathOfCollection(path);
+        console.log(path, "in context");
+
     }
 
     return (

@@ -8,14 +8,20 @@ console.log("preload loaded successfully 👏");
  }
  cant wrap in paranthesis why?
  * */
+//TODO: whiteList Channels
 const API = {
+  //main flag for files
   //@ts-expect-error
   isFile: (path) => ipcRenderer.invoke("is-file", path),
+
   //for subtitles
   // @ts-expect-error
+  sendSubFile: (subFile) => ipcRenderer.invoke("sendSubFile", subFile),
 
-  //TODO: whiteList Channels
-  sendSubFile: (channel, subFile) => ipcRenderer.invoke("sendSubFile", subFile),
+  //getting all files in Collection directory
+  //@ts-expect-error
+  filesInCollection: (collectionPath) =>
+    ipcRenderer.invoke("files-collection", collectionPath),
 };
 
 contextBridge.exposeInMainWorld("api", API);
