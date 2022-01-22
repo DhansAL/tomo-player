@@ -33,12 +33,13 @@ export const PlayerVideo = () => {
 
   return (
     <>
-      <div class="vw-100 d-flex flex-column overflow-hidden" >
+      <div class="vw-100 d-flex flex-column ">
         < Button variant="secondary" class=" w-100">
           <a href="#" class="text-light text-decoration-none  text-center" >
             <h6>⬅ GO BACK</h6>
           </a>
         </ Button>
+
         <video
           id="player"
           ondurationchange={handleSetDuration}
@@ -46,12 +47,13 @@ export const PlayerVideo = () => {
           ref={playerRef}
           controls
           onTimeUpdate={handleTimeUpdate}
-          style={{ height: "100vh", width: "100vw" }}
+          class="w-100 h-100"
+          // style={{ height: "10vh", width: "10vw" }}
           src={videoPath}
-        >
+        />
 
-        </video>
         <Subtitles time={time()} duration={duration()} seektime={seektime()} />
+
       </div>
     </>
   );

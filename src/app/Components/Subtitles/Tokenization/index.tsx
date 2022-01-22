@@ -31,7 +31,7 @@ export const Tokenization = (props: TokenProps) => {
         setselect(token)
     }
     return (
-        <div class="col px-md-5  d-flex pd-3 flex-row bg-dark text-light justify-content-center">
+        <div class="col px-md-5 d-flex pd-3 flex-row bg-dark text-light justify-content-center">
             <For each={segmentedSub()} fallback={<div>starting </div>}>
                 {(token, i) =>
                     <>
