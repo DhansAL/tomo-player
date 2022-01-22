@@ -12,8 +12,6 @@ export const subtitleGateaway = async (subFile: string) => {
   //call different parsers according to file format check
   //checking frazyparser if passes it will be universal parser
 
-  //   console.log(subFile, "from module");
-
   //@ts-expect-error
   //raw blob to be parsed
   let subFileBlob = await window.api.sendSubFile(subFile);

@@ -10,8 +10,8 @@ export const MediaSubsList = () => {
   const [currentCollection, setCurrentCollection] = createSignal()
 
   const [filesInCollection, setFilesInCollection] = createSignal<string[]>();
-  const [videoFiles, setVideoFiles] = createSignal<string[]>();
-  const [subFiles, setSubFiles] = createSignal<string[]>();
+  const [videoFiles, setVideoFiles] = createSignal<string[]>(null);
+  const [subFiles, setSubFiles] = createSignal<string[]>(null);
 
   const [currentSub, setCurrentSub] = createSignal(null);
   const [currentVideo, setCurrentVideo] = createSignal(null);
@@ -93,37 +93,62 @@ export const MediaSubsList = () => {
 
   return (
     <div>
-      <div style={{ background: "green" }}>
-        <Button variant="success" onClick={setToPlayer}>set ep and subs</Button>
-        <h4> VideoFiles in this collection</h4>
-        <div style={{ height: "200px", overflow: "scroll" }}>
-          <ListGroup>
-            <For each={videoFiles()}>
-              {(video, i) => (
-                <>
-                  <ListGroup.Item style={{ cursor: "pointer" }}>
-                    <span onclick={() => handleSetVideo(video)}>{video}</span>
-                  </ListGroup.Item>
-                </>
-              )}
-            </For>
-          </ListGroup>
+      <div style={{ background: "#2e3b4e" }}>
+        <Button style={{ width: "100%" }}
+          variant="success"
+          onClick={setToPlayer}>
+          {currentSub() !== null && currentVideo() !== null ? "Play▶" : "select episode and subs"}
+        </Button>
+
+        <h4 class="text-light  p-2">Shows</h4>
+        <hr class="text-light" />
+
+        <div style={{ height: "250px", overflow: "scroll" }}>
+          {videoFiles() === null ? (
+            <div class="m-3 p3">
+              <h5 class="text-muted ">Click the desired show </h5>
+              <small class="text-light">select episode to play</small>
+            </div>
+          ) : (
+            <ListGroup>
+              <For each={videoFiles()}>
+                {(video, i) => (
+                  <>
+                    <ListGroup.Item style={{ cursor: "pointer" }}>
+                      <span onclick={() => handleSetVideo(video)}>{video}</span>
+                    </ListGroup.Item>
+                  </>
+                )}
+              </For>
+            </ListGroup>
+          )}
+
         </div>
         <hr />
-        <h4> Subfiles in this collection</h4>
+        <h4 class="text-light  p-2"> Subfiles in this folder</h4>
+        <hr class="text-light" />
 
-        <div style={{ height: "200px", overflow: "scroll" }}>
-          <ListGroup>
-            <For each={subFiles()}>
-              {(sub, i) => (
-                <>
-                  <ListGroup.Item style={{ cursor: "pointer" }}>
-                    <span onclick={() => handleSetSub(sub)}>{sub}</span>
-                  </ListGroup.Item>
-                </>
-              )}
-            </For>
-          </ListGroup>
+        <div style={{ height: "250px", overflow: "scroll" }}>
+          {videoFiles() === null ? (
+            <div class="m-3 p3">
+              <h5 class="text-muted ">Click the desired subtitle </h5>
+              <small class="text-light">make sure your subtitle matches your show </small>
+            </div>
+          ) : (
+            <ListGroup>
+              <For each={subFiles()}>
+                {(sub, i) => (
+                  <>
+                    <ListGroup.Item style={{ cursor: "pointer" }}>
+                      <span onclick={() => handleSetSub(sub)}>{sub}</span>
+                    </ListGroup.Item>
+                  </>
+                )}
+              </For>
+            </ListGroup>
+          )
+          }
+
         </div>
       </div>
     </div>

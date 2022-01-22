@@ -7,36 +7,50 @@ export const Collections = () => {
 
     const collectionPath = useContext(LibraryContext);
 
-    const [currentCollection, setCurrentCollection] = createSignal<FileFolderServed[]>()
+    const [currentCollection, setCurrentCollection] = createSignal<FileFolderServed[]>(null)
     onMount(() => {
         if (localStorage.getItem("Collections")) {
             setCurrentCollection(JSON.parse(localStorage.getItem("Collections")))
         }
     })
+
     const handleSendList = (path: string) => {
         collectionPath.setPathOfCollection(path);
 
     }
-
     return (
         <div>
-            {/* <button onclick={fetchContext}>check the context values</button> */}
-            <div style={{ background: "green" }}>
-                <h4>collections </h4>
+            <div style={{ background: "#2e3b4e" }}>
+                <h4 class="text-light  p-2">Collections</h4>
+                <hr class="text-light" />
                 <ListGroup>
-                    <For each={currentCollection()}>
-                        {
-                            (col, i) =>
-                                <>
-                                    <ListGroup.Item style={{ cursor: "pointer" }}>
-                                        <span onclick={() => handleSendList(col.path)} >{col.name}</span>
-                                    </ListGroup.Item>
-                                </>
-                        }
-                    </For>
+                    {currentCollection() === null ? <>
+                        <div class="m-3 p3">
+                            <h5 class="text-muted ">Try adding some shows ^_^ </h5>
+                            <span class="text-light">You can add shows in overview section</span>
+                        </div>
+                    </> : (
+                        <For each={currentCollection()}>
+
+                            {
+                                (col, i) =>
+                                    <>
+                                        <ListGroup.Item
+                                            style={{
+                                                cursor: "pointer",
+                                            }}>
+                                            <span onclick={() => handleSendList(col.path)} >
+                                                {col.name}
+                                            </span>
+                                        </ListGroup.Item>
+                                    </>
+                            }
+                        </For>
+                    )}
+
                 </ListGroup>
 
-            </div>
-        </div>
+            </div >
+        </div >
     )
 }
