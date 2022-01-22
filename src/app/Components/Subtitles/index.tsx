@@ -50,7 +50,6 @@ export const Subtitles = (props: subtitleProps) => {
   return (
     <>
       <Tokenization toTokenize={sub()} />
-
     </>
   );
 };

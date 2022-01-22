@@ -24,10 +24,15 @@ export const Tokenization = (props: TokenProps) => {
         setSegmentedSub(segmentedSub);
     })
 
-    return (
-        <div style={{ display: "flex", alignItems: "center", border: "solid 3px red" }}>
+    //on hover style change
+    const [select, setselect] = createSignal("")
 
-            <For each={segmentedSub()} fallback={<div>cant get this word</div>}>
+    const handleTokenStyle = (token: string) => {
+        setselect(token)
+    }
+    return (
+        <div class="col px-md-5  d-flex pd-3 flex-row bg-dark text-light justify-content-center">
+            <For each={segmentedSub()} fallback={<div>starting </div>}>
                 {(token, i) =>
                     <>
                         <OverlayTrigger
@@ -43,7 +48,7 @@ export const Tokenization = (props: TokenProps) => {
                                 </Popover>
                             }
                         >
-                            <h4 >{token}</h4>
+                            <h4 onMouseOver={() => handleTokenStyle(token)} style={token == select() ? { cursor: "pointer", color: "#51f366" } : { color: "white", cursor: "pointer" }} >{token}</h4>
                         </OverlayTrigger>
                     </>
                 }

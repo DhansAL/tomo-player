@@ -58,13 +58,19 @@ export const MediaSubsList = () => {
       setSubFiles(sub);
     }
   };
+  //style change on select
+  const [selectSub, setSelectSub] = createSignal("")
 
   const handleSetSub = (subpath: string) => {
     setCurrentSub(subpath);
+    setSelectSub(subpath)
   };
 
+  const [selectVideo, setselectVideo] = createSignal("")
   const handleSetVideo = (videoPath: string) => {
     setCurrentVideo(videoPath);
+    setselectVideo(videoPath)
+
   };
 
   const globalFileProperties = useContext(FileFolderContext);
@@ -120,7 +126,10 @@ export const MediaSubsList = () => {
               <For each={videoFiles()}>
                 {(video, i) => (
                   <>
-                    <ListGroup.Item style={{ cursor: "pointer" }}>
+                    <ListGroup.Item style={selectVideo() == video ? {
+                      cursor: "pointer", background: "#0c4b36 ",
+                      color: "white"
+                    } : { cursor: "pointer" }}>
                       <span onclick={() => handleSetVideo(video)}>{video}</span>
                     </ListGroup.Item>
                   </>
@@ -146,7 +155,10 @@ export const MediaSubsList = () => {
               <For each={subFiles()}>
                 {(sub, i) => (
                   <>
-                    <ListGroup.Item style={{ cursor: "pointer" }}>
+                    <ListGroup.Item style={selectSub() == sub ? {
+                      cursor: "pointer", background: "#0c4b36",
+                      color: "white"
+                    } : { cursor: "pointer" }}>
                       <span onclick={() => handleSetSub(sub)}>{sub}</span>
                     </ListGroup.Item>
                   </>

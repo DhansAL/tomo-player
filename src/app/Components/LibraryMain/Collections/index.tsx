@@ -14,10 +14,14 @@ export const Collections = () => {
         }
     })
 
+    //change style of elm on click
+    const [select, setselect] = createSignal("")
+
     const handleSendList = (path: string) => {
         collectionPath.setPathOfCollection(path);
-
+        setselect(path)
     }
+
     return (
         <div>
             <div style={{ background: "#2e3b4e" }}>
@@ -36,7 +40,11 @@ export const Collections = () => {
                                 (col, i) =>
                                     <>
                                         <ListGroup.Item
-                                            style={{
+                                            style={select() == col.path ? {
+                                                cursor: "pointer",
+                                                background: "#335280",
+                                                color: "white"
+                                            } : {
                                                 cursor: "pointer",
                                             }}>
                                             <span onclick={() => handleSendList(col.path)} >
