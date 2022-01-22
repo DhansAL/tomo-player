@@ -4,6 +4,7 @@ module.exports = {
    * that runs in the main process.
    */
   entry: "./src/electron/electron.main.ts",
+
   // Put your normal webpack config below here
   module: {
     rules: require("./webpack.rules"),
