@@ -4,10 +4,11 @@ import { ListGroup } from "solid-bootstrap";
 import { FileFolderServed } from "../../../interfaces/FileManagement/FileFolderServed";
 import { Button } from "solid-bootstrap";
 import { FileFolderContext } from "../../../Contexts/FileFolderContext";
+import { Link, NavLink } from "solid-app-router";
 
 export const MediaSubsList = () => {
   const collectionPath = useContext(LibraryContext);
-  const [currentCollection, setCurrentCollection] = createSignal()
+  const [currentCollection, setCurrentCollection] = createSignal();
 
   const [filesInCollection, setFilesInCollection] = createSignal<string[]>();
   const [videoFiles, setVideoFiles] = createSignal<string[]>(null);
@@ -16,14 +17,12 @@ export const MediaSubsList = () => {
   const [currentSub, setCurrentSub] = createSignal(null);
   const [currentVideo, setCurrentVideo] = createSignal(null);
 
-
-
   const [toplay, setToplay] = createSignal<FileFolderServed>({
     lastModified: 0,
     path: "",
     subfilePath: "",
     name: "",
-    size: 0
+    size: 0,
   });
 
   createEffect(() => {
@@ -32,7 +31,7 @@ export const MediaSubsList = () => {
 
   const handleMediaSubs = async () => {
     if (collectionPath.pathOfCollection() !== null) {
-      setCurrentCollection(collectionPath.pathOfCollection())
+      setCurrentCollection(collectionPath.pathOfCollection());
 
       //@ts-expect-error
       let files = await window.api.filesInCollection(
@@ -78,27 +77,34 @@ export const MediaSubsList = () => {
           name: "",
           size: 0,
           path: `${currentCollection()}\\${currentVideo()}`,
-          subfilePath: `${currentCollection()}\\${currentSub()}`
-        })
-        globalFileProperties.setPropertiesForAll(toplay())
+          subfilePath: `${currentCollection()}\\${currentSub()}`,
+        });
+        globalFileProperties.setPropertiesForAll(toplay());
         console.log(globalFileProperties.propertiesForAll(), "in context");
-
       }
     } catch (error) {
       console.log(error);
-
     }
-  }
-
+  };
 
   return (
     <div>
       <div style={{ background: "#2e3b4e" }}>
-        <Button style={{ width: "100%" }}
-          variant="success"
-          onClick={setToPlayer}>
-          {currentSub() !== null && currentVideo() !== null ? "Play▶" : "select episode and subs"}
-        </Button>
+        {currentSub() !== null && currentVideo() !== null ? (
+          <Button
+            style={{ width: "100%" }}
+            variant="success"
+            onClick={setToPlayer}
+          >
+            <Link class="text-light text-decoration-none" href="/player">
+              Play▶
+            </Link>
+          </Button>
+        ) : (
+          <Button style={{ width: "100%" }} variant="warning">
+            Select episode and subtitle
+          </Button>
+        )}
 
         <h4 class="text-light  p-2">Shows</h4>
         <hr class="text-light" />
@@ -122,17 +128,18 @@ export const MediaSubsList = () => {
               </For>
             </ListGroup>
           )}
-
         </div>
         <hr />
-        <h4 class="text-light  p-2"> Subfiles in this folder</h4>
+        <h4 class="text-light  p-2"> Subtitles</h4>
         <hr class="text-light" />
 
         <div style={{ height: "250px", overflow: "scroll" }}>
           {videoFiles() === null ? (
             <div class="m-3 p3">
               <h5 class="text-muted ">Click the desired subtitle </h5>
-              <small class="text-light">make sure your subtitle matches your show </small>
+              <small class="text-light">
+                make sure your subtitle matches your show{" "}
+              </small>
             </div>
           ) : (
             <ListGroup>
@@ -146,9 +153,7 @@ export const MediaSubsList = () => {
                 )}
               </For>
             </ListGroup>
-          )
-          }
-
+          )}
         </div>
       </div>
     </div>

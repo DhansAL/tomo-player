@@ -14,7 +14,6 @@ export const Player = () => {
   };
   return (
     <>
-      <Layout />
       <PlayerVideo />
     </>
   );

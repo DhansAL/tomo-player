@@ -49,10 +49,8 @@ export const Subtitles = (props: subtitleProps) => {
 
   return (
     <>
-      <div>current time to be consumed by subtitles {props.time}</div>
       <Tokenization toTokenize={sub()} />
-      <div>seektime - {props.seektime}</div>
-      <div>duration - {props.duration}</div>
+
     </>
   );
 };

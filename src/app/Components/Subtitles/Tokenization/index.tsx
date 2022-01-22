@@ -26,11 +26,10 @@ export const Tokenization = (props: TokenProps) => {
 
     return (
         <div style={{ display: "flex", alignItems: "center", border: "solid 3px red" }}>
-            the tokenized sub -
+
             <For each={segmentedSub()} fallback={<div>cant get this word</div>}>
                 {(token, i) =>
                     <>
-
                         <OverlayTrigger
                             trigger="click"
                             offset={[0, 8]}
@@ -44,7 +43,7 @@ export const Tokenization = (props: TokenProps) => {
                                 </Popover>
                             }
                         >
-                            <h4>{token}</h4>
+                            <h4 >{token}</h4>
                         </OverlayTrigger>
                     </>
                 }

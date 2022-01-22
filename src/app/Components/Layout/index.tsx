@@ -12,28 +12,21 @@ export const Layout = () => {
           <Nav.Item>
             <Nav.Link>
               <h5 >
-                <Link href="/" class="text-light" >OVERVIEW</Link>
+                <Link href="/" class="text-decoration-none text-light" >OVERVIEW</Link>
               </h5 >
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
             <Nav.Link>
               <h5  >
-                <Link href="/library" class="text-light">LIBRARY</Link>
+                <Link href="/library" class="text-decoration-none text-light">LIBRARY</Link>
               </h5 >
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
             <Nav.Link>
               <h5>
-                <Link href="/settings" style={{ textDecoration: 'none', color: "white" }}>SETTINGS</Link>
-              </h5 >
-            </Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link>
-              <h5   >
-                <Link href="/player" class="text-light">PLAYER</Link>
+                <Link href="/settings" class="text-decoration-none text-light">SETTINGS</Link>
               </h5 >
             </Nav.Link>
           </Nav.Item>
