@@ -9,6 +9,7 @@ console.log("preload loaded successfully 👏");
  cant wrap in paranthesis why?
  * */
 //TODO: whiteList Channels
+//FIXME: NEED GLOBAL d.ts files for preload to avoid using error flags
 const API = {
   //main flag for files
   //@ts-expect-error
