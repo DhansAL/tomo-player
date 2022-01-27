@@ -18,8 +18,11 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
     const [properties, setProperties] = createSignal<null | FileFolderServed>(null);
 
     //alert utils
-    //FIXME: MAKE ALERTS IN A STORE AND PUT A DEFAULT SET CASE WHICH IS TO BE SET AFTER EACH ALERT.
+    //FIXME: MAKE ALERTS IN A STORE 
+    //TODO: pull headings and body from configs.
+
     const [alertType, setAlertType] = createSignal({ variant: "danger", heading: "add something", body: "" })
+    const [alert, setAlert] = createSignal<boolean>(false);
 
     // make localstorage for Collections
     onMount(() => {
@@ -27,13 +30,7 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
             let collectionArray: FileFolderServed[] = [];
             localStorage.setItem("Collections", JSON.stringify(collectionArray));
         }
-        else {
-
-        }
     })
-
-
-    const [errorAlert, setAlert] = createSignal<boolean>(false);
 
     const handleDragOver = (e: DragEvent) => {
         e.stopPropagation();
@@ -45,23 +42,23 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
         let infoOfDragged = e.dataTransfer.files;
 
         let path: string, name: string, size, lastModified, type, subpath;
-        //selection 1 is mediafile
-        if (props.isFile) {
 
+        if (props.isFile) {
             try {
+                //selection 1 was mediafile
                 if (checkDroppedFile(true, infoOfDragged[0].name)) {
                     ({ path, lastModified, name, size, type } = infoOfDragged[0])
                     if (infoOfDragged[1].path === undefined) { }
                     subpath = infoOfDragged[1].path
                 }
-                //selection 2 is mediafile
+                //selection 2 was mediafile
                 else {
                     ({ path, lastModified, name, size, type } = infoOfDragged[1])
                     subpath = infoOfDragged[0].path
                 }
             } catch (error) {
                 setAlert(true)
-                setAlertType((current) => ({ ...current, variant: "danger", body: "please drop all the requiered files.", heading: "Files are missing" }));
+                setAlertType((current) => ({ ...current, variant: "danger", body: "You have to drop both video and subtitle file", heading: "Files are missing" }));
                 return;
             }
         }
@@ -148,7 +145,6 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
                         let arr = JSON.parse(localStorage.getItem("Collections"))
                         arr.push(properties());
                         localStorage.setItem("Collections", JSON.stringify(arr))
-
                     }
 
                     setProperties(null)
@@ -171,7 +167,7 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
 
     return (
         <div className="up">
-            {errorAlert() ? (
+            {alert() ? (
                 <>
                     <Container fluid >
                         <Alert variant={alertType().variant} dismissible transition onClose={() => setAlert(false)}>
