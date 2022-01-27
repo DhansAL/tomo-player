@@ -38,7 +38,7 @@ app.on("ready", () => {
       responseHeaders: {
         ...details.responseHeaders,
         "Content-Security-Policy": [
-          //FIXME: connect-src needs update
+          //FIXME: connect-src needs update - connect src especially
           "default-src 'unsafe-inline' 'self';script-src 'self' 'unsafe-eval';  img-src file://* https://* filesystem: data: ; media-src file://* ; connect-src * ",
         ],
       },

@@ -1,11 +1,27 @@
+import axios from "axios";
 import { Button, Form } from "solid-bootstrap";
 import { createEffect, createSignal } from "solid-js";
 
 export const Login = () => {
     const [username, setUsername] = createSignal(null)
     const [password, setPassword] = createSignal(null)
+
+
     const handleSubmit = () => {
-        console.log(username(), password());
+        //send username and password to /api/signin
+        // console.log(username(), password());
+
+        axios.post("http://localhost:4000/api/signin", {
+            username: "dokaEnters",
+            password: "111111"
+        }).then((response) => {
+            console.log(response);
+
+        }).catch(function (error) {
+            // handle error
+            console.log(error.response.data);
+        })
+
     }
 
 
@@ -22,10 +38,6 @@ export const Login = () => {
             <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" onchange={(e) => setPassword(e.currentTarget.value)} placeholder="Password" />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Check me out" />
             </Form.Group>
 
             <Button variant="primary" onClick={handleSubmit}>Submit</Button>
