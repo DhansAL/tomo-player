@@ -3,16 +3,17 @@ import { createEffect, createSignal } from "solid-js";
 
 export const Login = () => {
     const [username, setUsername] = createSignal(null)
-    const [assword, setPassword] = createSignal(null)
+    const [password, setPassword] = createSignal(null)
     const handleSubmit = () => {
-        console.log("prevented");
+        console.log(username(), password());
     }
+
 
     return <div>
         <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>username</Form.Label>
-                <Form.Control type="text" placeholder="Enter username" />
+                <Form.Control value={username()} onchange={(e) => setUsername(e.currentTarget.value)} type="text" placeholder="Enter username" />
                 <Form.Text className="text-muted">
                     We'll never share your email with anyone else.
                 </Form.Text>
@@ -20,7 +21,7 @@ export const Login = () => {
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
+                <Form.Control type="password" onchange={(e) => setPassword(e.currentTarget.value)} placeholder="Password" />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicCheckbox">
