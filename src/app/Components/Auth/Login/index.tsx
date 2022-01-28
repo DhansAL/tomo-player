@@ -1,4 +1,4 @@
-import { Button, Form } from "solid-bootstrap";
+import { Alert, Button, Form } from "solid-bootstrap";
 import { createEffect, createSignal } from "solid-js";
 import { authStore } from "../../../store/auth";
 import { loginUser, logoutUser } from "../../../apiEvents/auth/login";
@@ -28,14 +28,15 @@ export const Login = () => {
     <>
       <div class="w-25">
         <h5>Authentication</h5>
-        <p className="text-danger">{resMessage()}</p>
+        {/* fix alert show only when message is there maybe onclose set messsage  = null */}
+        <Alert variant="warning">{resMessage()}</Alert>
         {auth() ? (
           <Button variant="danger" onClick={handlelogout}>
             logout
           </Button>
         ) : (
           <Form>
-            <Form.Group className="mb-2" controlId="formBasicEmail">
+            <Form.Group className="mb-2" >
               <Form.Control
                 htmlSize={1}
                 size="sm"
@@ -46,7 +47,7 @@ export const Login = () => {
               />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Group className="mb-2" >
               <Form.Control
                 size="sm"
                 type="password"

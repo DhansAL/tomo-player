@@ -3,6 +3,7 @@ import { createEffect } from "solid-js";
 import { Library } from "./Containers/Library";
 import { Overview } from "./Containers/Overview";
 import { Player } from "./Containers/Player";
+import { ProPage } from "./Containers/ProPage";
 import { Settings } from "./Containers/Settings";
 import { authStore } from "./store/auth";
 
@@ -25,6 +26,7 @@ export const App = () => {
         <Route path="/library" element={<Library />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/player" element={<Player />} />
+        <Route path="/pro" element={<ProPage />} />
       </Routes>
     </>
   );
