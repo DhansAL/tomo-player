@@ -27,7 +27,6 @@ export const Login = () => {
   return (
     <>
       <div class="w-25">
-        <h5>Authentication</h5>
         {/* fix alert show only when message is there maybe onclose set messsage  = null */}
         <Alert variant="warning">{resMessage()}</Alert>
         {auth() ? (
