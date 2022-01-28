@@ -1,5 +1,6 @@
 import { Col, Container, Row } from "solid-bootstrap";
 import { Online } from "./Online";
+import { Pro } from "./Pro";
 import { Streak } from "./Streak";
 
 export const StatusView = () => {
@@ -12,7 +13,9 @@ export const StatusView = () => {
                 <Col>
                     <Online />
                 </Col>
-                <Col><p class="text-light">hello</p></Col>
+                <Col>
+                    <Pro />
+                </Col>
 
             </Row>
         </Container>
