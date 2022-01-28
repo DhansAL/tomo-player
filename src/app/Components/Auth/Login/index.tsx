@@ -6,9 +6,12 @@ import { loginUser, logoutUser } from "../../../apiEvents/auth/login";
 export const Login = () => {
   const [username, setUsername] = createSignal(null);
   const [password, setPassword] = createSignal(null);
-  const [res, setRes] = createSignal(authStore().authenticate);
+  const [auth, setAuth] = createSignal(authStore().authenticate);
+  const [resMessage, setResMessage] = createSignal(authStore().message);
+
   createEffect(() => {
-    setRes(authStore().authenticate);
+    setAuth(authStore().authenticate);
+    setResMessage(authStore().message);
   });
 
   const handleLogin = () => {
@@ -24,8 +27,9 @@ export const Login = () => {
   return (
     <>
       <div class="w-25">
-        <h4>Authentication</h4>
-        {res() ? (
+        <h5>Authentication</h5>
+        <p className="text-danger">{resMessage()}</p>
+        {auth() ? (
           <Button variant="danger" onClick={handlelogout}>
             logout
           </Button>
@@ -50,10 +54,8 @@ export const Login = () => {
                 onchange={(e) => setPassword(e.currentTarget.value)}
                 placeholder="Password"
               />
-              <Form.Text className="text-muted">
-                choose a unique username
-              </Form.Text>
-              <br />
+
+              <hr />
               <Button variant="success" onClick={handleLogin}>
                 login
               </Button>

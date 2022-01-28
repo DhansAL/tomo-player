@@ -15,11 +15,19 @@ export const loginUser = async (username: string, password: string) => {
         token: token,
         username: user.username,
         authenticate: true,
+        message: `Signin successful. Welcome back ${username}`,
       });
     }
   } catch (error) {
-    authStore.setState({ token: null, username: null, authenticate: false });
-    console.log(authStore.getState());
+    authStore.setState({
+      token: null,
+      username: null,
+      authenticate: false,
+      message:
+        error.response.data?.message ||
+        error.response.data?.msg ||
+        error.response.data?.error,
+    });
   }
 };
 
