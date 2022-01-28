@@ -1,83 +1,66 @@
 import { Button, Form } from "solid-bootstrap";
-import { createSignal } from "solid-js";
-import Axios from "../../../utils/axios";
+import { createEffect, createSignal } from "solid-js";
 import { authStore } from "../../../store/auth";
+import { loginUser, logoutUser } from "../../../apiEvents/auth/login";
 
 export const Login = () => {
-    const [username, setUsername] = createSignal(null)
-    const [password, setPassword] = createSignal(null)
-    const [res, setRes] = createSignal(null)
+  const [username, setUsername] = createSignal(null);
+  const [password, setPassword] = createSignal(null);
+  const [res, setRes] = createSignal(authStore().authenticate);
+  createEffect(() => {
+    setRes(authStore().authenticate);
+  });
 
-    const handleSubmit = async () => {
-        //send username and password to /api/signin
-        try {
-            const res = await Axios.post("/signin", {
-                username: username(),
-                password: password()
-            })
-            if (res.status === 200) {
-                setRes("signup successfull")
-                const { token, user } = res.data;
-                localStorage.setItem("token", token)
-                localStorage.setItem("user", user.username)
+  const handleLogin = () => {
+    loginUser(username(), password());
+    setUsername(null);
+    setPassword(null);
+  };
 
-                authStore.setState({ token: token, username: user.username, authenticate: true, })
-                console.log(authStore.getState());
-            }
-        } catch (error) {
-            authStore.setState({ token: null, username: null, authenticate: false, })
-            console.log(authStore.getState());
-            setRes(error.response.data?.error || error.response.data?.message);
-        }
-    }
-    const handleGetCollections = async () => {
-        try {
-            const res = await Axios.get("/collections/getCollections")
-            console.log(res);
+  const handlelogout = () => {
+    logoutUser();
+  };
 
-        } catch (error) {
-            console.log(error.response);
-            setRes(error.response.data?.error || error.response.data?.message);
-        }
+  return (
+    <>
+      <div class="w-25">
+        <h4>Authentication</h4>
+        {res() ? (
+          <Button variant="danger" onClick={handlelogout}>
+            logout
+          </Button>
+        ) : (
+          <Form>
+            <Form.Group className="mb-2" controlId="formBasicEmail">
+              <Form.Control
+                htmlSize={1}
+                size="sm"
+                value={username()}
+                onchange={(e) => setUsername(e.currentTarget.value)}
+                type="text"
+                placeholder="Enter username"
+              />
+            </Form.Group>
 
-    }
-    const handlelogout = () => {
-        localStorage.removeItem("token")
-        localStorage.removeItem("user")
-        authStore.setState({ token: null, username: null, authenticate: false, })
-
-    }
-
-    return (
-        <>
-            <div>
-                <Form>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>username</Form.Label>
-                        <Form.Control value={username()} onchange={(e) => setUsername(e.currentTarget.value)} type="text" placeholder="Enter username" />
-                        <Form.Text className="text-muted">
-                            set a unique username
-                        </Form.Text>
-                    </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" onchange={(e) => setPassword(e.currentTarget.value)} placeholder="Password" />
-                    </Form.Group>
-
-                    <Button variant="primary" onClick={handleSubmit}>Submit</Button>
-                    <Button variant="danger" onClick={handlelogout}>logout</Button>
-                    <Button variant="secondary" onClick={handleGetCollections}>get collections for this user</Button>
-                    <hr />
-
-                    <hr />
-                    <Form.Text className="text-danger">
-                        {res()}
-                    </Form.Text>
-                </Form>
-
-            </div >
-
-        </>
-    )
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Control
+                size="sm"
+                type="password"
+                value={password()}
+                onchange={(e) => setPassword(e.currentTarget.value)}
+                placeholder="Password"
+              />
+              <Form.Text className="text-muted">
+                choose a unique username
+              </Form.Text>
+              <br />
+              <Button variant="success" onClick={handleLogin}>
+                login
+              </Button>
+            </Form.Group>
+          </Form>
+        )}
+      </div>
+    </>
+  );
 };

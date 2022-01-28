@@ -11,7 +11,6 @@ const Axios = axios.create({
 
 Axios.interceptors.request.use((req) => {
   const auth = authStore.getState();
-  console.log(auth);
   if (auth.token) {
     req.headers.Authorization = `Bearer ${auth.token}`;
   }
