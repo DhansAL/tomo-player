@@ -5,6 +5,7 @@ import { createEffect, createSignal } from "solid-js";
 export const Login = () => {
     const [username, setUsername] = createSignal(null)
     const [password, setPassword] = createSignal(null)
+    const [res, setRes] = createSignal(null)
 
 
     const handleSubmit = () => {
@@ -12,14 +13,17 @@ export const Login = () => {
         // console.log(username(), password());
 
         axios.post("http://localhost:4000/api/signin", {
-            username: "dokaEnters",
-            password: "111111"
+            username: username(),
+            password: password()
         }).then((response) => {
-            console.log(response);
+            setRes("signup successfull!")
+            console.log(response.data);
+
 
         }).catch(function (error) {
             // handle error
-            console.log(error.response.data);
+            console.log(error.response);
+            setRes(error.response.data?.error || error.response.data?.message);
         })
 
     }
@@ -31,7 +35,7 @@ export const Login = () => {
                 <Form.Label>username</Form.Label>
                 <Form.Control value={username()} onchange={(e) => setUsername(e.currentTarget.value)} type="text" placeholder="Enter username" />
                 <Form.Text className="text-muted">
-                    We'll never share your email with anyone else.
+                    set a unique username
                 </Form.Text>
             </Form.Group>
 
@@ -41,6 +45,10 @@ export const Login = () => {
             </Form.Group>
 
             <Button variant="primary" onClick={handleSubmit}>Submit</Button>
+            <hr />
+            <Form.Text className="text-danger">
+                {res()}
+            </Form.Text>
         </Form>
     </div >;
 };
