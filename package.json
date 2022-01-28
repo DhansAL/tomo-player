@@ -104,6 +104,7 @@
     "solid-app-router": "^0.1.14",
     "solid-bootstrap": "^0.2.3",
     "solid-js": "^1.2.6",
+    "solid-zustand": "^1.2.0",
     "tiny-segmenter": "^0.2.0",
     "unofficial-jisho-api": "^2.2.2"
   }

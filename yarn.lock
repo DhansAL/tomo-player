@@ -6549,6 +6549,11 @@
   "resolved" "https://registry.npmjs.org/solid-react-transition/-/solid-react-transition-0.2.0.tgz"
   "version" "0.2.0"
 
+"solid-zustand@^1.2.0":
+  "integrity" "sha512-jvGAQqrAEKgIiayBDFPJ1mVo8Lpfc6p92Q9mz7+QCfBCwjlT536u3YAGaoORknEZWH3k9kXo/V1QBAFIaCTumw=="
+  "resolved" "https://registry.npmjs.org/solid-zustand/-/solid-zustand-1.2.0.tgz"
+  "version" "1.2.0"
+
 "source-map-js@^1.0.1":
   "integrity" "sha512-4+TN2b3tqOCd/kaGRJ/sTYA0tR0mdXx26ipdolxcwtJVqEnqNYvlCAt1q3ypy4QMlYus+Zh34RNtYLoq2oQ4IA=="
   "resolved" "https://registry.npmjs.org/source-map-js/-/source-map-js-1.0.1.tgz"
@@ -7591,3 +7596,8 @@
   "integrity" "sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q=="
   "resolved" "https://registry.npmjs.org/yocto-queue/-/yocto-queue-0.1.0.tgz"
   "version" "0.1.0"
+
+"zustand@^3.6.0":
+  "integrity" "sha512-OvDNu/jEWpRnEC7k8xh8GKjqYog7td6FZrLMuHs/IeI8WhrCwV+FngVuwMIFhp5kysZXr6emaeReMqjLGaldAQ=="
+  "resolved" "https://registry.npmjs.org/zustand/-/zustand-3.6.9.tgz"
+  "version" "3.6.9"
