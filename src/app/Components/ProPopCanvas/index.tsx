@@ -1,15 +1,13 @@
 import { Button, Offcanvas } from "solid-bootstrap";
 import { createEffect, createSignal } from "solid-js";
+import { authStore } from "../../store/auth";
 
 export const ProPopCanvas = () => {
-    const [logged, setLogged] = createSignal(false)
+    const [logged, setLogged] = createSignal(authStore().authenticate)
     createEffect(() => {
-        if (localStorage.getItem("user")) {
-            setLogged(true)
-        } else {
-            setLogged(false)
-        }
-    })
+        setLogged(authStore().authenticate);
+    });
+
     const [show, setShow] = createSignal(false);
     const handleOpen = () => setShow(true);
     const handleClose = () => setShow(false);
@@ -17,7 +15,10 @@ export const ProPopCanvas = () => {
     return (
         <>
             <div >
-                {logged() ? <Button variant="info" href="#pro">{localStorage.getItem('user')}</Button> : <Button variant="warning" onClick={handleOpen}>PRO</Button>}
+
+                {logged() ? <Button variant="info"
+                    // this should be userinfo page not pro
+                    href="#userstats">{localStorage.getItem('user')}</Button> : <Button variant="warning" onClick={handleOpen}>PRO</Button>}
 
                 <Offcanvas className="bg-dark h-50" placement="bottom" show={show()} onHide={handleClose}>
                     <Offcanvas.Header >
