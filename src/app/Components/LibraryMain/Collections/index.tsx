@@ -24,7 +24,7 @@ export const Collections = () => {
 
     return (
         <div>
-            <div style={{ background: "#2e3b4e" }}>
+            <div style={{ background: "#2e3b4e", height: "85vh", overflow: "scroll" }}>
                 <h4 class="text-light  p-2">Collections</h4>
                 <hr class="text-light" />
                 <ListGroup>
@@ -37,7 +37,7 @@ export const Collections = () => {
                         <For each={currentCollection()}>
 
                             {
-                                (col, i) =>
+                                (col) =>
                                     <>
                                         <ListGroup.Item
                                             style={select() == col.path ? {

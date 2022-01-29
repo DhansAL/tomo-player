@@ -1,6 +1,5 @@
-import { Link } from "solid-app-router";
-import { Button, Container } from "solid-bootstrap";
-import { createSignal, onMount, useContext } from "solid-js";
+import { Button } from "solid-bootstrap";
+import { createEffect, createSignal, onCleanup, onMount, useContext } from "solid-js";
 import { FileFolderContext } from "../../Contexts/FileFolderContext";
 import { Subtitles } from "../Subtitles";
 
@@ -11,28 +10,60 @@ import { Subtitles } from "../Subtitles";
 type PlayerProps = {
   // TODO: pull last played from local storage
 }
+
+type CurrentVideo = {
+  video: string;
+  sub: string;
+  playFrom: number;
+}
+
 export const PlayerVideo = (props: PlayerProps) => {
   // context api
   const globalFileProperties = useContext(FileFolderContext);
-  let videoPath = ""
-  videoPath = globalFileProperties.propertiesForAll().path;
 
-  //ref
+  //ref - works like this in solid
   let playerRef: HTMLVideoElement;
   const [time, setTime] = createSignal(0);
   const [duration, setDuration] = createSignal(0);
   const [seektime, setSeektime] = createSignal(0);
+  const [videoPath, setVideoPath] = createSignal(globalFileProperties.propertiesForAll().path);
+  const [subPath, setSubPath] = createSignal(globalFileProperties.propertiesForAll().subfilePath);
+
+  const [currentVideo, setCurrentVideo] = createSignal<CurrentVideo>(null)
+
+  //continue from functionality
+  createEffect(() => {
+    if (localStorage.getItem("currentvideo")) {
+      let continueWatching = JSON.parse(localStorage.getItem("currentvideo"))
+      playerRef.currentTime = (continueWatching.playFrom);
+    }
+  })
+
+  createEffect(() => {
+    setTime(playerRef.currentTime)
+    setCurrentVideo({
+      video: videoPath(),
+      sub: subPath(),
+      playFrom: time()
+    })
+  })
 
   const handleSetDuration = () => {
     setDuration(playerRef?.duration);
   };
   const handleTimeUpdate = () => {
-    setTime(playerRef.currentTime);
+    setTime(playerRef.currentTime)
   };
   const handleSeek = () => {
     setSeektime(playerRef.currentTime)
     playerRef.pause()
   }
+
+
+
+  onCleanup(() => {
+    localStorage.setItem('currentvideo', JSON.stringify(currentVideo()))
+  })
 
   return (
     <>
@@ -51,10 +82,12 @@ export const PlayerVideo = (props: PlayerProps) => {
           controls
           onTimeUpdate={handleTimeUpdate}
           class="h-100 w-100"
-          src={videoPath}
+          src={videoPath()}
         />
 
-        <Subtitles time={time()} duration={duration()} seektime={seektime()} />
+        <Subtitles
+          subfile={subPath()}
+          time={time()} duration={duration()} seektime={seektime()} />
 
       </div>
     </>

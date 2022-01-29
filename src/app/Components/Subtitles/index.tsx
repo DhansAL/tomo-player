@@ -1,11 +1,11 @@
 import { createSignal, onCleanup, onMount, useContext } from "solid-js";
-import { FileFolderContext } from "../../Contexts/FileFolderContext";
 import { subtitleGateaway } from "../../modules/subtitles/subtitleGateaway";
 import { Tokenization } from "./Tokenization";
 type subtitleProps = {
   time: number;
   duration: number;
   seektime: number;
+  subfile: string
 };
 
 /**
@@ -16,8 +16,7 @@ export const Subtitles = (props: subtitleProps) => {
   const [sub, setSub] = createSignal([]);
 
   // context api
-  const globalFileProperties = useContext(FileFolderContext);
-  let subfile = globalFileProperties.propertiesForAll().subfilePath;
+  let subfile = props.subfile;
 
   let subObj: any;
 
