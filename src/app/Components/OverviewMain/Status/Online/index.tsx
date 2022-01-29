@@ -9,13 +9,11 @@ export const Online = () => {
         else setOnline("NOT ONLINE")
     })
 
-    return <div>
-        <Button variant="light">
-            <span class="text-black">Online </span>
-            <Badge bg="info">
-                {online()}
-            </Badge>
-            <span className="visually-hidden">unread messages</span>
-        </Button>
+    return <div class="m-1 p-2">
+        <span class="text-light">Online </span>
+        <Badge bg="info">
+            {online()}
+        </Badge>
+        <span className="visually-hidden">unread messages</span>
     </div>;
 };

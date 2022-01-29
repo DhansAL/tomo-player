@@ -8,7 +8,10 @@ import { Subtitles } from "../Subtitles";
  * The parent player component. gets the path of video from context and 
  * handles ref of video.
  */
-export const PlayerVideo = () => {
+type PlayerProps = {
+  // TODO: pull last played from local storage
+}
+export const PlayerVideo = (props: PlayerProps) => {
   // context api
   const globalFileProperties = useContext(FileFolderContext);
   let videoPath = ""
@@ -47,8 +50,7 @@ export const PlayerVideo = () => {
           ref={playerRef}
           controls
           onTimeUpdate={handleTimeUpdate}
-          class="w-100 h-100"
-          // style={{ height: "10vh", width: "10vw" }}
+          class="h-100 w-100"
           src={videoPath}
         />
 

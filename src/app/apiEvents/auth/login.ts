@@ -2,8 +2,6 @@ import { authStore } from "../../store/auth";
 import Axios from "../../utils/axios";
 
 export const loginUser = async (username: string, password: string) => {
-  //send username and password to /api/signin
-
   try {
     const res = await Axios.post("/signin", { username, password });
     if (res.status === 200) {

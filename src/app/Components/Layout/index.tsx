@@ -1,6 +1,8 @@
 import { Link } from "solid-app-router";
 import { Nav } from "solid-bootstrap";
 import { Header } from "../Header";
+import { Pro } from "../OverviewMain/Status/Pro";
+
 
 export const Layout = () => {
   return (
@@ -29,6 +31,9 @@ export const Layout = () => {
                 <Link href="/settings" class="text-decoration-none text-light">SETTINGS</Link>
               </h5 >
             </Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Pro />
           </Nav.Item>
         </Nav>
       </div>
