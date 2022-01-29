@@ -1,41 +1,45 @@
 import { Link } from "solid-app-router";
-import { Nav } from "solid-bootstrap";
+import { Button, Nav, Navbar } from "solid-bootstrap";
 import { Header } from "../Header";
-import { Pro } from "../OverviewMain/Status/Pro";
+import { ProPopCanvas } from "../ProPopCanvas";
 
 
 export const Layout = () => {
   return (
     <>
-      <Header />
-      <div style={{ background: "#2a3545" }}>
 
-        <Nav >
-          <Nav.Item>
-            <Nav.Link>
-              <h5 >
-                <Link href="/" class="text-decoration-none text-light" >OVERVIEW</Link>
-              </h5 >
-            </Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link>
-              <h5  >
-                <Link href="/library" class="text-decoration-none text-light">LIBRARY</Link>
-              </h5 >
-            </Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link>
-              <h5>
-                <Link href="/settings" class="text-decoration-none text-light">SETTINGS</Link>
-              </h5 >
-            </Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Pro />
-          </Nav.Item>
-        </Nav>
+      <div style={{ background: "#2a3545" }} class="d-flex flex-row justify-content-between align-items-center p-3">
+        <div class="d-flex flex-row justify-content-start">
+          <div class="d-flex flex-row justify-content-between">
+            <Navbar.Brand style={{ color: "white" }} href="#">🍜 Tomoplayer</Navbar.Brand>
+            <Nav >
+              <Nav.Item>
+                <Nav.Link>
+                  <h5 >
+                    <Link href="/" class="text-decoration-none text-light" >OVERVIEW</Link>
+                  </h5 >
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link>
+                  <h5  >
+                    <Link href="/library" class="text-decoration-none text-light">LIBRARY</Link>
+                  </h5 >
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link>
+                  <h5>
+                    <Link href="/settings" class="text-decoration-none text-light">SETTINGS</Link>
+                  </h5 >
+                </Nav.Link>
+              </Nav.Item>
+            </Nav>
+          </div>
+        </div>
+        <div class="d-flex flex-row justify-content-end">
+          <ProPopCanvas />
+        </div>
       </div>
 
     </>

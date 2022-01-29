@@ -13,7 +13,7 @@ export const loginUser = async (username: string, password: string) => {
         token: token,
         username: user.username,
         authenticate: true,
-        message: `Signin successful. Welcome back ${username}`,
+        message: "",
       });
     }
   } catch (error) {

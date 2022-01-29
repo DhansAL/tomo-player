@@ -1,6 +1,7 @@
 import { Route, Routes } from "solid-app-router";
 import { createEffect } from "solid-js";
 import { Library } from "./Containers/Library";
+import { LoginPage } from "./Containers/Login";
 import { Overview } from "./Containers/Overview";
 import { Player } from "./Containers/Player";
 import { ProPage } from "./Containers/ProPage";
@@ -27,6 +28,7 @@ export const App = () => {
         <Route path="/settings" element={<Settings />} />
         <Route path="/player" element={<Player />} />
         <Route path="/pro" element={<ProPage />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </>
   );

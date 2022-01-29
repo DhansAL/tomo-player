@@ -198,15 +198,15 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
                             props.isFile
                                 ?
                                 <>
-                                    <b>name: <p class="text-info">{properties() ? properties().name : ""}</p></b>
-                                    <b>subfile path: <p class="text-info">{properties() ? properties().subfilePath : ""}</p></b>
-                                    <b>path: <p class="text-info">{properties() ? properties().path : ""}</p></b>
-                                    <b>type: <p class="text-info">{properties() ? properties().type : ""}</p></b>
+                                    name: <p class="text-info">{properties() ? properties().name : ""}</p>
+                                    subfile path: <p class="text-info">{properties() ? properties().subfilePath : ""}</p>
+                                    path: <p class="text-info">{properties() ? properties().path : ""}</p>
+                                    type: <p class="text-info">{properties() ? properties().type : ""}</p>
                                 </>
 
                                 : <>
-                                    <div>  <b>name: <p class="text-info">{properties() ? properties().name : ""}</p></b></div>
-                                    <div> <b>path: <p class="text-info">{properties() ? properties().path : ""}</p></b></div>
+                                    <div>  name: <p class="text-info">{properties() ? properties().name : ""}</p></div>
+                                    <div> path: <p class="text-info">{properties() ? properties().path : ""}</p></div>
                                 </>
 
                         }

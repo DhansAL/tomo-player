@@ -7,6 +7,6 @@ export const SignupUser = async (username: string, password: string) => {
       return res.data.message;
     }
   } catch (error) {
-    return error.response.data.message;
+    return error.response.data.message || error.response.data.error;
   }
 };

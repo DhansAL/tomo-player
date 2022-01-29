@@ -2,6 +2,7 @@ import { Navbar } from "solid-bootstrap";
 import { Component } from "solid-js";
 
 export const Header: Component = () => {
+  //deprecated?
   //TODO: make an env file and put production|dev thingy and make a config folder in backend for that
   return (
     <>

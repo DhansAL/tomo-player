@@ -27,13 +27,18 @@ export const Login = () => {
   return (
     <>
       <div class="w-25">
-        {/* fix alert show only when message is there maybe onclose set messsage  = null */}
-        <Alert variant="warning">{resMessage()}</Alert>
+        {/* fix alert show only when message is there maybe onclose set messsage setAlert to blank  = null */}
         {auth() ? (
-          <Button variant="danger" onClick={handlelogout}>
-            logout
-          </Button>
-        ) : (
+          <>
+            <div className="m-3">
+              <p className="text-info">signed in as {localStorage.getItem("user")}</p>
+              <Button variant="danger" onClick={handlelogout}>
+                logout
+              </Button>
+            </div>
+          </>
+        ) : (<>
+          <Alert variant="warning">{resMessage()}</Alert>
           <Form>
             <Form.Group className="mb-2" >
               <Form.Control
@@ -61,6 +66,8 @@ export const Login = () => {
               </Button>
             </Form.Group>
           </Form>
+        </>
+
         )}
       </div>
     </>

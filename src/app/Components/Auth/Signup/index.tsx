@@ -37,7 +37,6 @@ export const Signup = () => {
           placeholder="password"
         />
         <br />
-
         <Button onClick={handleSignup} variant="success" type="submit">
           Signup
         </Button>
