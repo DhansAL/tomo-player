@@ -1,8 +1,19 @@
 import { Badge } from "solid-bootstrap";
-import { useContext } from "solid-js";
+import { createSignal, onMount, useContext } from "solid-js";
 import { FileFolderContext } from "../../../../Contexts/FileFolderContext";
 
 export const ContinuePlay = () => {
+    const [currentPlayInLs, setCurrentPlayInLs] = createSignal(null)
+    const [videoName, setVideoName] = createSignal("")
+
+    onMount(() => {
+        if (localStorage.getItem("currentvideo") != null) {
+            setCurrentPlayInLs(true)
+            let name = JSON.parse(localStorage.getItem("currentvideo"))
+            setVideoName(name.video)
+
+        }
+    })
 
     const globalFileProperties = useContext(FileFolderContext);
     const handleContinueWatching = () => {
@@ -17,8 +28,21 @@ export const ContinuePlay = () => {
 
     return <>
         <div class="m-3" >
-            <h5 class="text-light">Continue watching</h5>
-            <Badge onclick={handleContinueWatching} style={{ cursor: "pointer" }} bg="info"><a class="text-decoration-none text-light" href="#player">kanojo okarishimasu ▶</a></Badge>
+            {
+                currentPlayInLs() ? (
+                    <>
+                        <h5 class="text-light">Continue watching</h5>
+                        <Badge onclick={handleContinueWatching} style={{ cursor: "pointer" }} bg="info"><a class="text-decoration-none text-light" href="#player">play {videoName()} ▶</a></Badge></>
+                )
+                    : (
+                        <>
+                            <h5 class="text-light">Continue watching ▶</h5>
+                            <p class="text-decoration-none text-muted">play something first</p>
+                        </>
+                    )
+            }
+
+
 
         </div>
     </>
