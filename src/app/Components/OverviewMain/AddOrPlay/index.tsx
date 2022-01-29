@@ -19,9 +19,9 @@ export const AddOrPlay = () => {
                     <div className="d-flex flex-column ">
                         <h4 className="text-light">DROP AND PLAY VIDEO</h4>
                         <span className="text-muted">Drop the video and subfile of show to play</span>
-                        <span className="text-info">subfile and video file should match</span>
+                        <span className="text-warning">subfile and video file should match</span>
                     </div>
-                    <DragDropModal isFile={false} />
+                    <DragDropModal isFile={true} />
                 </div>
             </div>
         </Container>

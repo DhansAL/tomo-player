@@ -1,4 +1,4 @@
-import { Alert, Container } from "solid-bootstrap";
+import { Alert, Button, Container } from "solid-bootstrap";
 import { Component, createSignal, onMount, useContext } from "solid-js";
 import { checkDroppedFile } from "../../../../modules/droppedCheck/checkDroppedFile";
 import { FileFolderContext } from "../../../../Contexts/FileFolderContext";
@@ -191,31 +191,38 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
                 onDragOver={handleDragOver}
                 onDrop={handleDrop}
             >
-                {props.isFile ? <h1>drop the show to play</h1> : <h1>Drop Folder of your shows</h1>}
-                <div >
-                    <div>
-                        name :
-                        {properties() !== null
-                            ? properties().name
-                            : "name of file or folder"}
+                {props.isFile ? <h1>Drop to play</h1> : <h1>Drop Folder which contains shows and subfiles</h1>}
+                <div>
+                    <div class="d-flex flex-column m-3 p-2">
+                        {
+                            props.isFile
+                                ?
+                                <>
+                                    <b>name: <p class="text-info">{properties() ? properties().name : ""}</p></b>
+                                    <b>subfile path: <p class="text-info">{properties() ? properties().subfilePath : ""}</p></b>
+                                    <b>path: <p class="text-info">{properties() ? properties().path : ""}</p></b>
+                                    <b>type: <p class="text-info">{properties() ? properties().type : ""}</p></b>
+                                </>
+
+                                : <>
+                                    <div>  <b>name: <p class="text-info">{properties() ? properties().name : ""}</p></b></div>
+                                    <div> <b>path: <p class="text-info">{properties() ? properties().path : ""}</p></b></div>
+                                </>
+
+                        }
                     </div>
-                    <div>
-                        path:
-                        {properties() !== null
-                            ? properties().path
-                            : "path of file or folder"}
-                    </div>
-                    <div>
-                        type:
-                        {properties() !== null ? properties().type : "type"}
-                    </div>
-                    <div>
-                        subfile path:
-                        {props.isFile && properties() !== null ? properties()?.subfilePath : "path to subfile"}
-                    </div>
-                    <div>
-                        <button onclick={handleSetGlobalProperties}>set this file to play</button>
-                    </div>
+                    {props.isFile ? (
+                        <>
+                            {/* FIXME: set a flag in onclick to move to player after getting properties */}
+                            <Button variant="success" onclick={handleSetGlobalProperties}>Set</Button>
+                            <Button href="#player" variant="secondary">play now</Button>
+
+                        </>
+
+                    ) : (
+                        <Button variant="success" onclick={handleSetGlobalProperties}>{props.isFile ? "Play Now" : "Add To Collection"}</Button>
+                    )
+                    }
                 </div>
             </div>
         </div >

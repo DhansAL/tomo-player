@@ -21,7 +21,9 @@ export const DragDropModal = (props: DragDropProps) => {
 
     return (
         <div >
-            <Button variant="success" onClick={handleOpen}>add collection or play video</Button>
+            <Button variant="success" onClick={handleOpen}>
+                {props.isFile ? "Drop to play" : "Add collection"}
+            </Button>
 
             <Modal
                 show={show()}
@@ -35,7 +37,7 @@ export const DragDropModal = (props: DragDropProps) => {
                     <DragDrop isFile={props.isFile} />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={handleClose}>Close</Button>
+                    <Button variant="secondary" onClick={handleClose}>Close</Button>
                 </Modal.Footer>
             </Modal>
         </div>
