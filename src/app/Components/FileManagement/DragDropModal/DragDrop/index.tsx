@@ -3,6 +3,7 @@ import { Component, createSignal, onMount, useContext } from "solid-js";
 import { checkDroppedFile } from "../../../../modules/droppedCheck/checkDroppedFile";
 import { FileFolderContext } from "../../../../Contexts/FileFolderContext";
 import { FileFolderServed } from "../../../../interfaces/FileManagement/FileFolderServed";
+import { fileFolderStore } from "../../../../store/FileFolder";
 
 type DragDropProps = {
     isFile: boolean;
@@ -137,7 +138,9 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
                 return
             } else {
                 if (!props.isFile) {
-                    globalFileProperties.setPropertiesForAll(properties())
+                    globalFileProperties.setPropertiesForAll(properties()) //deprecated
+                    fileFolderStore.setState(properties());
+                    console.log(fileFolderStore.getState(), "in store");
                     console.log(globalFileProperties.propertiesForAll(), "values in context, sent folder");
 
                     //push in localstorage collection
@@ -150,6 +153,9 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
                     setProperties(null)
                 } else {
                     globalFileProperties.setPropertiesForAll(properties())
+                    fileFolderStore.setState(properties());
+                    console.log(fileFolderStore.getState(), "in store");
+
                     console.log(globalFileProperties.propertiesForAll(), "values in context,sent file to play");
                     setProperties(null)
 

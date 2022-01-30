@@ -3,6 +3,7 @@ import { createEffect, createSignal, onCleanup, onMount, useContext } from "soli
 import { updateStreak } from "../../modules/streak/streak";
 import { FileFolderContext } from "../../Contexts/FileFolderContext";
 import { Subtitles } from "../Subtitles";
+import { fileFolderStore } from "../../store/FileFolder";
 
 /**
  * The parent player component. gets the path of video from context and 
@@ -19,16 +20,14 @@ type CurrentVideo = {
 }
 
 export const PlayerVideo = (props: PlayerProps) => {
-  // context api
-  const globalFileProperties = useContext(FileFolderContext);
-
   //ref - works like this in solid
+
   let playerRef: HTMLVideoElement;
   const [time, setTime] = createSignal(0);
   const [duration, setDuration] = createSignal(0);
   const [seektime, setSeektime] = createSignal(0);
-  const [videoPath, setVideoPath] = createSignal(globalFileProperties.propertiesForAll().path);
-  const [subPath, setSubPath] = createSignal(globalFileProperties.propertiesForAll().subfilePath);
+  const [videoPath, setVideoPath] = createSignal(fileFolderStore.getState().path);
+  const [subPath, setSubPath] = createSignal(fileFolderStore.getState().subfilePath);
 
   const [currentVideo, setCurrentVideo] = createSignal<CurrentVideo>(null)
 
@@ -59,8 +58,6 @@ export const PlayerVideo = (props: PlayerProps) => {
     setSeektime(playerRef.currentTime)
     playerRef.pause()
   }
-
-
 
   onCleanup(() => {
     localStorage.setItem('currentvideo', JSON.stringify(currentVideo()))
