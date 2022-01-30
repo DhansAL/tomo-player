@@ -1,7 +1,6 @@
 import { Alert, Button, Container } from "solid-bootstrap";
 import { Component, createSignal, onMount, useContext } from "solid-js";
 import { checkDroppedFile } from "../../../../modules/droppedCheck/checkDroppedFile";
-import { FileFolderContext } from "../../../../Contexts/FileFolderContext";
 import { FileFolderServed } from "../../../../interfaces/FileManagement/FileFolderServed";
 import { fileFolderStore } from "../../../../store/FileFolder";
 
@@ -12,7 +11,7 @@ type DragDropProps = {
  * Reusable component to get the info of dropped folder or file  .
  * checks whether dropped item is folder or file and behaves accordingly
  *
- * sets PropertiesForAll(contextApi) of file or folder served to component(s)
+ * sets global file properties that is served to component(s)
  */
 
 export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
@@ -127,9 +126,6 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
 
     };
 
-    // context api
-    const globalFileProperties = useContext(FileFolderContext);
-
     const handleSetGlobalProperties = () => {
         try {
             if (properties() === null) {
@@ -138,10 +134,8 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
                 return
             } else {
                 if (!props.isFile) {
-                    globalFileProperties.setPropertiesForAll(properties()) //deprecated
                     fileFolderStore.setState(properties());
-                    console.log(fileFolderStore.getState(), "in store");
-                    console.log(globalFileProperties.propertiesForAll(), "values in context, sent folder");
+                    console.log(fileFolderStore.getState(), "in store for collections");
 
                     //push in localstorage collection
                     if (localStorage.getItem("Collections")) {
@@ -152,11 +146,8 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
 
                     setProperties(null)
                 } else {
-                    globalFileProperties.setPropertiesForAll(properties())
                     fileFolderStore.setState(properties());
-                    console.log(fileFolderStore.getState(), "in store");
-
-                    console.log(globalFileProperties.propertiesForAll(), "values in context,sent file to play");
+                    console.log(fileFolderStore.getState(), "in store for files");
                     setProperties(null)
 
                 }

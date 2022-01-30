@@ -1,13 +1,13 @@
 import { createEffect, createSignal, For, useContext } from "solid-js";
-import { LibraryContext } from "../../../Contexts/LibraryContext";
 import { ListGroup } from "solid-bootstrap";
 import { FileFolderServed } from "../../../interfaces/FileManagement/FileFolderServed";
 import { Button } from "solid-bootstrap";
-import { FileFolderContext } from "../../../Contexts/FileFolderContext";
-import { Link, NavLink } from "solid-app-router";
+import { Link } from "solid-app-router";
+import { fileFolderStore } from "../../../store/FileFolder";
+import { LibraryStore } from "../../../store/LibraryCollection";
 
 export const MediaSubsList = () => {
-  const collectionPath = useContext(LibraryContext);
+  const collectionPath = LibraryStore.getState().collectionPath;
   const [currentCollection, setCurrentCollection] = createSignal();
 
   const [filesInCollection, setFilesInCollection] = createSignal<string[]>();
@@ -73,7 +73,6 @@ export const MediaSubsList = () => {
 
   };
 
-  const globalFileProperties = useContext(FileFolderContext);
 
   const setToPlayer = () => {
     try {
@@ -85,8 +84,9 @@ export const MediaSubsList = () => {
           path: `${currentCollection()}\\${currentVideo()}`,
           subfilePath: `${currentCollection()}\\${currentSub()}`,
         });
-        globalFileProperties.setPropertiesForAll(toplay());
-        console.log(globalFileProperties.propertiesForAll(), "in context");
+        fileFolderStore.setState(toplay())
+        console.log(fileFolderStore.getState(), "in store, set to play");
+
       }
     } catch (error) {
       console.log(error);

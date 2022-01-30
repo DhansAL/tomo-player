@@ -1,5 +1,4 @@
 import { Col, Row } from "solid-bootstrap";
-import { LibraryContextProvider } from "../../Contexts/LibraryContext";
 import { Collections } from "./Collections";
 import { MediaSubsList } from "./MediaSubsList";
 
@@ -10,19 +9,17 @@ export const LibraryMain = () => {
         >
             {/* can have a context here to transfer data of selected files here */}
             <div class="m-5">
-                <LibraryContextProvider>
-                    <Row>
-                        <Col xs={7} >
-                            <Collections />
-                        </Col>
-                        <Col xs={5} >
-                            <MediaSubsList />
-                        </Col>
-                        {/* <Col xs={3} >
+                <Row>
+                    <Col xs={7} >
+                        <Collections />
+                    </Col>
+                    <Col xs={5} >
+                        <MediaSubsList />
+                    </Col>
+                    {/* <Col xs={3} >
                             <ShowDetails />
                         </Col> */}
-                    </Row>
-                </LibraryContextProvider>
+                </Row>
 
             </div>
 

@@ -1,7 +1,6 @@
 import { Button } from "solid-bootstrap";
-import { createEffect, createSignal, onCleanup, onMount, useContext } from "solid-js";
+import { createEffect, createSignal, onCleanup } from "solid-js";
 import { updateStreak } from "../../modules/streak/streak";
-import { FileFolderContext } from "../../Contexts/FileFolderContext";
 import { Subtitles } from "../Subtitles";
 import { fileFolderStore } from "../../store/FileFolder";
 
@@ -58,6 +57,7 @@ export const PlayerVideo = (props: PlayerProps) => {
     setSeektime(playerRef.currentTime)
     playerRef.pause()
   }
+
 
   onCleanup(() => {
     localStorage.setItem('currentvideo', JSON.stringify(currentVideo()))

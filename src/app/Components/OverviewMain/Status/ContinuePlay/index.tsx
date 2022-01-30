@@ -1,6 +1,6 @@
 import { Badge } from "solid-bootstrap";
 import { createSignal, onMount, useContext } from "solid-js";
-import { FileFolderContext } from "../../../../Contexts/FileFolderContext";
+import { fileFolderStore } from "../../../../store/FileFolder";
 
 export const ContinuePlay = () => {
     const [currentPlayInLs, setCurrentPlayInLs] = createSignal(null)
@@ -15,15 +15,16 @@ export const ContinuePlay = () => {
         }
     })
 
-    const globalFileProperties = useContext(FileFolderContext);
     const handleContinueWatching = () => {
         let continueWatching = JSON.parse(localStorage.getItem("currentvideo"))
-        globalFileProperties.setPropertiesForAll({
+        fileFolderStore.setState({
             name: "",
             subfilePath: continueWatching.sub,
-            path: continueWatching.video, lastModified: 0, size: 0
+            path: continueWatching.video,
+            lastModified: 0,
+            size: 0
         })
-        console.log(globalFileProperties.propertiesForAll(), "values in context,continue watching");
+        console.log(fileFolderStore.getState(), "values in store for continue watching");
     }
 
     return <>

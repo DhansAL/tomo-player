@@ -5,7 +5,9 @@ import {
     Setter,
     Accessor,
 } from "solid-js";
-
+/**
+ * @deprecated replaced by zustand
+ */
 
 type LibraryContextType = {
     //for now

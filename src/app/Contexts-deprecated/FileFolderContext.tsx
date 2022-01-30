@@ -1,3 +1,11 @@
+/**
+ * @deprecated - this has been replaced by zustand store due to following reasons.
+ * 
+ * no need for external wrappers and easy to maintain and scalable
+ */
+
+
+
 import {
   createSignal,
   createContext,

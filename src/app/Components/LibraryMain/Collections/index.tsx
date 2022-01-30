@@ -1,11 +1,11 @@
 import { ListGroup } from "solid-bootstrap";
 import { createSignal, For, onMount, useContext } from "solid-js";
-import { LibraryContext } from "../../../Contexts/LibraryContext";
+import { LibraryStore } from "../../../store/LibraryCollection";
 import { FileFolderServed } from "../../../interfaces/FileManagement/FileFolderServed";
 
 export const Collections = () => {
 
-    const collectionPath = useContext(LibraryContext);
+    const collectionPath = LibraryStore.getState().collectionPath;
 
     const [currentCollection, setCurrentCollection] = createSignal<FileFolderServed[]>(null)
     onMount(() => {
