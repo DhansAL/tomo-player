@@ -28,6 +28,8 @@ export const destroyStreak = () => {
  *
  * update streak if and only current date matches ls.get(validDate)
  */
+
+//FIXME: REQUIRES TESTING
 export const updateStreak = () => {
   //get current date in yyyymmdd
   const currDate = dayjs().format("DD-MM-YYYY");
