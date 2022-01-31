@@ -6,7 +6,7 @@ import { Overview } from "./Containers/Overview";
 import { Player } from "./Containers/Player";
 import { ProPage } from "./Containers/ProPage";
 import { Settings } from "./Containers/Settings";
-import { UserStatsOnline } from "./Containers/UserOnlineStats";
+import { UserMain } from "./Containers/UserMain";
 import { authStore } from "./store/auth";
 
 
@@ -30,7 +30,7 @@ export const App = () => {
         <Route path="/player" element={<Player />} />
         <Route path="/pro" element={<ProPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/userstats" element={<UserStatsOnline />} />
+        <Route path="/userstats" element={<UserMain />} />
       </Routes>
     </>
   );
