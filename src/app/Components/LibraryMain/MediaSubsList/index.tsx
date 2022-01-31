@@ -1,14 +1,15 @@
 import { createEffect, createSignal, For, useContext } from "solid-js";
+import { LibraryContext } from "../../../Contexts-deprecated/LibraryContext";
 import { ListGroup } from "solid-bootstrap";
 import { FileFolderServed } from "../../../interfaces/FileManagement/FileFolderServed";
 import { Button } from "solid-bootstrap";
 import { Link } from "solid-app-router";
 import { fileFolderStore } from "../../../store/FileFolder";
-import { LibraryStore } from "../../../store/LibraryCollection";
+
 
 export const MediaSubsList = () => {
+  const collectionPath = useContext(LibraryContext);
   const [currentCollection, setCurrentCollection] = createSignal();
-  const [cp, scp] = createSignal(LibraryStore.getState().collectionPath);
 
   const [filesInCollection, setFilesInCollection] = createSignal<string[]>();
   const [videoFiles, setVideoFiles] = createSignal<string[]>(null);
@@ -26,16 +27,17 @@ export const MediaSubsList = () => {
   });
 
   createEffect(() => {
-    cp();
     handleMediaSubs();
   });
 
   const handleMediaSubs = async () => {
-    if (LibraryStore.getState().collectionPath != null) {
-      setCurrentCollection(LibraryStore.getState().collectionPath);
+    if (collectionPath.pathOfCollection() !== null) {
+      setCurrentCollection(collectionPath.pathOfCollection());
 
       //@ts-expect-error
-      let files = await window.api.filesInCollection(LibraryStore.getState().collectionPath);
+      let files = await window.api.filesInCollection(
+        collectionPath.pathOfCollection()
+      );
       setFilesInCollection(files);
 
       // filterFiles
@@ -84,8 +86,7 @@ export const MediaSubsList = () => {
           subfilePath: `${currentCollection()}\\${currentSub()}`,
         });
         fileFolderStore.setState(toplay())
-        console.log(fileFolderStore.getState(), "in store, set to play");
-
+        console.log(fileFolderStore.getState(), "in file store , to play");
       }
     } catch (error) {
       console.log(error);

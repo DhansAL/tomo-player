@@ -5,9 +5,7 @@ import {
     Setter,
     Accessor,
 } from "solid-js";
-/**
- * @deprecated replaced by zustand
- */
+
 
 type LibraryContextType = {
     //for now
@@ -19,6 +17,14 @@ type LibraryContextProviderProps = {
     children: JSXElement
 }
 
+/**
+ * @description  context sharing active collection
+ *  file path between sibling components of libraryMain component.
+ * 
+ * TODO: replace this with zustand.
+ * tried applying zustand but component didnt rerendered after changing store.state
+ * 
+ */
 export const LibraryContext = createContext<LibraryContextType>(null);
 
 export const LibraryContextProvider = (props: LibraryContextProviderProps) => {
