@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 const customParseFormat = require("dayjs/plugin/customParseFormat");
-dayjs.extend(customParseFormat);
+// dayjs.extend(customParseFormat);
 
 /**
  *  streak maintainer function.
@@ -33,9 +33,17 @@ export const destroyStreak = () => {
 export const updateStreak = () => {
   //get current date in yyyymmdd
   const currDate = dayjs().format("MM/DD/YYYY");
-  // const currDate = dayjs().add(11, "day").format("MM/DD/YYYY");
+  // const currDate = dayjs().add(1, "day").format("MM/DD/YYYY");
 
-  console.log(currDate);
+  console.log(
+    "the current date in dd mm yyyy format is ",
+    "31/01/2022",
+    "the date for tommorrow is",
+    {
+      bug: dayjs("31/01/2022").add(1, "day"),
+      working: dayjs("01/31/2022").add(1, "day"),
+    }
+  );
 
   try {
     if (currDate == localStorage.getItem("currentdate")) {
@@ -54,12 +62,13 @@ export const updateStreak = () => {
       localStorage.setItem("streak", JSON.stringify(currStreak));
 
       localStorage.setItem("currentdate", currDate);
-      console.log(
-        "the current date is ",
-        currDate,
-        "the date to be updated for valid ",
-        dayjs(currDate).add(1, "day").format("MM/DD/YYYY") //FIXME: fix thiz
-      );
+      // console.log(
+      //   "the current date is ",
+      //   "01/02/2022",
+      //   "the date for tommorrow is",
+      //   dayjs("02/02/2022").add(1, "day")
+      //   // dayjs(currDate).add(1, "day").format("MM/DD/YYYY") //FIXME: fix thiz
+      // );
       /**
          dayjs("02/01/2022").add(1, "day").format("DD/MM/YYYY") 
          //FIXME: fix this it gives 2jan22 if used currentdate instead hardcoded
