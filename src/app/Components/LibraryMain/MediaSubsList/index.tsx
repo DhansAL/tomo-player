@@ -1,5 +1,5 @@
 import { createEffect, createSignal, For, useContext } from "solid-js";
-import { LibraryContext } from "../../../Contexts-deprecated/LibraryContext";
+import { LibraryContext } from "../../../Contexts/LibraryContext";
 import { ListGroup } from "solid-bootstrap";
 import { FileFolderServed } from "../../../interfaces/FileManagement/FileFolderServed";
 import { Button } from "solid-bootstrap";

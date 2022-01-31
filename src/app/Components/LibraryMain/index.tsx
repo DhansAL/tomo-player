@@ -1,5 +1,5 @@
 import { Col, Row } from "solid-bootstrap";
-import { LibraryContextProvider } from "../../Contexts-deprecated/LibraryContext";
+import { LibraryContextProvider } from "../../Contexts/LibraryContext";
 import { Collections } from "./Collections";
 import { MediaSubsList } from "./MediaSubsList";
 

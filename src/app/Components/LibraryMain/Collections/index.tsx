@@ -1,6 +1,6 @@
 import { ListGroup } from "solid-bootstrap";
 import { createSignal, For, onMount, useContext } from "solid-js";
-import { LibraryContext } from "../../../Contexts-deprecated/LibraryContext";
+import { LibraryContext } from "../../../Contexts/LibraryContext";
 import { FileFolderServed } from "../../../interfaces/FileManagement/FileFolderServed";
 
 export const Collections = () => {
