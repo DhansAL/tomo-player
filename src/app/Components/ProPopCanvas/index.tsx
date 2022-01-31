@@ -20,18 +20,23 @@ export const ProPopCanvas = () => {
                     // this should be userinfo page not pro
                     href="#userstats">{localStorage.getItem('user')}</Button> : <Button variant="warning" onClick={handleOpen}>PRO</Button>}
 
-                <Offcanvas className="bg-dark h-50" placement="bottom" show={show()} onHide={handleClose}>
+                <Offcanvas className="bg-dark h-50 m-1 p-4" placement="bottom" show={show()} onHide={handleClose}>
                     <Offcanvas.Header >
-                        <Offcanvas.Title> <h4 class="text-light"> UNLOCK NEW FEATURES</h4></Offcanvas.Title>
+                        <Offcanvas.Title> <h4 class="text-light"> UNLOCK PRO FEATURES </h4></Offcanvas.Title>
                     </Offcanvas.Header>
-                    <Offcanvas.Body >
-                        <p class="text-light">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias mollitia ea ad ducimus illum officiis cumque? Maxime, in soluta harum recusandae, atque eaque repellat repudiandae voluptates ipsam deleniti laudantium commodi?</p>
+                    <Offcanvas.Body class="m-2 p-2" >
+                        <div className="d-flex flex-column justify-content-around">
+                            <h4 class="text-light ">
+                                Sign up and gain access to use collection sync and much more!
+                            </h4>
+                            <h6 class="text-light">Sign up for <span class="text-success">free!</span></h6>
 
-                        <p class="text-light">track your progress and have fun with "BOT"</p>
-                        <Button class=" w-100" variant="success">
-                            <a class="text-decoration-none text-light" href="#pro">Have a look!</a>
-                        </Button>
-                        <p className="text-muted">have an account? <a class="text-info text-decoration-none" href="#login"> login</a></p>
+                            <Button href="#pro" variant="success">
+                                Know more
+                            </Button>
+                            <p className="m-2 text-muted ">Already registered?<a class="text-info text-decoration-none" href="#login"> login</a></p>
+                        </div>
+
                     </Offcanvas.Body>
                 </Offcanvas>
             </div>

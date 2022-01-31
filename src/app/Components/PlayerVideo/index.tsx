@@ -61,7 +61,9 @@ export const PlayerVideo = (props: PlayerProps) => {
 
   onCleanup(() => {
     localStorage.setItem('currentvideo', JSON.stringify(currentVideo()))
-    updateStreak()
+    if (localStorage.getItem("usingStreaks")) {
+      updateStreak()
+    }
   })
 
   return (
