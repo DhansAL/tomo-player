@@ -5,7 +5,6 @@ import { FileFolderServed } from "../../../interfaces/FileManagement/FileFolderS
 
 export const Collections = () => {
 
-    const collectionPath = LibraryStore.getState().collectionPath;
 
     const [currentCollection, setCurrentCollection] = createSignal<FileFolderServed[]>(null)
     onMount(() => {
@@ -18,7 +17,8 @@ export const Collections = () => {
     const [select, setselect] = createSignal("")
 
     const handleSendList = (path: string) => {
-        collectionPath.setPathOfCollection(path);
+        LibraryStore.setState({ collectionPath: path });
+        // console.log(LibraryStore.getState().collectionPath);
         setselect(path)
     }
 

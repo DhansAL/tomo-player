@@ -7,8 +7,8 @@ import { fileFolderStore } from "../../../store/FileFolder";
 import { LibraryStore } from "../../../store/LibraryCollection";
 
 export const MediaSubsList = () => {
-  const collectionPath = LibraryStore.getState().collectionPath;
   const [currentCollection, setCurrentCollection] = createSignal();
+  const [cp, scp] = createSignal(LibraryStore.getState().collectionPath);
 
   const [filesInCollection, setFilesInCollection] = createSignal<string[]>();
   const [videoFiles, setVideoFiles] = createSignal<string[]>(null);
@@ -26,17 +26,16 @@ export const MediaSubsList = () => {
   });
 
   createEffect(() => {
+    cp();
     handleMediaSubs();
   });
 
   const handleMediaSubs = async () => {
-    if (collectionPath.pathOfCollection() !== null) {
-      setCurrentCollection(collectionPath.pathOfCollection());
+    if (LibraryStore.getState().collectionPath != null) {
+      setCurrentCollection(LibraryStore.getState().collectionPath);
 
       //@ts-expect-error
-      let files = await window.api.filesInCollection(
-        collectionPath.pathOfCollection()
-      );
+      let files = await window.api.filesInCollection(LibraryStore.getState().collectionPath);
       setFilesInCollection(files);
 
       // filterFiles

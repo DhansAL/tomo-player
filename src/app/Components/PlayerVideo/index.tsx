@@ -48,7 +48,7 @@ export const PlayerVideo = (props: PlayerProps) => {
   })
 
   const handleSetDuration = () => {
-    setDuration(playerRef?.duration);
+    setDuration(playerRef.duration);
   };
   const handleTimeUpdate = () => {
     setTime(playerRef.currentTime)
