@@ -8,7 +8,6 @@ export const getCollections = async () => {
     const res = await Axios.get("/collections/getcollection");
     return res.data.yourShows;
   } catch (error) {
-    return error.response;
-    console.log(error.response);
+    return error.response.data;
   }
 };
