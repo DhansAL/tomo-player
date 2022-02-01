@@ -13,6 +13,14 @@ if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
+const isDev = require("electron-is-dev");
+
+if (isDev) {
+  console.log("Running in development");
+} else {
+  console.log("Running in production");
+}
+
 const createWindow = (): void => {
   // Create the browser window.
   let mainWindow = new BrowserWindow({
@@ -30,6 +38,10 @@ const createWindow = (): void => {
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
 };
+//auto update
+require("update-electron-app")({
+  updateInterval: "1 hour",
+});
 
 //CSP REGISTERIES
 app.on("ready", () => {
