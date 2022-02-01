@@ -80,7 +80,7 @@ export const Login = () => {
                 placeholder="Password"
               />
 
-              <hr />
+              <br />
               <Button variant="success" onClick={handleLogin}>
                 login
               </Button>
