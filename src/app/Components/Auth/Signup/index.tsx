@@ -1,12 +1,18 @@
 import { Alert, Button, Form } from "solid-bootstrap";
-import { createSignal } from "solid-js";
+import { createEffect, createSignal } from "solid-js";
 import { SignupUser } from "../../../apiEvents/auth/signup";
 
 export const Signup = () => {
+  const [alert, setAlert] = createSignal(false);
   const [username, setUsername] = createSignal(null);
   const [password, setPassword] = createSignal(null);
   const [resMessage, setResMessage] = createSignal(null);
 
+  createEffect(() => {
+    if (resMessage() != null) {
+      setAlert(true);
+    }
+  });
   const handleSignup = async () => {
     const res = await SignupUser(username(), password());
     setResMessage(res);
@@ -18,7 +24,16 @@ export const Signup = () => {
       <Form>
         <Form.Group className="mb-2">
           <Form.Label>enter username</Form.Label>
-          <Alert variant="warning">{resMessage()}</Alert>
+          {alert() ? (
+            <Alert
+              variant="warning"
+              dismissible
+              transition
+              onClose={() => setAlert(false)}
+            >
+              <p>{resMessage()}</p>
+            </Alert>
+          ) : null}
           <Form.Control
             type="text"
             value={username()}
@@ -36,6 +51,10 @@ export const Signup = () => {
           onchange={(e) => setPassword(e.currentTarget.value)}
           placeholder="password"
         />
+        <span class="text-info" className="text-muted">
+          password should be atleast 6 character long
+        </span>
+        <br />
         <br />
         <Button onClick={handleSignup} variant="success" type="submit">
           Signup

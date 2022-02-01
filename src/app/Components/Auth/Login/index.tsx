@@ -9,6 +9,17 @@ export const Login = () => {
   const [auth, setAuth] = createSignal(authStore().authenticate);
   const [resMessage, setResMessage] = createSignal(authStore().message);
 
+  //set a common alert component
+  const [alert, setAlert] = createSignal(false);
+
+  createEffect(() => {
+    if (resMessage() != "") {
+      setAlert(true);
+      console.log(resMessage());
+
+    }
+  });
+
   createEffect(() => {
     setAuth(authStore().authenticate);
     setResMessage(authStore().message);
@@ -38,7 +49,16 @@ export const Login = () => {
             </div>
           </>
         ) : (<>
-          <Alert variant="warning">{resMessage()}</Alert>
+          {alert() ? (
+            <Alert
+              variant="warning"
+              dismissible
+              transition
+              onClose={() => setAlert(false)}
+            >
+              <p>{resMessage()}</p>
+            </Alert>
+          ) : null}
           <Form>
             <Form.Group className="mb-2" >
               <Form.Control
