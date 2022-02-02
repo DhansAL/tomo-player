@@ -2,6 +2,7 @@ import { authStore } from "../../store/auth";
 import Axios from "../../utils/axios";
 
 export const loginUser = async (username: string, password: string) => {
+  //FIXME: .message do updates but dont cause component rerendering
   try {
     const res = await Axios.post("/signin", { username, password });
     if (res.status === 200) {

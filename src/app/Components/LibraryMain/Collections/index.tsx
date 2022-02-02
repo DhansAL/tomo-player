@@ -1,5 +1,5 @@
-import { ListGroup } from "solid-bootstrap";
-import { createSignal, For, onMount, useContext } from "solid-js";
+import { Badge, ListGroup } from "solid-bootstrap";
+import { createEffect, createSignal, For, onMount, useContext } from "solid-js";
 import { LibraryContext } from "../../../Contexts/LibraryContext";
 import { FileFolderServed } from "../../../interfaces/FileManagement/FileFolderServed";
 
@@ -22,6 +22,21 @@ export const Collections = () => {
         setselect(path)
     }
 
+    const handleDeleteShow = (idx: number) => {
+        if (localStorage.getItem("Collections")) {
+            let tempArr = JSON.parse(localStorage.getItem("Collections"))
+
+            if (tempArr.length == 1) {
+                localStorage.removeItem("Collections")
+                setCurrentCollection(null)
+                return
+            }
+            tempArr.splice(idx, 1)
+            localStorage.setItem("Collections", JSON.stringify(tempArr))
+            setCurrentCollection(tempArr)
+        }
+    }
+
     return (
         <div>
             <div style={{ background: "#2e3b4e", height: "85vh", overflow: "scroll" }}>
@@ -37,7 +52,7 @@ export const Collections = () => {
                         <For each={currentCollection()}>
 
                             {
-                                (col) =>
+                                (col, idx) =>
                                     <>
                                         <ListGroup.Item
                                             style={select() == col.path ? {
@@ -47,9 +62,15 @@ export const Collections = () => {
                                             } : {
                                                 cursor: "pointer",
                                             }}>
-                                            <span onclick={() => handleSendList(col.path)} >
-                                                {col.name}
-                                            </span>
+                                            <div className="d-flex justify-content-between">
+                                                <span onclick={() => handleSendList(col.path)} >
+                                                    {col.name}
+                                                </span>
+                                                <Badge class="align-items-center d-flex" onclick={() => handleDeleteShow(idx())} bg='danger'>
+                                                    <span>remove</span>
+                                                </Badge>
+
+                                            </div>
                                         </ListGroup.Item>
                                     </>
                             }
