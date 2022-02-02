@@ -39,7 +39,7 @@ export const Collections = () => {
 
     return (
         <div>
-            <div style={{ background: "#2e3b4e", height: "85vh", overflow: "scroll" }}>
+            <div style={{ background: "#2e3b4e", height: "92vh", overflow: "scroll" }}>
                 <h4 class="text-light  p-2">Collections</h4>
                 <hr class="text-light" />
                 <ListGroup>
