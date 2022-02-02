@@ -62,19 +62,6 @@ export const updateStreak = () => {
       localStorage.setItem("streak", JSON.stringify(currStreak));
 
       localStorage.setItem("currentdate", currDate);
-      // console.log(
-      //   "the current date is ",
-      //   "01/02/2022",
-      //   "the date for tommorrow is",
-      //   dayjs("02/02/2022").add(1, "day")
-      //   // dayjs(currDate).add(1, "day").format("MM/DD/YYYY") //FIXME: fix thiz
-      // );
-      /**
-         dayjs("02/01/2022").add(1, "day").format("DD/MM/YYYY") 
-         //FIXME: fix this it gives 2jan22 if used currentdate instead hardcoded
-       *
-       */
-
       localStorage.setItem(
         "streakvalidtill",
         dayjs(currDate).add(1, "day").format("MM/DD/YYYY")
