@@ -4,8 +4,6 @@ import { StreakHandler } from "../Components/SettingsMain/SteakHandler"
 
 export const Settings = () => {
 
-
-
     return (
         <>
             <Layout />
