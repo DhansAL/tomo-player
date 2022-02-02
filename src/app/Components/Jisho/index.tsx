@@ -55,75 +55,83 @@ export const JishoPopover = (props: JishoProps) => {
         }
       > */}
       {isLoading() ? (
-        <Spinner animation="border" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </Spinner>
+        <div className="d-flex m-3 p-2 justify-content-center align-items-center">
+          <Spinner variant="light" animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </div>
       ) : showKandict() ? (
         //TODO: lazyload kandict component
         <Kandict kanji={kanjiServed()} showKandict={handleKanjiShow} />
       ) : (
-        <div>
+        <div className="bg-dark d-flex flex-wrap" style={{ width: "260px" }}>
           <For each={wordData()}>
             {(word, i) => (
               <>
-                <div class="main">
-                  reading -{" "}
-                  <ruby>{JSON.stringify(word.japanese[0].reading)}</ruby>
-                  <div style={{ display: "flex", flexDirection: "row" }}>
-                    <div>
-                      <p>
+                {/* slug */}
+                <div className="p-2">
+                  <div class="d-flex flex-column justify-content-between align-items-center">
+                    <div className="">
+                      <span style={{ fontSize: "12px" }} class="text-info">{JSON.stringify(word.japanese[0].reading)}</span>
+                      <div className="d-flex">
+                        <For each={word.slug.split("")}>
+                          {(singleWord: string) => (
+                            <>
+                              {/* TODO: why singleWord and not singleWord() */}
+
+                              {/* kana?show normally:kanji case */}
+                              {regex.test(singleWord) ? (
+                                <h3 class="text-secondary">{singleWord}</h3>
+                              ) : (
+                                <h3
+                                  class="text-light"
+                                  style={{ cursor: "pointer" }}
+                                  onclick={handleKanjiShow}
+                                  onmouseover={() => setKanjiServed(singleWord)}
+                                >
+                                  {singleWord}
+                                </h3>
+                              )}
+                            </>
+                          )}
+                        </For>
+                      </div>
+
+                    </div>
+
+                    <div >
+                      <span class="text-warning">
+                        JLPT-
                         {word.jlpt.length
-                          ? `${word.jlpt}`.replace("jlpt-", "")
-                          : "unknown jlpt level"}
-                      </p>
-                    </div>
-                    ||
-                    <div>
-                      {word.is_common ? <strong>CW</strong> : "Unknown"}
-                    </div>
-                    ||
-                    <div>
-                      <strong>{word.senses[0].parts_of_speech[0]}</strong>
+                          ? `${word.jlpt}`.replace("jlpt-", "").toUpperCase()
+                          : "unknown"}
+                      </span>
                     </div>
                   </div>
-                  {/* slug */}
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      border: "3px solid red",
-                      height: "77px",
-                    }}
-                  >
-                    <For each={word.slug.split("")}>
-                      {(singleWord: string) => (
-                        <>
-                          {/* TODO: why singleWord and not singleWord() */}
 
-                          {/* kana?show normally:kanji case */}
-                          {regex.test(singleWord) ? (
-                            <p>{singleWord}</p>
-                          ) : (
-                            <h4
-                              style={{ cursor: "pointer", fontsize: "22px" }}
-                              onclick={handleKanjiShow}
-                              onmouseover={() => setKanjiServed(singleWord)}
-                            >
-                              {singleWord}
-                            </h4>
-                          )}
-                        </>
-                      )}
-                    </For>
-                    <p>
-                      {JSON.stringify(word.senses[0].english_definitions).slice(
-                        1,
-                        -1
-                      )}
-                    </p>
+                </div>
+                {/* word popularity and sense */}
+                <div class="d-flex flex-column flex-wrap m-1 p-1 justify-content-around">
+                  <div>
+                    <p className="text-secondary"> {word.is_common ? <strong>CW</strong> : "Unknown"}</p>
+                  </div>
+                  <div >
+                    <strong class="text-secondary">{word.senses[0].parts_of_speech[0]}</strong>
                   </div>
                 </div>
-                <hr />
+                {/* word meanings */}
+                <hr class="text-light" />
+                <div
+                  class="d-flex m-2 p-1  flex-wrap-column"
+
+                >
+                  <p class="text-light" style={{ width: "240px" }}>
+                    {JSON.stringify(word.senses[0].english_definitions).slice(
+                      1,
+                      -1
+                    )}
+                  </p>
+                </div>
               </>
             )}
           </For>

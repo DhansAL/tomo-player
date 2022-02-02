@@ -47,13 +47,18 @@ app.on("ready", () => {
         "Content-Security-Policy": [
           //FIXME: connect-src needs update - connect src especially
           //for prod , put connect-src * in dev to allow access for webpack devserver
-          // "default-src 'unsafe-inline' 'self';script-src 'self' 'unsafe-eval'; media-src file://* ; connect-src https://jisho.org ",
-          "default-src 'unsafe-inline' 'self';script-src 'self' 'unsafe-eval'; media-src file://* ; connect-src * ",
+          // "default-src 'unsafe-inline' 'self';script-src 'self' 'unsafe-eval'; img-src file://* https://* filesystem: data: ; media-src file://* ; connect-src https://jisho.org ",
+          "default-src 'unsafe-inline' 'self';script-src 'self' 'unsafe-eval';  img-src file://* https://* filesystem: data: ; media-src file://* ; connect-src * ",
         ],
       },
     });
   });
 });
+
+//ipc check
+// ipcMain.on("message", (event: Electron.IpcMainEvent, args: string) => {
+//   console.log(args);
+// });
 
 //get filePath via dialog
 //TODO: include this in dragdrop

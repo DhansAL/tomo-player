@@ -41,8 +41,8 @@ export const Tokenization = (props: TokenProps) => {
                             placement="top"
                             overlay={
                                 <Popover id="popover-basic">
-                                    <Popover.Header as="h3"> {token}</Popover.Header>
-                                    <Popover.Body style={{ overflow: "scroll", height: "230px", width: "280px" }}>
+                                    <Popover.Header as="h3" class="p-1" >{token}</Popover.Header>
+                                    <Popover.Body class=" bg-dark" style={{ overflow: "scroll", height: "230px", width: "280px" }}>
                                         <JishoPopover word={token} />
                                     </Popover.Body>
                                 </Popover>
