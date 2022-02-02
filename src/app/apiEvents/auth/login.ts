@@ -22,9 +22,9 @@ export const loginUser = async (username: string, password: string) => {
       username: null,
       authenticate: false,
       message:
-        error.response.data?.message ||
-        error.response.data?.msg ||
-        error.response.data?.error,
+        error.response.data.message ||
+        error.response.data.msg ||
+        error.response.data.error,
     });
   }
 };

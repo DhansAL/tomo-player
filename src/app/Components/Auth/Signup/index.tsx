@@ -19,6 +19,10 @@ export const Signup = () => {
     setUsername(null);
     setPassword(null);
   };
+  const handleClose = () => {
+    setAlert(false);
+    setResMessage(null)
+  }
   return (
     <div class="w-25">
       <Form>
@@ -29,7 +33,7 @@ export const Signup = () => {
               variant="warning"
               dismissible
               transition
-              onClose={() => setAlert(false)}
+              onClose={handleClose}
             >
               <p>{resMessage()}</p>
             </Alert>
