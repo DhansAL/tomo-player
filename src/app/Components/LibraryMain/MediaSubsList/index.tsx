@@ -5,6 +5,7 @@ import { FileFolderServed } from "../../../interfaces/FileManagement/FileFolderS
 import { Button } from "solid-bootstrap";
 import { Link } from "solid-app-router";
 import { fileFolderStore } from "../../../store/FileFolder";
+import "../../../scrollbar.css"
 
 
 export const MediaSubsList = () => {
@@ -115,7 +116,7 @@ export const MediaSubsList = () => {
         <h4 class="text-light  p-2">Shows</h4>
         <hr class="text-light" />
 
-        <div style={{ height: "250px", overflow: "scroll" }}>
+        <div class="overflow-scroll  scrollbar-primary " style={{ height: "250px" }}>
           {videoFiles() === null ? (
             <div class="m-3 p3">
               <h5 class="text-muted ">Click the desired show </h5>
@@ -138,11 +139,10 @@ export const MediaSubsList = () => {
             </ListGroup>
           )}
         </div>
-        <hr />
         <h4 class="text-light  p-2"> Subtitles</h4>
         <hr class="text-light" />
 
-        <div style={{ height: "250px", overflow: "scroll" }}>
+        <div class="overflow-scroll  scrollbar-primary " style={{ height: "250px" }}>
           {videoFiles() === null ? (
             <div class="m-3 p3">
               <h5 class="text-muted ">Click the desired subtitle </h5>

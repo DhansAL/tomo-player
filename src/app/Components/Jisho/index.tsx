@@ -132,6 +132,7 @@ export const JishoPopover = (props: JishoProps) => {
                     )}
                   </p>
                 </div>
+                <hr class="text-light" />
               </>
             )}
           </For>

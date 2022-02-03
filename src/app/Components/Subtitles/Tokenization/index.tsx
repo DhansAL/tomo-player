@@ -1,6 +1,7 @@
 import { createEffect, createSignal, For } from "solid-js";
 import { Button, OverlayTrigger, Popover } from "solid-bootstrap";
 import { JishoPopover } from "../../Jisho";
+import "../../../scrollbar.css"
 
 const TinySegmenter = require("tiny-segmenter");
 
@@ -42,7 +43,7 @@ export const Tokenization = (props: TokenProps) => {
                             overlay={
                                 <Popover id="popover-basic">
                                     <Popover.Header as="h3" class="p-1" >{token}</Popover.Header>
-                                    <Popover.Body class=" bg-dark" style={{ overflow: "scroll", height: "230px", width: "280px" }}>
+                                    <Popover.Body class="overflow-scroll  scrollbar-primary bg-dark" style={{ height: "230px", width: "270px" }}>
                                         <JishoPopover word={token} />
                                     </Popover.Body>
                                 </Popover>

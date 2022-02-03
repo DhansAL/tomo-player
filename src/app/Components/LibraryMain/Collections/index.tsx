@@ -1,7 +1,8 @@
 import { Badge, ListGroup } from "solid-bootstrap";
-import { createEffect, createSignal, For, onMount, useContext } from "solid-js";
+import { createSignal, For, onMount, useContext } from "solid-js";
 import { LibraryContext } from "../../../Contexts/LibraryContext";
 import { FileFolderServed } from "../../../interfaces/FileManagement/FileFolderServed";
+import "../../../scrollbar.css"
 
 export const Collections = () => {
 
@@ -39,7 +40,7 @@ export const Collections = () => {
 
     return (
         <div>
-            <div style={{ background: "#2e3b4e", height: "92vh", overflow: "scroll" }}>
+            <div class="overflow-scroll  scrollbar-primary " style={{ background: "#2e3b4e", height: "92vh" }}>
                 <h4 class="text-light  p-2">Collections</h4>
                 <hr class="text-light" />
                 <ListGroup>
