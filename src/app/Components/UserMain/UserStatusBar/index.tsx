@@ -14,6 +14,7 @@ export const UserStatusBar = () => {
                     back to overview
                 </a>
             </Button>
+            <h3 className="text-warning">User Page</h3>
             <Button href="#login" onClick={handlelogout} variant="danger"> logout?</Button>
         </div>
     </>

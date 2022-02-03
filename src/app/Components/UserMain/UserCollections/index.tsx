@@ -1,10 +1,15 @@
-import { Button, ListGroup } from "solid-bootstrap";
+import { Button, ListGroup, Modal } from "solid-bootstrap";
 import { createSignal, For, onMount } from "solid-js";
 import { getCollections } from "../../../apiEvents/collections/getcollections";
+import "../../../scrollbar.css"
 
 export const GetUserCollections = () => {
     const [collectionNames, setCollectionNames] = createSignal(null)
     const [error, setError] = createSignal(null)
+    //modal utils
+    const [show, setShow] = createSignal(false);
+
+    const handleClose = () => setShow(false);
 
     const handleGetCollections = async () => {
         const namesArr = await getCollections()
@@ -14,29 +19,43 @@ export const GetUserCollections = () => {
             return;
         }
         setCollectionNames(namesArr)
+        setShow(true)
     }
     return <div>
-        <div class=" m-4 p-2 d-flex flex-column " style={{ background: "#292d3a" }}>
-            <h3 class="text-light">load all the names of show you added till now</h3>
-            <Button variant="secondary" onclick={handleGetCollections}>click to check</Button>
-            {error() == null ? null : <p class="text-warning">{error()}</p>}
-            <div class="m-3 p-2 " style={{ height: "220px" }}>
+        <Button variant="secondary" onClick={handleGetCollections}>Check</Button>
+
+        <Modal
+            show={show()}
+            onHide={handleClose}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+
+        >
+
+
+            <div
+                class=" m-1 bg-dark p-3 d-flex flex-column "
+
+            >
+                <h4 class="text-light">name of shows in database</h4>
+                <span class="text-info">click outside of this to exit</span>
+                {error() == null ? null : <p class="text-warning">{error()}</p>}
                 {collectionNames() != null ? (
                     <>
-                        <div class="w-50  overflow-scroll m-2" style={{ height: "200px" }} >
+                        <ListGroup className="  overflow-scroll scrollbar-primary " style={{ height: "300px" }} >
                             <For each={collectionNames()}>
                                 {/* TODO: set type declarations */}
                                 {(name: any, i) =>
-                                    <ListGroup>
-                                        <ListGroup.Item>{name.name}</ListGroup.Item>
-                                    </ListGroup>
+                                    <ListGroup.Item>{name.name}</ListGroup.Item>
                                 }
                             </For>
-                        </div>
+                        </ListGroup>
+
                     </>
                 ) : null}
             </div>
-        </div>
+        </Modal>
+    </div>
 
-    </div>;
 };
