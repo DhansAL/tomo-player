@@ -1,4 +1,5 @@
 import { Stack } from "solid-bootstrap";
+import { DeleteUserCollection } from "../Components/UserMain/DeleteUserCollection";
 import { Unauthorized } from "../Components/UserMain/Unauthorized";
 import { GetUserCollections } from "../Components/UserMain/UserCollections";
 import { UserStatusBar } from "../Components/UserMain/UserStatusBar";
@@ -23,6 +24,10 @@ export const UserMain = () => {
                             <div className="d-flex m-2 p-2 flex-column justify-content-around">
                                 <h3 class="text-light">Sync your collection online</h3>
                                 <UserSyncCollections />
+                            </div>
+                            <div className="d-flex m-2 p-2 flex-column justify-content-around">
+                                <h3 class="text-danger">Delete your online collection</h3>
+                                <DeleteUserCollection />
                             </div>
 
                         </Stack>

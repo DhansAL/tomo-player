@@ -59,9 +59,9 @@ export const UserSyncCollections = () => {
 
 
               {resMesg() != null ? (
+                // in case user had his first sync
                 resMesg().greet ? (
-                  // in case user had his first sync
-                  <h5 class="m-4 p-3 text-success">{resMesg().greet}</h5>
+                  <h5 class=" p-2 text-info">{resMesg().greet}</h5>
                 ) : (
                   <>
                     {/* if existing show is sent to database */}
@@ -108,9 +108,9 @@ export const UserSyncCollections = () => {
             </p>
           )}
 
-          <Button variant="success" onclick={handleCollectionSync}>
+          {detailsToSync().length > 0 ? <Button variant="success" onclick={handleCollectionSync}>
             Sync{" "}
-          </Button>
+          </Button> : null}
         </div>
 
 

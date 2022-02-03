@@ -13,9 +13,10 @@ export const GetUserCollections = () => {
 
     const handleGetCollections = async () => {
         const namesArr = await getCollections()
-        if (namesArr.msg) {
+        if (namesArr.error) {
             //incase user exists but havent added any shows and still checking for shows in db
-            setError(namesArr.msg)
+            setError(namesArr.error)
+            setShow(true)
             return;
         }
         setCollectionNames(namesArr)
@@ -32,14 +33,11 @@ export const GetUserCollections = () => {
             centered
 
         >
-
-
             <div
                 class=" m-1 bg-dark p-3 d-flex flex-column "
 
             >
                 <h4 class="text-light">name of shows in database</h4>
-                <span class="text-info">click outside of this to exit</span>
                 {error() == null ? null : <p class="text-warning">{error()}</p>}
                 {collectionNames() != null ? (
                     <>
