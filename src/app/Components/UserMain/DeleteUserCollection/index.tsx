@@ -12,16 +12,16 @@ export const DeleteUserCollection = () => {
 
     const deleteCollection = async () => {
         const res = await deleteUserCollection();
-        console.log(res);
-
         setResMesg(res);
-        console.log(resMesg());
     };
 
     //modal utils
     const [show, setShow] = createSignal(false);
     const handleOpen = () => setShow(true);
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setResMesg(null)
+        setShow(false)
+    };
     return (
         <div>
             <Button variant="secondary" onclick={handleOpen}>Proceed to delete</Button>

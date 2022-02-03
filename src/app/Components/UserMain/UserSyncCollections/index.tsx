@@ -14,7 +14,6 @@ export const UserSyncCollections = () => {
     //@ts-expect-error TODO: set type declarations
     const res = await addCollections(detailsToSync());
     setResMesg(res);
-    console.log(resMesg());
   };
 
   if (localStorage.getItem("Collections")) {
@@ -29,7 +28,10 @@ export const UserSyncCollections = () => {
   //modal utils
   const [show, setShow] = createSignal(false);
   const handleOpen = () => setShow(true);
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false)
+    setResMesg(null)
+  }
   return (
     <div>
       <Button variant="secondary" onclick={handleOpen}>Proceed to sync</Button>

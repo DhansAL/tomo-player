@@ -9,8 +9,6 @@ export const GetUserCollections = () => {
     //modal utils
     const [show, setShow] = createSignal(false);
 
-    const handleClose = () => setShow(false);
-
     const handleGetCollections = async () => {
         const namesArr = await getCollections()
         if (namesArr.error) {
@@ -22,6 +20,12 @@ export const GetUserCollections = () => {
         setCollectionNames(namesArr)
         setShow(true)
     }
+    const handleClose = () => {
+        setError(null)
+        setCollectionNames(null)
+        setShow(false)
+    };
+
     return <div>
         <Button variant="secondary" onClick={handleGetCollections}>Check</Button>
 
