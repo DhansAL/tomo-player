@@ -59,6 +59,7 @@ export const PlayerVideo = (props: PlayerProps) => {
   }
 
 
+
   onCleanup(() => {
     localStorage.setItem('currentvideo', JSON.stringify(currentVideo()))
     if (localStorage.getItem("usingStreaks")) {
@@ -68,27 +69,35 @@ export const PlayerVideo = (props: PlayerProps) => {
 
   return (
     <>
-      <div class="vw-100 d-flex flex-column ">
+      <div class="vw-100 d-flex flex-column">
         < Button variant="secondary" class=" w-100">
           <a href="#" class="text-light text-decoration-none  text-center" >
             <h6>⬅ GO BACK</h6>
           </a>
         </ Button>
 
-        <video
-          id="player"
-          ondurationchange={handleSetDuration}
-          onseeked={handleSeek}
-          ref={playerRef}
-          controls
-          onTimeUpdate={handleTimeUpdate}
-          class="h-100 w-100"
-          src={videoPath()}
-        />
+        <div className="d-flex flex-column">
 
-        <Subtitles
-          subfile={subPath()}
-          time={time()} duration={duration()} seektime={seektime()} />
+          <video
+            id="player"
+            ondurationchange={handleSetDuration}
+            onseeked={handleSeek}
+            ref={playerRef}
+            controls
+            onTimeUpdate={handleTimeUpdate}
+            class="h-100 w-100"
+            src={videoPath()}
+          />
+          {/* <div ref={divref} style="width: 100px; height: 30px; color: white; z-index: 232232323231; position: absolute; top: 700px; left: 0px; background: green;">test</div> */}
+
+          <Subtitles
+            subfile={subPath()}
+            time={time()} duration={duration()} seektime={seektime()} />
+
+
+
+        </div>
+
 
       </div>
     </>
