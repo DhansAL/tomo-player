@@ -25,12 +25,12 @@ export const PlayerVideo = (props: PlayerProps) => {
   let playerRef: HTMLVideoElement;
 
   let playerContainerRef: HTMLDivElement
+  //TODO: make one obj signal
   const [time, setTime] = createSignal(0);
   const [duration, setDuration] = createSignal(0);
   const [seektime, setSeektime] = createSignal(0);
   const [videoPath, setVideoPath] = createSignal(fileFolderStore.getState().path);
   const [subPath, setSubPath] = createSignal(fileFolderStore.getState().subfilePath);
-
   const [currentVideo, setCurrentVideo] = createSignal<CurrentVideo>(null)
 
   //continue from functionality
@@ -97,23 +97,26 @@ export const PlayerVideo = (props: PlayerProps) => {
             class="h-100 w-100"
             src={videoPath()}
           />
+          <div style="width:100%; height: 50px; position: absolute; top: 45px" class="d-flex justify-content-end">
+            <div className="m-2 text-light" onclick={handleFullscreen}>fullscreen🔳</div>
+          </div>
+
           {/* <div style="border:2px solid red;width:100%; height: 50px; position: absolute; top: 495px" class="d-flex flex-column">
             <div className="d-flex justify-content-between">
               <div className="d-flex">
                 <div className="m-1">⏯</div>
-                <div className="m-1 text-light">23:23</div>
+                <div className="m-1 ">23:23</div>
 
               </div>
               <div className="d-flex">
                 <div className="m-1">🔊</div>
-                <div className="m-1">🔳</div>
+                <div className="m-1" onclick={handleFullscreen}>🔳</div>
                 <div className="m-1">❓</div>
 
               </div>
             </div>
             <input type="range" min={0} max={100} />
           </div> */}
-          {/* <div ref={divref} style="width: 100px; height: 30px; color: white; z-index: 232232323231; position: absolute; top: 700px; left: 0px; background: green;">test</div> */}
           <div className="d-flex w-100" style=" height: 40px; position: absolute; top: 720px; left: 0px" >
             <Subtitles
               subfile={subPath()}
