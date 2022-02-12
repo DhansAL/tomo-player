@@ -2,6 +2,7 @@ import { createEffect, createSignal, For } from "solid-js";
 import { Button, OverlayTrigger, Popover } from "solid-bootstrap";
 import { JishoPopover } from "../../Jisho";
 import "../../../scrollbar.css"
+import "./popover.css"
 
 const TinySegmenter = require("tiny-segmenter");
 
@@ -37,22 +38,15 @@ export const Tokenization = (props: TokenProps) => {
                 {(token, i) =>
                     <>
                         <div>
-                            <OverlayTrigger
 
-                                trigger="click"
-                                offset={[0, 8]}
-                                placement="top"
-                                overlay={
-                                    <Popover id="popover-basic">
-                                        <Popover.Header as="h3" class="p-1" >{token}</Popover.Header>
-                                        <Popover.Body class="overflow-scroll  scrollbar-primary bg-dark" style={{ height: "230px", width: "270px" }}>
-                                            <JishoPopover word={token} />
-                                        </Popover.Body>
-                                    </Popover>
-                                }
-                            >
-                                <h4 onMouseOver={() => handleTokenStyle(token)} style={token == select() ? { cursor: "pointer", color: "#51f366" } : { color: "white", cursor: "pointer" }} >{token}</h4>
-                            </OverlayTrigger>
+                            <div class="popover__wrapper">
+                                <h4 class="popover__title" onMouseOver={() => handleTokenStyle(token)}
+                                    style={token == select() ? { cursor: "pointer", color: "#51f366" } : { color: "white", cursor: "pointer" }} >{token}</h4>
+                                <div class="popover__content overflow-scroll scrollbar-primary bg-dark" style={{ height: "230px", width: "270px", bottom: "14px" }}>
+                                    <JishoPopover word={token} />
+                                </div>
+                            </div>
+
                         </div>
 
                     </>
