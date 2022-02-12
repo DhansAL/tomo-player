@@ -2,6 +2,7 @@ import { Alert, Button, Form } from "solid-bootstrap";
 import { createEffect, createSignal } from "solid-js";
 import { authStore } from "../../../store/auth";
 import { loginUser, logoutUser } from "../../../apiEvents/auth/login";
+import { AuthInputFiled } from "../AuthInputFiled";
 
 export const Login = () => {
   const [username, setUsername] = createSignal(null);
@@ -59,33 +60,14 @@ export const Login = () => {
               <p>{resMessage()}</p>
             </Alert>
           ) : null}
-          <Form>
-            <Form.Group className="mb-2" >
-              <Form.Control
-                htmlSize={1}
-                size="sm"
-                value={username()}
-                onchange={(e) => setUsername(e.currentTarget.value)}
-                type="text"
-                placeholder="Enter username"
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-2" >
-              <Form.Control
-                size="sm"
-                type="password"
-                value={password()}
-                onchange={(e) => setPassword(e.currentTarget.value)}
-                placeholder="Password"
-              />
-
-              <br />
-              <Button variant="success" onClick={handleLogin}>
-                login
-              </Button>
-            </Form.Group>
-          </Form>
+          <AuthInputFiled
+            userSetter={setUsername}
+            passwordSetter={setPassword}
+          />
+          <br />
+          <Button variant="success" onClick={handleLogin}>
+            login
+          </Button>
         </>
 
         )}

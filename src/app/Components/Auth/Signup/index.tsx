@@ -1,6 +1,7 @@
 import { Alert, Button, Form } from "solid-bootstrap";
 import { createEffect, createSignal } from "solid-js";
 import { SignupUser } from "../../../apiEvents/auth/signup";
+import { AuthInputFiled } from "../AuthInputFiled";
 
 export const Signup = () => {
   const [alert, setAlert] = createSignal(false);
@@ -25,45 +26,27 @@ export const Signup = () => {
   }
   return (
     <div class="w-25">
-      <Form>
-        <Form.Group className="mb-2">
-          <Form.Label>enter username</Form.Label>
-          {alert() ? (
-            <Alert
-              variant="warning"
-              dismissible
-              transition
-              onClose={handleClose}
-            >
-              <p>{resMessage()}</p>
-            </Alert>
-          ) : null}
-          <Form.Control
-            type="text"
-            value={username()}
-            onchange={(e) => setUsername(e.currentTarget.value)}
-            placeholder="username"
-          />
-          <span class="text-info" className="text-muted">
-            choose a unique username
-          </span>
-        </Form.Group>
+      {alert() ? (
+        <Alert
+          variant="warning"
+          dismissible
+          transition
+          onClose={handleClose}
+        >
+          <p>{resMessage()}</p>
+        </Alert>
+      ) : null}
 
-        <Form.Control
-          type="password"
-          value={password()}
-          onchange={(e) => setPassword(e.currentTarget.value)}
-          placeholder="password"
-        />
-        <span class="text-info" className="text-muted">
-          password should be atleast 6 character long
-        </span>
-        <br />
-        <br />
-        <Button onClick={handleSignup} variant="success" type="submit">
-          Signup
-        </Button>
-      </Form>
+
+      <AuthInputFiled
+        userSetter={setUsername}
+        passwordSetter={setPassword}
+      />
+
+      <br />
+      <Button onClick={handleSignup} variant="success" type="submit">
+        Signup
+      </Button>
     </div>
   );
 };
