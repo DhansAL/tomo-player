@@ -4,13 +4,6 @@ a {
   text-decoration: none;
 }
 
-.popover__title {
-  font-size: 24px;
-  text-decoration: none;
-  color: rgb(228, 68, 68);
-  text-align: center;
-}
-
 .popover__wrapper {
   position: relative;
   display: inline-block;

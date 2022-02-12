@@ -18,7 +18,9 @@ type TokenProps = {
  */
 export const Tokenization = (props: TokenProps) => {
     const [segmentedSub, setSegmentedSub] = createSignal([])
-    const [c, sc] = createSignal(false)
+
+    const [seePopover, setSeePopover] = createSignal(false)
+    const [word, setWord] = createSignal(null)
     const segmenter = new TinySegmenter();
 
     createEffect(() => {
@@ -27,52 +29,33 @@ export const Tokenization = (props: TokenProps) => {
         setSegmentedSub(segmentedSub);
     })
 
-    //on hover style change
-    const [select, setselect] = createSignal("")
-
+    //on hover things
+    const [select, setselect] = createSignal(null) //for token hilighting
     const handleTokenStyle = (token: string) => {
         setselect(token)
-        sc(true);
+        setWord(token)
+        setSeePopover(true);
     }
     return (
         <div class="col px-md-5 d-flex pd-3 flex-row text-light justify-content-center" style=" background: rgba(0, 0, 0, 0.4)">
-            <For each={segmentedSub()} fallback={<div>starting </div>}>
-                {(token, i) =>
-                    <>
-                        <div>
-                            {/* 
-                            <div class="popover__wrapper">
-                                <div class="popover__content overflow-scroll scrollbar-primary bg-dark" style={{ height: "230px", width: "270px", bottom: "18px" }}>
-                                    {c() ? <JishoPopover word={token} /> : null}
-
-
-                                </div>
-                                <h4 class="popover__title" onMouseLeave={() => sc(false)} onMouseOver={() => handleTokenStyle(token)}
+            <div class="popover__wrapper">
+                {/* FIXME: make it open and close on clicks to avoid unwanted requests and not missing search */}
+                <div class="popover__content overflow-scroll scrollbar-primary bg-dark" style={{ height: "230px", width: "270px", bottom: "18px", left: "auto" }}>
+                    {seePopover() ? <JishoPopover word={word()} /> : null}
+                </div>
+                <div class='d-flex'>
+                    <For each={segmentedSub()} fallback={<div>starting </div>}>
+                        {(token, i) =>
+                            <>
+                                <h4 onMouseOver={() => handleTokenStyle(token)}
                                     style={token == select() ? { cursor: "pointer", color: "#51f366" } : { color: "white", cursor: "pointer" }} >{token}</h4>
 
-                            </div> */}
-                            <OverlayTrigger
+                            </>
+                        }
+                    </For>
+                </div>
+            </div>
 
-                                trigger="click"
-                                offset={[0, 8]}
-                                placement="top"
-                                overlay={
-                                    <Popover id="popover-basic">
-                                        <Popover.Header as="h3" class="p-1" >{token}</Popover.Header>
-                                        <Popover.Body class="overflow-scroll  scrollbar-primary bg-dark" style={{ height: "230px", width: "270px" }}>
-                                            <JishoPopover word={token} />
-                                        </Popover.Body>
-                                    </Popover>
-                                }
-                            >
-                                <h4 onMouseOver={() => handleTokenStyle(token)} style={token == select() ? { cursor: "pointer", color: "#51f366" } : { color: "white", cursor: "pointer" }} >{token}</h4>
-                            </OverlayTrigger>
-
-                        </div>
-
-                    </>
-                }
-            </For>
         </div>
     )
 }
