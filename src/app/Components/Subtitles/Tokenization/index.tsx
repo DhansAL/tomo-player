@@ -32,10 +32,7 @@ export const Tokenization = (props: TokenProps) => {
 
     const handleTokenStyle = (token: string) => {
         setselect(token)
-        console.log(true);
-    }
-    const handlePop = () => {
-        sc(true)
+        sc(true);
     }
     return (
         <div class="col px-md-5 d-flex pd-3 flex-row text-light justify-content-center" style=" background: rgba(0, 0, 0, 0.4)">
@@ -43,17 +40,33 @@ export const Tokenization = (props: TokenProps) => {
                 {(token, i) =>
                     <>
                         <div>
-
+                            {/* 
                             <div class="popover__wrapper">
                                 <div class="popover__content overflow-scroll scrollbar-primary bg-dark" style={{ height: "230px", width: "270px", bottom: "18px" }}>
-                                    click
-                                    {/* jisho takes token no of request per search FIXME: */}
                                     {c() ? <JishoPopover word={token} /> : null}
+
+
                                 </div>
-                                <h4 class="popover__title" onMouseLeave={() => sc(false)} onMouseOver={() => handleTokenStyle(token)} onclick={handlePop}
+                                <h4 class="popover__title" onMouseLeave={() => sc(false)} onMouseOver={() => handleTokenStyle(token)}
                                     style={token == select() ? { cursor: "pointer", color: "#51f366" } : { color: "white", cursor: "pointer" }} >{token}</h4>
 
-                            </div>
+                            </div> */}
+                            <OverlayTrigger
+
+                                trigger="click"
+                                offset={[0, 8]}
+                                placement="top"
+                                overlay={
+                                    <Popover id="popover-basic">
+                                        <Popover.Header as="h3" class="p-1" >{token}</Popover.Header>
+                                        <Popover.Body class="overflow-scroll  scrollbar-primary bg-dark" style={{ height: "230px", width: "270px" }}>
+                                            <JishoPopover word={token} />
+                                        </Popover.Body>
+                                    </Popover>
+                                }
+                            >
+                                <h4 onMouseOver={() => handleTokenStyle(token)} style={token == select() ? { cursor: "pointer", color: "#51f366" } : { color: "white", cursor: "pointer" }} >{token}</h4>
+                            </OverlayTrigger>
 
                         </div>
 

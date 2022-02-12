@@ -53,8 +53,6 @@ export const PlayerVideo = (props: PlayerProps) => {
   })
 
   const handleSetDuration = () => {
-    console.log(time());
-
     setDuration(playerRef.duration);
   };
   const handleTimeUpdate = () => {
@@ -99,10 +97,9 @@ export const PlayerVideo = (props: PlayerProps) => {
             class="h-100 w-100"
             src={videoPath()}
           />
-          <div style="border:2px solid red;width:100%; height: 50px; position: absolute; top: 495px" class="d-flex flex-column">
+          {/* <div style="border:2px solid red;width:100%; height: 50px; position: absolute; top: 495px" class="d-flex flex-column">
             <div className="d-flex justify-content-between">
               <div className="d-flex">
-                {/* time and playpause */}
                 <div className="m-1">⏯</div>
                 <div className="m-1 text-light">23:23</div>
 
@@ -111,13 +108,11 @@ export const PlayerVideo = (props: PlayerProps) => {
                 <div className="m-1">🔊</div>
                 <div className="m-1">🔳</div>
                 <div className="m-1">❓</div>
-                {/* vol fullscreen speed*/}
 
               </div>
             </div>
             <input type="range" min={0} max={100} />
-            {/* <button onClick={handleFullscreen}>fullscreen</button> */}
-          </div>
+          </div> */}
           {/* <div ref={divref} style="width: 100px; height: 30px; color: white; z-index: 232232323231; position: absolute; top: 700px; left: 0px; background: green;">test</div> */}
           <div className="d-flex w-100" style=" height: 40px; position: absolute; top: 720px; left: 0px" >
             <Subtitles

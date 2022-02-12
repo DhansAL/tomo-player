@@ -49,13 +49,6 @@ export const JishoPopover = (props: JishoProps) => {
 
   return (
     <>
-      {/* <ErrorBoundary
-        fallback={
-          <>
-            <h5>cant get this word :(</h5>
-          </>
-        }
-      > */}
       {isLoading() ? (
         <div className="d-flex m-3 p-2 justify-content-center align-items-center">
           <Spinner variant="light" animation="border" role="status">
