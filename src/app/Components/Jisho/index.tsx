@@ -3,9 +3,12 @@ import { createEffect, createSignal, For, ErrorBoundary } from "solid-js";
 import JishoAPI from "unofficial-jisho-api";
 import { Kandict } from "./Kandict";
 
-/**
- *  reusable component to get kanji and word definitions in a popover.
- */
+
+
+type JishoProps = {
+  word: string;
+};
+
 
 //TODO: start with backend to avoid CORS .
 /**
@@ -15,9 +18,10 @@ import { Kandict } from "./Kandict";
  *
  */
 
-type JishoProps = {
-  word: string;
-};
+/**
+ *  Hoverable dictionary over subtitle.
+ *  gets kanji and word definitions in a popover.
+ */
 export const JishoPopover = (props: JishoProps) => {
   const [wordData, setWordData] = createSignal([]);
   const [isLoading, setIsLoading] = createSignal(false);
@@ -72,8 +76,6 @@ export const JishoPopover = (props: JishoProps) => {
                         <For each={word.slug.split("")}>
                           {(singleWord: string) => (
                             <>
-                              {/* TODO: why singleWord and not singleWord() */}
-
                               {/* kana?show normally:kanji case */}
                               {regex.test(singleWord) ? (
                                 <h3 class="text-secondary">{singleWord}</h3>
@@ -133,7 +135,7 @@ export const JishoPopover = (props: JishoProps) => {
           </For>
         </div>
       )}
-      {/* </ErrorBoundary> */}
+      {/*TODO: </ErrorBoundary> */}
     </>
   );
 };

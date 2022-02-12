@@ -2,6 +2,10 @@ import { Alert, Button } from "solid-bootstrap";
 import { createEffect, createSignal } from "solid-js";
 import { collectionFlush } from "../../../modules/FlushLS/CollectionFlush";
 
+/**
+ * 
+ * flushes out the local collection from Local storage
+ */
 export const CollectionFlush = () => {
   const [deleteMessage, setDeleteMessage] = createSignal(null)
   const [alert, setAlert] = createSignal(false);

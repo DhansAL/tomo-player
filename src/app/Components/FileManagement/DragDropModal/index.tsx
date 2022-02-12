@@ -1,5 +1,5 @@
 import { Button, Modal } from "solid-bootstrap"
-import { createSignal } from "solid-js"
+import { Component, createSignal } from "solid-js"
 import { DragDrop } from "./DragDrop";
 
 
@@ -11,7 +11,7 @@ type DragDropProps = {
  * Reusable Modal to get a file or folder as desired.
  * @props isfile  false if folder needs to be selected
  */
-export const DragDropModal = (props: DragDropProps) => {
+export const DragDropModal: Component<DragDropProps> = (props) => {
     const [show, setShow] = createSignal(false);
 
     const handleOpen = () => setShow(true);

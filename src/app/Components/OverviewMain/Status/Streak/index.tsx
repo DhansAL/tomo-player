@@ -1,8 +1,9 @@
-import dayjs from 'dayjs';
-var customParseFormat = require('dayjs/plugin/customParseFormat')
-dayjs.extend(customParseFormat)
-
+/**
+ * 
+ * uses the streak maintainer module to check streak and update accordingly
+ */
 export const Streak = () => {
+
 
     return (
         <>

@@ -1,7 +1,10 @@
 import { Button } from "solid-bootstrap";
 import { proConfigs } from "../../../configs/Propage/proConfigs";
 import { Signup } from "../../Components/Auth/Signup";
-
+/**
+ * 
+ * Main propage component
+ */
 export const ProPageMain = () => {
     return <div>
         <div className="">

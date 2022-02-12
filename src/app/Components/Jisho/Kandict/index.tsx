@@ -3,7 +3,8 @@ import Kanji from "kanji.js";
 import { Badge } from "solid-bootstrap";
 import { createEffect, createSignal, ErrorBoundary } from "solid-js";
 /**
- *
+ * @param showKandict setter for the kanji dict overlay
+ * @param kanji the string(kanji)
  */
 type KandictProps = {
   showKandict: () => void;
@@ -20,6 +21,10 @@ interface KanjiDetails {
   onyomi: string[];
   stroke_count: number | null;
 }
+
+/**
+ * Gets kanji definitions and readings on dictionary popover.
+ */
 export const Kandict = (props: KandictProps) => {
   let details: KanjiDetails = Kanji.getDetails(props.kanji);
   return (

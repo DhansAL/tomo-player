@@ -1,9 +1,9 @@
-import { Alert, Button, Form, Spinner } from "solid-bootstrap";
+import { Button, Spinner } from "solid-bootstrap";
 import { createEffect, createSignal } from "solid-js";
-import { authStore } from "../../../store/auth";
 import { loginUser, logoutUser } from "../../../apiEvents/auth/login";
-import { AuthInputFiled } from "../AuthInputFiled";
+import { authStore } from "../../../store/auth";
 import { AuthAlerts } from "../AuthAlerts";
+import { AuthInputFiled } from "../AuthInputFiled";
 
 export const Login = () => {
   const [username, setUsername] = createSignal(null);

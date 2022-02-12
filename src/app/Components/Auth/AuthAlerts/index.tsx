@@ -5,6 +5,9 @@ type AuthAlertProps = {
     resMessage: string;
     cleanMesg: () => void
 }
+/**
+ * common error components for auth components
+ */
 
 export const AuthAlerts = (props: AuthAlertProps) => {
     const [alert, setAlert] = createSignal(false);

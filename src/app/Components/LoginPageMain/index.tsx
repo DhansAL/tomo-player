@@ -1,5 +1,5 @@
-import { Login } from "../../Components/Auth/Login";
-import { Signup } from "../../Components/Auth/Signup";
+import { Login } from "../Auth/Login";
+import { Signup } from "../Auth/Signup";
 import { createEffect, createSignal } from "solid-js";
 import { authStore } from "../../store/auth";
 
@@ -14,7 +14,6 @@ export const LoginMain = () => {
         <h1 className="m-6 text-light">🍜 Tomoplayer ^_^</h1>
         <br />
         <h4 className="m-6 text-light">Login</h4>
-        <br />
         <Login />
         {showSignup() ? null : (
             <>

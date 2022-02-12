@@ -1,5 +1,5 @@
 import { Button } from "solid-bootstrap";
-import { createEffect, createSignal, onCleanup } from "solid-js";
+import { Component, createEffect, createSignal, onCleanup } from "solid-js";
 import { updateStreak } from "../../modules/streak/streak";
 import { Subtitles } from "../Subtitles";
 import { fileFolderStore } from "../../store/FileFolder";
@@ -10,7 +10,6 @@ import screenfull from "screenfull";
  * handles ref of video.
  */
 type PlayerProps = {
-  // TODO: pull last played from local storage
 }
 
 type CurrentVideo = {
@@ -19,7 +18,7 @@ type CurrentVideo = {
   playFrom: number;
 }
 
-export const PlayerVideo = (props: PlayerProps) => {
+export const PlayerVideo: Component = (props: PlayerProps) => {
   //ref - works like this in solid
 
   let playerRef: HTMLVideoElement;

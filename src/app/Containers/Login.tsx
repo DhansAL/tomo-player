@@ -1,6 +1,6 @@
 
 import { Button } from "solid-bootstrap";
-import { LoginMain } from "../Components/LoginPage";
+import { LoginMain } from "../Components/LoginPageMain";
 
 export const LoginPage = () => {
 

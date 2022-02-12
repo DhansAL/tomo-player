@@ -7,6 +7,13 @@ import { Link } from "solid-app-router";
 import { fileFolderStore } from "../../../store/FileFolder";
 import "../../../scrollbar.css"
 
+//TODO: put format sorting in a regex
+/**
+ * 
+ * Sorts video and audio files according to suitable electron 
+ * formats and returns a current list of video and audio files,
+ * which is to be played by player
+ */
 
 export const MediaSubsList = () => {
   const collectionPath = useContext(LibraryContext);
@@ -42,7 +49,7 @@ export const MediaSubsList = () => {
       setFilesInCollection(files);
 
       // filterFiles
-      //TODO: put this all in config and use regex maybe
+      //TODO: put this all in config and use regex 
       let video = filesInCollection().filter(
         (video) =>
           video.includes(".mp4") ||

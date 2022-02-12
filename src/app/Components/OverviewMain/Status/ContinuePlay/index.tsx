@@ -1,7 +1,12 @@
 import { Badge } from "solid-bootstrap";
-import { createSignal, onMount, useContext } from "solid-js";
+import { createSignal, onMount } from "solid-js";
 import { fileFolderStore } from "../../../../store/FileFolder";
 
+/**
+ * sets the last played video and sub path as current which are mounted on player cleanup
+ * stored in Localstorage 
+ * 
+ */
 export const ContinuePlay = () => {
     const [currentPlayInLs, setCurrentPlayInLs] = createSignal(null)
     const [videoName, setVideoName] = createSignal("")
@@ -10,8 +15,8 @@ export const ContinuePlay = () => {
         if (localStorage.getItem("currentvideo") != null) {
             setCurrentPlayInLs(true)
             let name = JSON.parse(localStorage.getItem("currentvideo"))
+            // TODO: splice the string
             setVideoName(name.video)
-
         }
     })
 

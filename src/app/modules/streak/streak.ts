@@ -1,6 +1,4 @@
 import dayjs from "dayjs";
-const customParseFormat = require("dayjs/plugin/customParseFormat");
-// dayjs.extend(customParseFormat);
 
 /**
  *  streak maintainer function.
@@ -16,7 +14,7 @@ export const setStreaking = () => {
   localStorage.setItem("streak", JSON.stringify(0));
   localStorage.setItem("usingStreaks", JSON.stringify(true));
 };
-
+//TODO: push this in an object
 export const destroyStreak = () => {
   localStorage.removeItem("currentdate");
   localStorage.removeItem("streakvalidtill");
@@ -29,21 +27,20 @@ export const destroyStreak = () => {
  * update streak if and only current date matches ls.get(validDate)
  */
 
-//FIXME: REQUIRES TESTING
 export const updateStreak = () => {
   //get current date in yyyymmdd
   const currDate = dayjs().format("MM/DD/YYYY");
   // const currDate = dayjs().add(1, "day").format("MM/DD/YYYY");
 
-  console.log(
-    "the current date in dd mm yyyy format is ",
-    "31/01/2022",
-    "the date for tommorrow is",
-    {
-      bug: dayjs("31/01/2022").add(1, "day"),
-      working: dayjs("01/31/2022").add(1, "day"),
-    }
-  );
+  // console.log(
+  //   "the current date in dd mm yyyy format is ",
+  //   "31/01/2022",
+  //   "the date for tommorrow is",
+  //   {
+  //     bug: dayjs("31/01/2022").add(1, "day"),
+  //     working: dayjs("01/31/2022").add(1, "day"),
+  //   }
+  // );
 
   try {
     if (currDate == localStorage.getItem("currentdate")) {

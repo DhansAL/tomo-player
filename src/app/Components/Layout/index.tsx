@@ -1,9 +1,8 @@
 import { Link } from "solid-app-router";
-import { Button, Nav, Navbar } from "solid-bootstrap";
-import { Header } from "../Header";
+import { Nav, Navbar } from "solid-bootstrap";
 import { ProPopCanvas } from "../ProPopCanvas";
 
-
+//FIXME: side css leaks
 export const Layout = () => {
   return (
     <>
