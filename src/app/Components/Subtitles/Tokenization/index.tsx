@@ -18,6 +18,7 @@ type TokenProps = {
  */
 export const Tokenization = (props: TokenProps) => {
     const [segmentedSub, setSegmentedSub] = createSignal([])
+    const [c, sc] = createSignal(false)
     const segmenter = new TinySegmenter();
 
     createEffect(() => {
@@ -31,20 +32,27 @@ export const Tokenization = (props: TokenProps) => {
 
     const handleTokenStyle = (token: string) => {
         setselect(token)
+        console.log(true);
+    }
+    const handlePop = () => {
+        sc(true)
     }
     return (
-        <div class="col px-md-5 d-flex pd-3 flex-row bg-dark text-light justify-content-center">
+        <div class="col px-md-5 d-flex pd-3 flex-row text-light justify-content-center" style=" background: rgba(0, 0, 0, 0.4)">
             <For each={segmentedSub()} fallback={<div>starting </div>}>
                 {(token, i) =>
                     <>
                         <div>
 
                             <div class="popover__wrapper">
-                                <h4 class="popover__title" onMouseOver={() => handleTokenStyle(token)}
-                                    style={token == select() ? { cursor: "pointer", color: "#51f366" } : { color: "white", cursor: "pointer" }} >{token}</h4>
-                                <div class="popover__content overflow-scroll scrollbar-primary bg-dark" style={{ height: "230px", width: "270px", bottom: "14px" }}>
-                                    <JishoPopover word={token} />
+                                <div class="popover__content overflow-scroll scrollbar-primary bg-dark" style={{ height: "230px", width: "270px", bottom: "18px" }}>
+                                    click
+                                    {/* jisho takes token no of request per search FIXME: */}
+                                    {c() ? <JishoPopover word={token} /> : null}
                                 </div>
+                                <h4 class="popover__title" onMouseLeave={() => sc(false)} onMouseOver={() => handleTokenStyle(token)} onclick={handlePop}
+                                    style={token == select() ? { cursor: "pointer", color: "#51f366" } : { color: "white", cursor: "pointer" }} >{token}</h4>
+
                             </div>
 
                         </div>

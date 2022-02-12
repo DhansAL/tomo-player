@@ -29,7 +29,6 @@ a {
   content: "";
   right: calc(50% - 10px);
   top: -8px;
-  border-color: transparent transparent #bfbfbf transparent;
   transition-duration: 0.3s;
   transition-property: transform;
 }

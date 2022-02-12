@@ -32,6 +32,8 @@ export const JishoPopover = (props: JishoProps) => {
   };
   createEffect(() => {
     loadDataFromJisho();
+    console.log("jisho loaded");
+
   });
 
   /** kanDict utils */

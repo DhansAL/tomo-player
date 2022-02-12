@@ -23,6 +23,7 @@ export const PlayerVideo = (props: PlayerProps) => {
   //ref - works like this in solid
 
   let playerRef: HTMLVideoElement;
+
   let playerContainerRef: HTMLDivElement
   const [time, setTime] = createSignal(0);
   const [duration, setDuration] = createSignal(0);
@@ -38,6 +39,8 @@ export const PlayerVideo = (props: PlayerProps) => {
       let continueWatching = JSON.parse(localStorage.getItem("currentvideo"))
       playerRef.currentTime = (continueWatching.playFrom);
     }
+
+
   })
 
   createEffect(() => {
@@ -50,6 +53,8 @@ export const PlayerVideo = (props: PlayerProps) => {
   })
 
   const handleSetDuration = () => {
+    console.log(time());
+
     setDuration(playerRef.duration);
   };
   const handleTimeUpdate = () => {
@@ -84,7 +89,6 @@ export const PlayerVideo = (props: PlayerProps) => {
         <div className="d-flex flex-column" ref={playerContainerRef}>
 
           <video
-            style={{ border: 'solid 2px red' }}
             controls
             id="player"
             ondurationchange={handleSetDuration}
@@ -95,9 +99,24 @@ export const PlayerVideo = (props: PlayerProps) => {
             class="h-100 w-100"
             src={videoPath()}
           />
-          <div style=" height: 40px; position: absolute; top: 695px; left: 1400px" >
+          <div style="border:2px solid red;width:100%; height: 50px; position: absolute; top: 495px" class="d-flex flex-column">
+            <div className="d-flex justify-content-between">
+              <div className="d-flex">
+                {/* time and playpause */}
+                <div className="m-1">⏯</div>
+                <div className="m-1 text-light">23:23</div>
 
-            <button onClick={handleFullscreen}>fullscreen</button>
+              </div>
+              <div className="d-flex">
+                <div className="m-1">🔊</div>
+                <div className="m-1">🔳</div>
+                <div className="m-1">❓</div>
+                {/* vol fullscreen speed*/}
+
+              </div>
+            </div>
+            <input type="range" min={0} max={100} />
+            {/* <button onClick={handleFullscreen}>fullscreen</button> */}
           </div>
           {/* <div ref={divref} style="width: 100px; height: 30px; color: white; z-index: 232232323231; position: absolute; top: 700px; left: 0px; background: green;">test</div> */}
           <div className="d-flex w-100" style=" height: 40px; position: absolute; top: 720px; left: 0px" >
