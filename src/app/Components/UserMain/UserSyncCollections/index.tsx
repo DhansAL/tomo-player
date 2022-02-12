@@ -1,4 +1,4 @@
-import { Button, ListGroup, Modal } from "solid-bootstrap";
+import { Button, ListGroup, Modal, Spinner } from "solid-bootstrap";
 import { createSignal, For } from "solid-js";
 import { addCollections } from "../../../apiEvents/collections/addCollection";
 
@@ -9,11 +9,14 @@ import { addCollections } from "../../../apiEvents/collections/addCollection";
 export const UserSyncCollections = () => {
   const [detailsToSync, setDetailsToSync] = createSignal([]);
   const [resMesg, setResMesg] = createSignal(null);
+  const [isLoading, setIsLoading] = createSignal(false);
 
   const handleCollectionSync = async () => {
-    //@ts-expect-error TODO: set type declarations
+    setIsLoading(true);
+    //@ts-expect-error //TODO: set type declarations
     const res = await addCollections(detailsToSync());
     setResMesg(res);
+    setIsLoading(false);
   };
 
   if (localStorage.getItem("Collections")) {
@@ -29,12 +32,14 @@ export const UserSyncCollections = () => {
   const [show, setShow] = createSignal(false);
   const handleOpen = () => setShow(true);
   const handleClose = () => {
-    setShow(false)
-    setResMesg(null)
-  }
+    setShow(false);
+    setResMesg(null);
+  };
   return (
     <div>
-      <Button variant="secondary" onclick={handleOpen}>Proceed to sync</Button>
+      <Button variant="secondary" onclick={handleOpen}>
+        Proceed to sync
+      </Button>
 
       <Modal
         show={show()}
@@ -44,12 +49,11 @@ export const UserSyncCollections = () => {
         centered
         class="bg-dark"
       >
-
-        <div
-          class="m-1 p-4 d-flex flex-column bg-dark "
-        >
-
-          <h5 class="text-warning">You are about to sync these items which are present in your local collection.</h5>
+        <div class="m-1 p-4 d-flex flex-column bg-dark ">
+          <h5 class="text-warning">
+            You are about to sync these items which are present in your local
+            collection.
+          </h5>
           {detailsToSync().length > 0 ? (
             <>
               <div class="m-2">
@@ -59,8 +63,13 @@ export const UserSyncCollections = () => {
                 </For>
               </div>
 
-
-              {resMesg() != null ? (
+              {isLoading() ? (
+                <div class="m-3">
+                  <Spinner variant="light" animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </Spinner>
+                </div>
+              ) : resMesg() != null ? (
                 // in case user had his first sync
                 resMesg().greet ? (
                   <h5 class=" p-2 text-info">{resMesg().greet}</h5>
@@ -69,8 +78,13 @@ export const UserSyncCollections = () => {
                     {/* if existing show is sent to database */}
                     {resMesg().exists.length > 0 ? (
                       <div class="p-2">
-                        <h5 class="text-warning">Existing item(s) on Database</h5>
-                        <span class="text-info">Just informing that these items are already present in your database and wont create duplicates.</span>
+                        <h5 class="text-warning">
+                          Found Existing item(s) on Database
+                        </h5>
+                        <span class="text-info">
+                          Just informing that these items are already present in
+                          your database and wont create duplicates.
+                        </span>
                         <div class="d-flex flex-column">
                           <For each={resMesg().exists}>
                             {/* TODO: set type declarations */}
@@ -85,8 +99,13 @@ export const UserSyncCollections = () => {
                     )}
                     {resMesg().new.length > 0 ? (
                       <div class="p-2">
-                        <h5 class="text-success">New item(s) sent to Database</h5>
-                        <span className="text-info">these items are successfully added to your online collection.</span>
+                        <h5 class="text-success">
+                          New item(s) sent to Database
+                        </h5>
+                        <span className="text-info">
+                          these items are successfully added to your online
+                          collection.
+                        </span>
                         <For each={resMesg().new}>
                           {/* TODO: set type declarations */}
                           {(newly: string) => (
@@ -105,21 +124,18 @@ export const UserSyncCollections = () => {
             </>
           ) : (
             <p class="text-secondary">
-              you haven't added any show in your collection yet, try adding some to sync later
-              ^_^
+              you haven't added any show in your local collection yet, try
+              adding some to sync later ^_^
             </p>
           )}
 
-          {detailsToSync().length > 0 ? <Button variant="success" onclick={handleCollectionSync}>
-            Sync{" "}
-          </Button> : null}
+          {detailsToSync().length > 0 ? (
+            <Button variant="success" onclick={handleCollectionSync}>
+              Sync{" "}
+            </Button>
+          ) : null}
         </div>
-
-
-
-
       </Modal>
-
     </div>
   );
 };
