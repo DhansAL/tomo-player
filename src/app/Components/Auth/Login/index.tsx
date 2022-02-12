@@ -1,33 +1,33 @@
-import { Alert, Button, Form } from "solid-bootstrap";
+import { Alert, Button, Form, Spinner } from "solid-bootstrap";
 import { createEffect, createSignal } from "solid-js";
 import { authStore } from "../../../store/auth";
 import { loginUser, logoutUser } from "../../../apiEvents/auth/login";
 import { AuthInputFiled } from "../AuthInputFiled";
+import { AuthAlerts } from "../AuthAlerts";
 
 export const Login = () => {
   const [username, setUsername] = createSignal(null);
   const [password, setPassword] = createSignal(null);
   const [auth, setAuth] = createSignal(authStore().authenticate);
-  const [resMessage, setResMessage] = createSignal(authStore().message);
+  const [resMessage, setResMessage] = createSignal(null);
+  const [isLoading, setIsLoading] = createSignal(false);
 
-  //set a common alert component
-  const [alert, setAlert] = createSignal(false);
-
-  createEffect(() => {
-    if (resMessage() != "") {
-      setAlert(true);
-      console.log(resMessage());
-
-    }
-  });
 
   createEffect(() => {
     setAuth(authStore().authenticate);
-    setResMessage(authStore().message);
   });
 
-  const handleLogin = () => {
-    loginUser(username(), password());
+
+  const handleLogin = async () => {
+    setIsLoading(true)
+    const res = await loginUser(username(), password());
+    setResMessage(res)
+    setIsLoading(false)
+    // console.log({
+    //   username: username(),
+    //   password: password()
+    // });
+
     setUsername(null);
     setPassword(null);
   };
@@ -39,7 +39,6 @@ export const Login = () => {
   return (
     <>
       <div class="w-25">
-        {/* fix alert show only when message is there maybe onclose set messsage setAlert to blank  = null */}
         {auth() ? (
           <>
             <div className="m-3">
@@ -50,23 +49,23 @@ export const Login = () => {
             </div>
           </>
         ) : (<>
-          {alert() ? (
-            <Alert
-              variant="warning"
-              dismissible
-              transition
-              onClose={() => setAlert(false)}
-            >
-              <p>{resMessage()}</p>
-            </Alert>
+          {resMessage() !== null ? (
+            <AuthAlerts
+              resMessage={resMessage()}
+              cleanMesg={setResMessage(null)}
+            />
           ) : null}
           <AuthInputFiled
+            user={username()}
+            password={password()}
             userSetter={setUsername}
             passwordSetter={setPassword}
           />
           <br />
           <Button variant="success" onClick={handleLogin}>
-            login
+            {isLoading() ? <Spinner size="sm" animation="border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner> : "login"}
           </Button>
         </>
 

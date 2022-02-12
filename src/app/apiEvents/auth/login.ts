@@ -5,8 +5,10 @@ export const loginUser = async (username: string, password: string) => {
   //FIXME: .message do updates but dont cause component rerendering
   try {
     const res = await Axios.post("/signin", { username, password });
+
     if (res.status === 200) {
       const { token, user } = res.data;
+
       localStorage.setItem("token", token);
       localStorage.setItem("user", user.username);
 
@@ -14,7 +16,6 @@ export const loginUser = async (username: string, password: string) => {
         token: token,
         username: user.username,
         authenticate: true,
-        message: "",
       });
     }
   } catch (error) {
@@ -22,11 +23,12 @@ export const loginUser = async (username: string, password: string) => {
       token: null,
       username: null,
       authenticate: false,
-      message:
-        error.response.data.message ||
-        error.response.data.msg ||
-        error.response.data.error,
     });
+    return (
+      error.response.data.message ||
+      error.response.data.msg ||
+      error.response.data.error
+    );
   }
 };
 

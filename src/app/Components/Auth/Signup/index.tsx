@@ -1,51 +1,48 @@
-import { Alert, Button, Form } from "solid-bootstrap";
+import { Alert, Button, Spinner } from "solid-bootstrap";
 import { createEffect, createSignal } from "solid-js";
 import { SignupUser } from "../../../apiEvents/auth/signup";
+import { AuthAlerts } from "../AuthAlerts";
 import { AuthInputFiled } from "../AuthInputFiled";
 
 export const Signup = () => {
-  const [alert, setAlert] = createSignal(false);
   const [username, setUsername] = createSignal(null);
   const [password, setPassword] = createSignal(null);
   const [resMessage, setResMessage] = createSignal(null);
+  const [isLoading, setIsLoading] = createSignal(false);
 
-  createEffect(() => {
-    if (resMessage() != null) {
-      setAlert(true);
-    }
-  });
+
+
   const handleSignup = async () => {
+    setIsLoading(true)
     const res = await SignupUser(username(), password());
     setResMessage(res);
+    setIsLoading(false)
     setUsername(null);
     setPassword(null);
   };
-  const handleClose = () => {
-    setAlert(false);
-    setResMessage(null)
-  }
+
   return (
     <div class="w-25">
-      {alert() ? (
-        <Alert
-          variant="warning"
-          dismissible
-          transition
-          onClose={handleClose}
-        >
-          <p>{resMessage()}</p>
-        </Alert>
+
+      {resMessage() !== null ? (
+        <AuthAlerts
+          resMessage={resMessage()}
+          cleanMesg={setResMessage(null)}
+        />
       ) : null}
 
-
       <AuthInputFiled
+        user={username()}
+        password={password()}
         userSetter={setUsername}
         passwordSetter={setPassword}
       />
 
       <br />
       <Button onClick={handleSignup} variant="success" type="submit">
-        Signup
+        {isLoading() ? <Spinner size="sm" animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner> : "Signup"}
       </Button>
     </div>
   );
