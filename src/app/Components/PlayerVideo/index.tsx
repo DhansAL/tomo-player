@@ -1,5 +1,5 @@
 import { Badge, Button } from "solid-bootstrap";
-import { Component, createEffect, createSignal, onCleanup } from "solid-js";
+import { Component, createEffect, createSignal, onCleanup, onMount } from "solid-js";
 import { updateStreak } from "../../modules/streak/streak";
 import { Subtitles } from "../Subtitles";
 import { fileFolderStore } from "../../store/FileFolder";
@@ -34,8 +34,8 @@ export const PlayerVideo: Component = (props: PlayerProps) => {
 
   //continue from functionality
   //FIXME: set a flag which checks if last played clicked
-  createEffect(() => {
-    if (localStorage.getItem("currentvideo")) {
+  onMount(() => {
+    if (localStorage.getItem("currentvideo") && fileFolderStore().lastWatch) {
       let continueWatching = JSON.parse(localStorage.getItem("currentvideo"))
       playerRef.currentTime = (continueWatching.playFrom);
     }
@@ -67,6 +67,14 @@ export const PlayerVideo: Component = (props: PlayerProps) => {
     if (localStorage.getItem("usingStreaks")) {
       updateStreak()
     }
+    fileFolderStore.setState({
+      name: "",
+      subfilePath: "",
+      path: "",
+      lastModified: 0,
+      size: 0,
+      lastWatch: false
+    })
   })
 
   return (

@@ -7,6 +7,8 @@
  * @param size - size
  * @param type - type for files only
  * @param subfilePath - path of the subfile
+ * @param lastWatch - true if played from continue watching
+ *
  *
  */
 
@@ -17,4 +19,5 @@ export interface FileFolderServed {
   size: number;
   type?: string;
   subfilePath?: string;
+  lastWatch: boolean;
 }

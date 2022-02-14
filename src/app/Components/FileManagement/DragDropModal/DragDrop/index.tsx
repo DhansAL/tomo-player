@@ -94,6 +94,7 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
                     lastModified,
                     type,
                     subfilePath: subpath,
+                    lastWatch: false
                 });
                 setAlert(true)
                 setAlertType((current) => ({ ...current, variant: "success", body: `File dropped successfully!.File dropped successfully. You dropped "${path}"`, heading: "File sucessfully dropped." }));
@@ -107,6 +108,7 @@ export const DragDrop: Component<DragDropProps> = (props: DragDropProps) => {
                     path,
                     size,
                     lastModified,
+                    lastWatch: false
                 });
                 setAlert(true)
                 setAlertType((current) => ({ ...current, variant: "success", body: `Folder dropped successfully!.Try accessing the folder in your collection. You dropped "${path}"`, heading: "Folder sucessfully dropped." }));

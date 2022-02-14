@@ -27,7 +27,8 @@ export const ContinuePlay = () => {
             subfilePath: continueWatching.sub,
             path: continueWatching.video,
             lastModified: 0,
-            size: 0
+            size: 0,
+            lastWatch:true
         })
         console.log(fileFolderStore.getState(), "values in store for continue watching");
     }

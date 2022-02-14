@@ -32,6 +32,7 @@ export const MediaSubsList = () => {
     subfilePath: "",
     name: "",
     size: 0,
+    lastWatch: false
   });
 
   createEffect(() => {
@@ -92,6 +93,7 @@ export const MediaSubsList = () => {
           size: 0,
           path: `${currentCollection()}\\${currentVideo()}`,
           subfilePath: `${currentCollection()}\\${currentSub()}`,
+          lastWatch: false
         });
         fileFolderStore.setState(toplay())
         console.log(fileFolderStore.getState(), "in file store , to play");
