@@ -29,34 +29,55 @@ export const Tokenization = (props: TokenProps) => {
         setSegmentedSub(segmentedSub);
     })
 
-    //on hover things
-    const [select, setselect] = createSignal(null) //for token hilighting
+    /**
+     //on hover things
+  *  */
+    const [select, setselect] = createSignal(null)
+    //for token hilighting
     const handleTokenStyle = (token: string) => {
         setselect(token)
+    }
+    //calculate left via ref
+    const handleShowPopover = (token: string) => {
         setWord(token)
         setSeePopover(true);
     }
+
     return (
-        <div class="col px-md-5 d-flex pd-3 flex-row text-light justify-content-center" style=" background: rgba(0, 0, 0, 0.4)">
-            <div class="popover__wrapper">
-                {/* FIXME: make it open and close on clicks to avoid unwanted requests and not missing search */}
-                <div class="popover__content overflow-scroll scrollbar-primary bg-dark" style={{ height: "230px", width: "270px", bottom: "18px", left: "auto" }}>
-                    {seePopover() ? <JishoPopover word={word()} /> : null}
-                </div>
-                <div class='d-flex'>
-                    <For each={segmentedSub()} fallback={<div>starting </div>}>
-                        {(token, i) =>
-                            <>
-                                <h4 onMouseOver={() => handleTokenStyle(token)}
-                                    style={token == select() ? { cursor: "pointer", color: "#51f366" } : { color: "white", cursor: "pointer" }} >{token}</h4>
+        <div class="popover__wrapper"
+            onmouseleave={() => setSeePopover(false)}
+        >
 
-                            </>
-                        }
-                    </For>
-                </div>
+            <div class="popover__content overflow-scroll scrollbar-primary bg-dark">
+
+                {seePopover() ?
+                    <JishoPopover word={word()} />
+                    :
+                    <div class="text-light d-flex flex-column p-3 justify-content-center align-items-center">
+                        <h5 class="m-2 text-light">DICTIONARY</h5>
+                        <p class="m-2 text-light">  click on any word to search</p>
+                    </div>}
             </div>
+            <div class='d-flex justify-content-center' style="width:100vw; background: rgba(0, 0, 0, 0.4)">
+                <For each={segmentedSub()} fallback={<div>starting </div>}>
+                    {(token, i) =>
+                        <>
+                            <h4
+                                onMouseOver={() => handleTokenStyle(token)}
+                                onclick={() => handleShowPopover(token)}
+                                style={token == select()
+                                    ? { cursor: "pointer", color: "#51f366" }
+                                    : { color: "white", cursor: "pointer" }}
+                            >
+                                {token}
+                            </h4>
 
+                        </>
+                    }
+                </For>
+            </div>
         </div>
+
     )
 }
 

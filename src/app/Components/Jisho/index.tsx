@@ -70,7 +70,7 @@ export const JishoPopover = (props: JishoProps) => {
                 {/* slug */}
                 <div className="p-2">
                   <div class="d-flex flex-column justify-content-between align-items-center">
-                    <div className="">
+                    <div >
                       <span style={{ fontSize: "12px" }} class="text-info">{JSON.stringify(word.japanese[0].reading)}</span>
                       <div className="d-flex">
                         <For each={word.slug.split("")}>

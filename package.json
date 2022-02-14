@@ -1,7 +1,7 @@
 {
   "name": "tomoplayer",
   "productName": "tomoplayer-v2",
-  "version": "0.1.0-beta.2",
+  "version": "0.2.0-beta.1",
   "description": "A Japanese learning and progress tracking video player",
   "main": ".webpack/main",
   "scripts": {

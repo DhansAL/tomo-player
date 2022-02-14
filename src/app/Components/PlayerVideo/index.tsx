@@ -84,9 +84,9 @@ export const PlayerVideo: Component = (props: PlayerProps) => {
         </ Button>
 
         <div className="d-flex flex-column" ref={playerContainerRef}>
-
           <video
             controls
+            // controlsList="nodownload nofullscreen noremoteplayback"
             id="player"
             ondurationchange={handleSetDuration}
             onseeked={handleSeek}
@@ -116,9 +116,10 @@ export const PlayerVideo: Component = (props: PlayerProps) => {
             </div>
             <input type="range" min={0} max={100} />
           </div> */}
-          <div className="d-flex w-100" style=" height: 40px; position: absolute; top: 720px; left: 0px" >
+          <div className="d-flex w-100" style=" height: auto; position: absolute; top: 720px; left: 0px" >
             <Subtitles
               subfile={subPath()}
+              // subfile="E:\\voracious animes\\steins gate\\1.srt"
               time={time()} duration={duration()} seektime={seektime()} />
           </div>
 
