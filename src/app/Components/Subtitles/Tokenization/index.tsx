@@ -10,7 +10,7 @@ type TokenProps = {
 }
 
 /**
- * Reusable component to tokenize (**JP) any sentence array or single word.
+ * tokenizes  any sentence array or single word.
  * creates an hoverable modal to see the details of the word.
  *
  * @param toTokenize string[ ] | string the sentence or word to tokenize.
@@ -57,7 +57,7 @@ export const Tokenization = (props: TokenProps) => {
                         <p class="m-2 text-light">  click on any word to search</p>
                     </div>}
             </div>
-            <div class='d-flex justify-content-center' style="width:100vw; background: rgba(0, 0, 0, 0.4)">
+            <div class='d-flex justify-content-center' style="width:100vw; background: rgba(0, 0, 0, 0.5)">
                 <For each={segmentedSub()} fallback={<div>starting </div>}>
                     {(token, i) =>
                         <>

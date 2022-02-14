@@ -1,4 +1,4 @@
-import { Button } from "solid-bootstrap";
+import { Badge, Button } from "solid-bootstrap";
 import { Component, createEffect, createSignal, onCleanup } from "solid-js";
 import { updateStreak } from "../../modules/streak/streak";
 import { Subtitles } from "../Subtitles";
@@ -33,13 +33,13 @@ export const PlayerVideo: Component = (props: PlayerProps) => {
   const [currentVideo, setCurrentVideo] = createSignal<CurrentVideo>(null)
 
   //continue from functionality
+  //FIXME: set a flag which checks if last played clicked
   createEffect(() => {
     if (localStorage.getItem("currentvideo")) {
       let continueWatching = JSON.parse(localStorage.getItem("currentvideo"))
       playerRef.currentTime = (continueWatching.playFrom);
     }
-
-
+    screenfull.toggle(playerContainerRef)
   })
 
   createEffect(() => {
@@ -61,11 +61,6 @@ export const PlayerVideo: Component = (props: PlayerProps) => {
     setSeektime(playerRef.currentTime)
     playerRef.pause()
   }
-  const handleFullscreen = () => {
-    screenfull.toggle(playerContainerRef)
-  }
-
-
 
   onCleanup(() => {
     localStorage.setItem('currentvideo', JSON.stringify(currentVideo()))
@@ -76,56 +71,32 @@ export const PlayerVideo: Component = (props: PlayerProps) => {
 
   return (
     <>
-      <div class="vw-100 bg-dark d-flex flex-column">
-        < Button variant="secondary" class=" w-100">
-          <a href="#" class="text-light text-decoration-none  text-center" >
-            <h6>⬅ GO BACK</h6>
-          </a>
-        </ Button>
 
-        <div className="d-flex flex-column" ref={playerContainerRef}>
-          <video
-            controls
-            // controlsList="nodownload nofullscreen noremoteplayback"
-            id="player"
-            ondurationchange={handleSetDuration}
-            onseeked={handleSeek}
-            ref={playerRef}
-
-            onTimeUpdate={handleTimeUpdate}
-            class="h-100 w-100"
-            src={videoPath()}
-          />
-          <div style="width:100%; height: 50px; position: absolute; top: 45px" class="d-flex justify-content-end">
-            <div className="m-2 text-light" onclick={handleFullscreen}>fullscreen🔳</div>
-          </div>
-
-          {/* <div style="border:2px solid red;width:100%; height: 50px; position: absolute; top: 495px" class="d-flex flex-column">
-            <div className="d-flex justify-content-between">
-              <div className="d-flex">
-                <div className="m-1">⏯</div>
-                <div className="m-1 ">23:23</div>
-
-              </div>
-              <div className="d-flex">
-                <div className="m-1">🔊</div>
-                <div className="m-1" onclick={handleFullscreen}>🔳</div>
-                <div className="m-1">❓</div>
-
-              </div>
-            </div>
-            <input type="range" min={0} max={100} />
-          </div> */}
-          <div className="d-flex w-100" style=" height: auto; position: absolute; top: 720px; left: 0px" >
-            <Subtitles
-              subfile={subPath()}
-              time={time()} duration={duration()} seektime={seektime()} />
-          </div>
-
-
+      <div class="d-flex flex-column" ref={playerContainerRef}>
+        <video
+          controls
+          id="player"
+          ondurationchange={handleSetDuration}
+          onseeked={handleSeek}
+          ref={playerRef}
+          onTimeUpdate={handleTimeUpdate}
+          class="h-100 w-100"
+          src={videoPath()}
+        />
+        <div className="d-flex w-100 cursor-pointer" style="left:8px ;position:absolute; top: 10px" >
+          <Badge
+            as='span'
+            bg="secondary"
+            text="light">
+            <a href="#" class="text-decoration-none text-light">back</a>
+          </Badge>
         </div>
 
-
+        <div className="d-flex w-100" style="height:auto; position: absolute; top: 720px" >
+          <Subtitles
+            subfile={subPath()}
+            time={time()} duration={duration()} seektime={seektime()} />
+        </div>
       </div>
     </>
   );
