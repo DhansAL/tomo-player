@@ -119,7 +119,6 @@ export const PlayerVideo: Component = (props: PlayerProps) => {
           <div className="d-flex w-100" style=" height: auto; position: absolute; top: 720px; left: 0px" >
             <Subtitles
               subfile={subPath()}
-              // subfile="E:\\voracious animes\\steins gate\\1.srt"
               time={time()} duration={duration()} seektime={seektime()} />
           </div>
 

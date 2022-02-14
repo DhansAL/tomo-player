@@ -4,10 +4,10 @@
   opacity: 0;
   visibility: hidden;
   position: absolute;
-  height: 230px;
-  width: 270px;
+  height: 240px;
+  width: 380px;
   bottom: 18px;
-  left: 600px;
+  left: 550px;
 }
 
 .popover__wrapper:hover .popover__content {

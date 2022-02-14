@@ -1,5 +1,4 @@
 import { createEffect, createSignal, For } from "solid-js";
-import { Button, OverlayTrigger, Popover } from "solid-bootstrap";
 import { JishoPopover } from "../../Jisho";
 import "../../../scrollbar.css"
 import "./popover.css"
