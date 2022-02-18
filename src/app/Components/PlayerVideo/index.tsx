@@ -33,7 +33,6 @@ export const PlayerVideo: Component = (props: PlayerProps) => {
   const [currentVideo, setCurrentVideo] = createSignal<CurrentVideo>(null)
 
   //continue from functionality
-  //FIXME: set a flag which checks if last played clicked
   onMount(() => {
     if (localStorage.getItem("currentvideo") && fileFolderStore().lastWatch) {
       let continueWatching = JSON.parse(localStorage.getItem("currentvideo"))
