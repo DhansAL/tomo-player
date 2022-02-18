@@ -16,18 +16,7 @@ module.exports = [
       },
     },
   },
-  //react presets&rules
-  // {
-  //   test: /\.tsx?$/,
-  //   exclude: /(node_modules|\.webpack)/,
-  //   use: {
-  //     loader: 'ts-loader',
-  //     options: {
-  //       transpileOnly: true
-  //     }
-  //   }
-  // },
-  //solid inculsion
+
   {
     test: /\.tsx?$/,
     exclude: [/(node_modules|\.webpack)/],
