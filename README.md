@@ -1,4 +1,5 @@
 # Tomoplayer
+## !!! WIP, LINKS ARE TO BE UPDATED
 
 Tomoplayer, a video player for learning Japanese with inbuilt dictionary and other
 features which helps in efficient immersion while learning.
