@@ -1,7 +1,7 @@
 /**
  * Available themes for daisyUI which is used for theme switching.
  */
-export const DAISY_THEMES: string[] = ['dark', 'forest', 'business']
+export const DAISY_THEMES: string[] = ['light', 'coffee', 'business', 'dark', 'forest']
 
 export const AVAILABLE_THEMES: string[] = [
   'light',

@@ -7,6 +7,8 @@ module.exports = {
   daisyui: {
     themes: [
       'light',
+      'coffee',
+      'business',
       'dark',
       'cupcake',
       'bumblebee',
@@ -29,11 +31,9 @@ module.exports = {
       'dracula',
       'cmyk',
       'autumn',
-      'business',
       'acid',
       'lemonade',
       'night',
-      'coffee',
       'winter'
     ]
   },
