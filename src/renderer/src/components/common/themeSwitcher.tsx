@@ -10,7 +10,7 @@ export const ThemeSwitcher: Component = () => {
     })
     return (
         <>
-            <select class="select select-bordered select-xs max-w-xs m-5" data-choose-theme>
+            <select class="select select-bordered select-xs max-w-xs " data-choose-theme>
                 <option disabled selected>Pick your favorite theme</option>
                 {DAISY_THEMES.map((value) => (
                     <option value={value.toLowerCase()}>{value}</option>

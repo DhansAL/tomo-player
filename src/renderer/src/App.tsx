@@ -8,15 +8,9 @@ const App: Component = () => {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/library" element={<Library />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/player" element={<Player />} />
-        <Route path="/pro" element={<ProPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/userstats" element={<UserMain />} /> */}
+
       </Routes>
-      {/* <ThemeSwitcher />
-      <button class="btn btn-primary m-6">Button</button> */}
+
     </>
   )
 }
