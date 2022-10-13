@@ -8,7 +8,6 @@ const App: Component = () => {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
-
       </Routes>
 
     </>

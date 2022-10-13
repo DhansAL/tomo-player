@@ -5,12 +5,10 @@ export const Navbar = () => {
         <>
             <div class="navbar bg-base-300">
                 <div class="navbar-start">
-                    <div class="flex-none">
-                        <ul class="menu menu-horizontal p-0">
-                            <li class="bordered"><a>Item 1</a></li>
-                            <li><a>Item 2</a></li>
-                            <li><a>Item 3</a></li>
-                        </ul>
+                    <div class="tabs m-2 gap-2">
+                        <a class="tab tab-lifted  tab-active">Tab 1</a>
+                        <a class="tab tab-lifted">Tab 2</a>
+                        <a class="tab tab-lifted">Tab 3</a>
                     </div>
                 </div>
                 <div class="navbar-center">
