@@ -1,4 +1,4 @@
-import { app, shell, BrowserWindow } from 'electron'
+import { app, shell, BrowserWindow, session } from 'electron'
 import * as path from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 
@@ -15,6 +15,7 @@ function createWindow(): void {
         }
       : {}),
     webPreferences: {
+      webSecurity: false,
       preload: path.join(__dirname, '../preload/index.js'),
       sandbox: false
     }
@@ -37,6 +38,22 @@ function createWindow(): void {
     mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'))
   }
 }
+//CSP REGISTERIES
+app.on('ready', () => {
+  session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+    callback({
+      responseHeaders: {
+        ...details.responseHeaders,
+        'Content-Security-Policy': [
+          //FIXME: connect-src needs update - connect src especially
+          //for prod , put connect-src * in dev to allow access for webpack devserver
+          // "default-src 'unsafe-inline' 'self';script-src 'self' 'unsafe-eval'; img-src file://* https://* filesystem: data: ; media-src file://* ; connect-src https://jisho.org ",
+          "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'  img-src 'self' file://* https://* filesystem: data: ; media-src 'self' file://* https://* filesystem: data: ; connect-src * "
+        ]
+      }
+    })
+  })
+})
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
