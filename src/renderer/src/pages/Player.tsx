@@ -13,7 +13,7 @@ export const Player_Core = () => {
         // setStore({ items: [...store.items, "hello deer"] })
         console.log("")
     }
-    // console.log("dsds", store.items);
+
 
     return (
         // <video controls src="asset://D:/minami/passds.mp4" class="  min-h-screen w-full px-0 py-2 bg-base-100 "></video>

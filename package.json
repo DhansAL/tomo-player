@@ -25,6 +25,7 @@
     "@solidjs/router": "0.5.0",
     "daisyui": "2.31.0",
     "electron-updater": "^4.6.5",
+    "screenfull": "6.0.2",
     "solid-icons": "1.0.1",
     "theme-change": "2.2.0"
   },
