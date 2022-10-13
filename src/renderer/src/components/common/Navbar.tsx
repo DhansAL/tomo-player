@@ -1,3 +1,4 @@
+import { A } from "@solidjs/router"
 import { ThemeSwitcher } from "./themeSwitcher"
 
 export const Navbar = () => {
@@ -6,8 +7,8 @@ export const Navbar = () => {
             <div class="navbar bg-base-300">
                 <div class="navbar-start">
                     <div class="tabs m-2 gap-2">
-                        <a class="tab tab-lifted  tab-active">Tab 1</a>
-                        <a class="tab tab-lifted">Tab 2</a>
+                        <A href="/" class="tab tab-lifted  tab-active">Home</A>
+                        <A href="/player" class="tab tab-lifted">Player</A>
                         <a class="tab tab-lifted">Tab 3</a>
                     </div>
                 </div>
