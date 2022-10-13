@@ -1,6 +1,6 @@
 
 export const Player_Core = () => {
     return (
-        <div>Player</div>
+        <video controls src="D:\minami\passds.mp4" class="min-h-screen px-0 py-2 bg-base-100 "></video>
     )
 }
