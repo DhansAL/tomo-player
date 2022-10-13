@@ -1,4 +1,4 @@
-import { app, shell, BrowserWindow, session } from 'electron'
+import { app, shell, BrowserWindow, session, protocol } from 'electron'
 import * as path from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 
@@ -15,7 +15,7 @@ function createWindow(): void {
         }
       : {}),
     webPreferences: {
-      webSecurity: false,
+      webSecurity: true,
       preload: path.join(__dirname, '../preload/index.js'),
       sandbox: false
     }
@@ -48,10 +48,24 @@ app.on('ready', () => {
           //FIXME: connect-src needs update - connect src especially
           //for prod , put connect-src * in dev to allow access for webpack devserver
           // "default-src 'unsafe-inline' 'self';script-src 'self' 'unsafe-eval'; img-src file://* https://* filesystem: data: ; media-src file://* ; connect-src https://jisho.org ",
-          "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'  img-src 'self' file://* https://* filesystem: data: ; media-src 'self' file://* https://* filesystem: data: ; connect-src * "
+          "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'  img-src 'self' asset://* file://* https://* filesystem: data: ; media-src 'self' asset://* file://* https://* filesystem: data: ; connect-src * "
         ]
       }
     })
+  })
+})
+
+app.on('ready', async () => {
+  protocol.registerFileProtocol('asset', (request, callback) => {
+    const url = request.url.replace('asset://', '')
+    try {
+      console.log(url)
+
+      return callback(url)
+    } catch (error) {
+      console.error(error)
+      return callback('protocol not working or file not found')
+    }
   })
 })
 
