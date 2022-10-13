@@ -1,13 +1,13 @@
 import type { Component } from 'solid-js'
 // import { ThemeSwitcher } from './components/common/themeSwitcher'
 import { Routes, Route } from "@solidjs/router"
-import { Home } from './pages/Home'
+import { HomePage } from './pages/HomePage'
 const App: Component = () => {
 
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<HomePage />} />
       </Routes>
 
     </>
