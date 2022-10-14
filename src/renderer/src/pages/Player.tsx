@@ -1,6 +1,7 @@
 // import { PlayerStore } from "@renderer/stores/PlayerStore"
 // import { unproxy } from "@renderer/utils/unProxy";
 import { Controls } from "@renderer/components/Player/Controls";
+import { PlayerStore } from "@renderer/stores/PlayerStore";
 import screenfull from "screenfull";
 
 
@@ -24,7 +25,7 @@ export const Player_Core = () => {
 
     //ref - works like this in solid
 
-    // const [store, setStore] = PlayerStore;
+    const [store, setStore] = PlayerStore;
     const handleAddItem = () => {
         // setStore({ items: [...store.items, "hello deer"] })
         console.log("")
@@ -35,7 +36,7 @@ export const Player_Core = () => {
         <>
             <div class=" w-full h-screen flex justify-center items-center" ref={playerContainerRef}>
                 <video src="asset://D:/minami/passds.mp4" class="min-h-screen w-full p-0 bg-base-100 " />
-                <Controls />
+                <Controls playerStore={store} playerStoreSetter={setStore} />
             </div>
 
 

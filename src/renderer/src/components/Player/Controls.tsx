@@ -1,21 +1,48 @@
-import { FaSolidChevronLeft, FaSolidChevronRight, FaSolidPlay, FaSolidVolumeHigh } from 'solid-icons/fa'
-import { FaSolidBookOpen } from 'solid-icons/fa'
-import { TbLetterCase } from 'solid-icons/tb'
+import { PlayerStore } from '@renderer/stores/PlayerStore'
 import { BsCollectionPlayFill } from 'solid-icons/bs'
-import { FaSolidForwardFast } from 'solid-icons/fa'
-export const Controls = () => {
+import { FaSolidBookOpen, FaSolidChevronLeft, FaSolidChevronRight, FaSolidForwardFast, FaSolidPause, FaSolidPlay, FaSolidVolumeHigh } from 'solid-icons/fa'
+import { TbLetterCase } from 'solid-icons/tb'
+import { createEffect, onMount, Show } from 'solid-js'
+import { SetStoreFunction } from 'solid-js/store/types/store'
+
+interface PlayerControlProps {
+    playerStore: Partial<PlayerStore>;
+    playerStoreSetter: SetStoreFunction<Partial<PlayerStore>>;
+}
+
+export const Controls = (props: PlayerControlProps) => {
+    const { playerStore, playerStoreSetter } = props;
+
+    createEffect(() => {
+        console.log("do we show player verbose info", playerStore.showVerboseInfoAtPause, playerStore.paused);
+
+    })
+    const handlePlayPause = () => {
+        playerStoreSetter({ showVerboseInfoAtPause: !playerStore.showVerboseInfoAtPause, paused: !playerStore.paused })
+    }
     return (
-        <div class="absolute p-5 w-full h-screen flex gap-10  flex-col   z-10">
-            <div class="flex flex-row basis-1/6 justify-between border">
-                <p class="text-info">top part</p>
-            </div>
-            <div class="flex flex-row basis-5/6 justify-between border">
-                <p class="text-info">middle part</p>
-            </div>
+        <div class="absolute p-3 w-full h-screen flex gap-3  flex-col ">
+            <Show when={playerStore.showVerboseInfoAtPause}
+                fallback={<div class="flex flex-row basis-1/6 justify-between " />
+                }>
+                <div class="flex flex-row basis-1/6 justify-between border">
+                    <p class="text-info">top part</p>
+                </div>
+            </Show>
+            {/* middle info only show when first load, else whenever user explicitly pauses(clicks on pause. not while checking words) */}
+            <Show when={playerStore.showVerboseInfoAtPause}
+                fallback={
+                    <div class="flex flex-row basis-5/6 justify-between" />
+                }>
+                <div class="flex flex-row basis-5/6 justify-between border" >
+                    <p class="text-info">middle part</p>
+                </div>
+            </Show>
+
             <div class="flex flex-row basis-1/6 justify-between border">
                 <p class="text-info">sub part</p>
             </div>
-            <div class="flex flex-col basis-1/6 justify-between items-start p-2 pt-5">
+            <div class="border flex flex-col basis-1/6 justify-between items-start p-3 pt-6">
                 {/* Progress */}
                 <div class=" flex flex-row items-center  gap-3 w-full">
                     <p class="text-white text-xs">00:00</p>
@@ -26,7 +53,11 @@ export const Controls = () => {
                 <div class=" flex flex-row items-center justify-between w-full">
                     {/* left side controlls */}
                     <div class="flex flex-row items-center gap-4">
-                        <FaSolidPlay size={26} />
+                        <Show when={playerStore.paused}
+                            fallback={<FaSolidPause onclick={handlePlayPause} size={26} />}
+                        >
+                            <FaSolidPlay onclick={handlePlayPause} size={26} />
+                        </Show>
                         <FaSolidChevronLeft size={26} />
                         <FaSolidChevronRight size={26} />
                         {/* volume */}
@@ -39,7 +70,7 @@ export const Controls = () => {
                     <div class="flex flex-row items-center gap-5">
                         <FaSolidBookOpen size={26} />
                         <TbLetterCase size={26} />
-                        <div data-tip="Playback rate" class="tooltip dropdown dropdown-top dropdown-end">
+                        <div class="dropdown dropdown-top dropdown-end">
                             <label tabindex="0" class="text-white m-1">1x</label>
                             <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-32">
                                 <li><a>0.5x</a></li>
