@@ -56,12 +56,11 @@ export const Controls = (props: PlayerControlProps) => {
 
     }
     playerRef!.onloadstart = () => {
+
         console.log("player Loading");
     }
     playerRef!.onloadedmetadata = () => {
         playerStoreSetter({ duration: playerRef?.duration })
-
-
     }
 
 
@@ -105,14 +104,23 @@ export const Controls = (props: PlayerControlProps) => {
                 <Show when={playerStore.showPlayerBaseControls}>
                     {/* Progress */}
                     <div class=" flex flex-row items-center  gap-3 w-full">
-                        <p class="text-white text-xs">{playerStore.currentTime ? formatSeconds(playerStore.currentTime, "MMSS") : "00:00"}</p>
-                        <input
-                            onclick={check}
-                            onchange={(e) => console.log(e.currentTarget.value)
-                            }
-                            type="range" min="0" max={playerRef?.duration} value={playerStore.currentTime} class="border range range-xs range-primary " />
+                        <Show when={playerStore.currentTime}
+                            fallback={<p class="text-white text-xs">00:00</p>}
+                        >
+                            <p class="text-white text-xs">{formatSeconds(playerStore.currentTime!, "MMSS")}</p>
+                        </Show>
 
-                        <p class="text-white text-xs">{playerStore.duration ? formatSeconds(playerStore.duration, "MMSS") : "-:-"}</p>
+                        <input
+                            onchange={(e) => playerRef!.currentTime = parseInt(e.currentTarget.value) // value is a string
+                            }
+                            type="range" min="0" max={playerRef?.duration}
+                            value={playerStore.currentTime}
+                            class="border range range-xs range-primary " />
+
+                        <Show when={playerStore.duration}>
+                            <p class="text-white text-xs">{formatSeconds(playerStore.duration!, "MMSS")}</p>
+                        </Show>
+
                     </div>
                     {/* controlls */}
                     <div class=" flex flex-row items-center justify-between w-full">
