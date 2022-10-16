@@ -52,7 +52,7 @@ export const Controls = (props: PlayerControlProps) => {
     // initializers
     playerRef!.ontimeupdate = () => {
         playerStoreSetter({ currentTime: playerRef?.currentTime })
-        console.log(playerRef?.currentTime, "wakuwaku", playerRef?.duration);
+        // console.log(playerRef?.currentTime, "wakuwaku", playerRef?.duration);
 
     }
     playerRef!.onloadstart = () => {
@@ -135,7 +135,16 @@ export const Controls = (props: PlayerControlProps) => {
                             <FaSolidChevronRight onclick={handleSmallForward} size={26} />
                             {/* volume */}
                             <FaSolidVolumeHigh size={26} />
-                            <input type="range" min="0" max="100" value="40" class="range range-xs w-32" />
+                            <input type="range" min="0" max="100" value={playerStore.masterVolume}
+                                onchange={(e) => {
+                                    console.log(e.currentTarget.value, playerRef?.volume);
+
+                                    playerRef!.volume = parseInt(e.currentTarget.value) / 100
+                                    playerStoreSetter({ masterVolume: parseInt(e.currentTarget.value) })
+                                }}
+                                class="range range-xs w-32" />
+
+                            {/* show details */}
                             <p class='text-white font-bold text-l ml-10'>Stein's Gate - season 2 </p>
                             <p class='text-white font-bold text-l ml-5'>episode - 7</p>
                         </div>
