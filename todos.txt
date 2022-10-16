@@ -1,0 +1,4 @@
+PLACES THAT NEED IMPROVEMENTS.
+controls
+- need a way to access ref only when its not undefined.
+this solves one of the many things which is to be done

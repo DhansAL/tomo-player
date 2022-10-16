@@ -14,6 +14,7 @@ export interface PlayerStore {
     playbackRate: number;
     masterVolume: number;
     muted: boolean;
+    duration: number;
     // ... add more here
     showVerboseInfoAtPause: boolean;
     showPlayerBaseControls: boolean;

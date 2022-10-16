@@ -2,7 +2,7 @@ import { PlayerStore } from '@renderer/stores/PlayerStore'
 import { BsCollectionPlayFill } from 'solid-icons/bs'
 import { FaSolidBookOpen, FaSolidChevronLeft, FaSolidChevronRight, FaSolidForwardFast, FaSolidPause, FaSolidPlay, FaSolidVolumeHigh } from 'solid-icons/fa'
 import { TbLetterCase } from 'solid-icons/tb'
-import { Show } from 'solid-js'
+import { createEffect, onMount, Show } from 'solid-js'
 import { SetStoreFunction } from 'solid-js/store/types/store'
 // import * as datefns from 'date-fns'
 import { formatSeconds } from '@renderer/utils/secondFormatter'
@@ -15,7 +15,8 @@ interface PlayerControlProps {
 
 export const Controls = (props: PlayerControlProps) => {
     const { playerStore, playerStoreSetter, playerRef } = props;
-    // for base control visiblity
+
+    // BASE CONTROLS
     const handleBaseControlVisiblity = async (visible: boolean) => {
         if (!visible) {
             await new Promise(resolve => setTimeout(resolve, 2500))
@@ -25,7 +26,6 @@ export const Controls = (props: PlayerControlProps) => {
             playerStoreSetter({ showPlayerBaseControls: true })
         }
     }
-
     const handlePlayPause = async () => {
         playerStoreSetter({ showVerboseInfoAtPause: !playerStore.showVerboseInfoAtPause, paused: !playerStore.paused })
         if (playerStore.paused) {
@@ -48,11 +48,23 @@ export const Controls = (props: PlayerControlProps) => {
     const handleSmallRewind = () => {
         seekToTime(-10)
     }
+
+    // initializers
     playerRef!.ontimeupdate = () => {
         playerStoreSetter({ currentTime: playerRef?.currentTime })
-        // console.log(playerRef?.currentTime, "wakuwaku", playerRef?.duration);
+        console.log(playerRef?.currentTime, "wakuwaku", playerRef?.duration);
 
     }
+    playerRef!.onloadstart = () => {
+        console.log("player Loading");
+    }
+    playerRef!.onloadedmetadata = () => {
+        playerStoreSetter({ duration: playerRef?.duration })
+
+
+    }
+
+
 
     const check = () => {
         const result = formatSeconds(playerRef!.currentTime, "HHMMSS")
@@ -93,13 +105,14 @@ export const Controls = (props: PlayerControlProps) => {
                 <Show when={playerStore.showPlayerBaseControls}>
                     {/* Progress */}
                     <div class=" flex flex-row items-center  gap-3 w-full">
-                        <p class="text-white text-xs">00:00</p>
+                        <p class="text-white text-xs">{playerStore.currentTime ? formatSeconds(playerStore.currentTime, "MMSS") : "00:00"}</p>
                         <input
                             onclick={check}
                             onchange={(e) => console.log(e.currentTarget.value)
                             }
                             type="range" min="0" max={playerRef?.duration} value={playerStore.currentTime} class="border range range-xs range-primary " />
-                        <p class="text-white text-xs">23:23</p>
+
+                        <p class="text-white text-xs">{playerStore.duration ? formatSeconds(playerStore.duration, "MMSS") : "-:-"}</p>
                     </div>
                     {/* controlls */}
                     <div class=" flex flex-row items-center justify-between w-full">
