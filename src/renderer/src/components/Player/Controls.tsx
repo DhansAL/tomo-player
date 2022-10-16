@@ -102,7 +102,7 @@ export const Controls = (props: PlayerControlProps) => {
             </div>
 
             {/* bottom controls */}
-            <div class="border flex flex-col basis-1/6 justify-between items-start p-3 pt-6"
+            <div class=" flex flex-col basis-1/6 justify-between items-start p-3 pt-6"
                 onMouseLeave={() => handleBaseControlVisiblity(false)}
                 onMouseEnter={() => handleBaseControlVisiblity(true)}
             >
