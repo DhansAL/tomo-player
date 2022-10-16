@@ -6,3 +6,5 @@ this solves one of the many things which is to be done
 - having different stores , one to store metadata, one to store player values, vol etc.
 reason, should we be storing entire state to our local storage or leveldb? 
 also clean up values . it bugs with volume etc rn 
+
+-- theres a strange bug on video progress bar which is moving forward rapidly in first load. fixes itself after another load or render

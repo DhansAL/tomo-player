@@ -59,7 +59,7 @@ export const Controls = (props: PlayerControlProps) => {
     // initializers
     playerRef!.ontimeupdate = () => {
         playerStoreSetter({ currentTime: playerRef?.currentTime })
-        // console.log(playerRef?.currentTime, "wakuwaku", playerRef?.duration);
+        console.log(playerRef?.currentTime, "wakuwaku", playerRef?.duration, playerRef?.playbackRate);
 
     }
     playerRef!.onloadstart = () => {
@@ -119,7 +119,7 @@ export const Controls = (props: PlayerControlProps) => {
                             oninput={(e) =>
                                 playerRef!.currentTime = parseInt(e.currentTarget.value)// value is a string
                             }
-                            type="range" min="0" max={playerRef?.duration}
+                            type="range" min="0" max={playerStore?.duration} //Use initialized playerstore values to avoid unpredictable values, test player ref here
                             value={playerStore.currentTime}
                             class="border range range-xs range-primary " />
 
