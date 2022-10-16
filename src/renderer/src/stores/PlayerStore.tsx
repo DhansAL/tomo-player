@@ -25,10 +25,11 @@ export interface PlayerStore {
 
 
 export const PlayerStore = createStore<Partial<PlayerStore>>({
-    masterVolume: 50,
+    masterVolume: 30,
     muted: false,
     paused: true,
     currentTime: 0,
+    playbackRate: 1,
     showVerboseInfoAtPause: true,
     showPlayerBaseControls: true
-})
+});

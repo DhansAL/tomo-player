@@ -1,8 +1,8 @@
 import { PlayerStore } from '@renderer/stores/PlayerStore'
 import { BsCollectionPlayFill } from 'solid-icons/bs'
-import { FaSolidBookOpen, FaSolidChevronLeft, FaSolidChevronRight, FaSolidForwardFast, FaSolidPause, FaSolidPlay, FaSolidVolumeHigh, FaSolidVolumeOff, FaSolidVolumeXmark } from 'solid-icons/fa'
+import { FaSolidBookOpen, FaSolidChevronLeft, FaSolidChevronRight, FaSolidForwardFast, FaSolidPause, FaSolidPlay, FaSolidVolumeHigh, FaSolidVolumeXmark } from 'solid-icons/fa'
 import { TbLetterCase } from 'solid-icons/tb'
-import { createEffect, onMount, Show } from 'solid-js'
+import { Show } from 'solid-js'
 import { SetStoreFunction } from 'solid-js/store/types/store'
 // import * as datefns from 'date-fns'
 import { formatSeconds } from '@renderer/utils/secondFormatter'
@@ -43,7 +43,14 @@ export const Controls = (props: PlayerControlProps) => {
         playerRef!.currentTime = playerRef!.currentTime + time
     }
     const handleSmallForward = () => {
-        seekToTime(10)
+        seekToTime(10);
+
+    }
+    const handlePlaybackRate = (playbackRate: "0.75" | "1" | "1.25") => {
+        playerStoreSetter({ playbackRate: parseFloat(playbackRate) })
+        playerRef!.playbackRate = parseFloat(playbackRate)
+        console.log(parseFloat(playbackRate));
+
     }
     const handleSmallRewind = () => {
         seekToTime(-10)
@@ -63,15 +70,6 @@ export const Controls = (props: PlayerControlProps) => {
         playerStoreSetter({ duration: playerRef?.duration })
     }
 
-
-
-    const check = () => {
-        const result = formatSeconds(playerRef!.currentTime, "HHMMSS")
-        console.log("nigga got the value", result);
-
-    }
-
-
     // AUDIO
     const handleMute = () => {
         playerStoreSetter({ muted: !playerStore.muted })
@@ -80,9 +78,8 @@ export const Controls = (props: PlayerControlProps) => {
 
 
 
-
     return (
-        <div class="absolute p-3 w-full h-screen flex gap-3  flex-col " >
+        <div class="absolute p-1 w-full h-screen flex gap-3  flex-col " >
             <Show when={playerStore.showVerboseInfoAtPause}
                 fallback={<div class="flex flex-row basis-1/6 justify-between " />
                 }>
@@ -99,12 +96,16 @@ export const Controls = (props: PlayerControlProps) => {
                     <p class="text-info">middle part</p>
                 </div>
             </Show>
-
-            <div class="flex flex-row basis-1/6 justify-between border">
+            {/* subs */}
+            <div class=" flex flex-row basis-1/6 justify-between border">
                 <p class="text-info">sub part</p>
             </div>
 
-            <div class=" flex flex-col basis-1/6 justify-between items-start p-3 pt-6" onMouseLeave={() => handleBaseControlVisiblity(false)} onMouseEnter={() => handleBaseControlVisiblity(true)}>
+            {/* bottom controls */}
+            <div class="border flex flex-col basis-1/6 justify-between items-start p-3 pt-6"
+                onMouseLeave={() => handleBaseControlVisiblity(false)}
+                onMouseEnter={() => handleBaseControlVisiblity(true)}
+            >
                 <Show when={playerStore.showPlayerBaseControls}>
                     {/* Progress */}
                     <div class=" flex flex-row items-center  gap-3 w-full">
@@ -115,7 +116,8 @@ export const Controls = (props: PlayerControlProps) => {
                         </Show>
 
                         <input
-                            onchange={(e) => playerRef!.currentTime = parseInt(e.currentTarget.value) // value is a string
+                            oninput={(e) =>
+                                playerRef!.currentTime = parseInt(e.currentTarget.value)// value is a string
                             }
                             type="range" min="0" max={playerRef?.duration}
                             value={playerStore.currentTime}
@@ -138,13 +140,22 @@ export const Controls = (props: PlayerControlProps) => {
                             <FaSolidChevronLeft onclick={handleSmallRewind} size={26} />
                             <FaSolidChevronRight onclick={handleSmallForward} size={26} />
                             {/* volume */}
-                            <Show when={playerStore.muted}
-                                fallback={<FaSolidVolumeHigh onclick={handleMute} size={26} />}
-                            >
-                                <FaSolidVolumeXmark onclick={handleMute} size={26} />
-                            </Show>
+                            <div class='flex gap-1' style='min-width:50px'>
+                                <Show when={playerStore.muted}
+                                    fallback={<FaSolidVolumeHigh onclick={handleMute} size={26} />
+                                    }
+                                >
+                                    <FaSolidVolumeXmark onclick={handleMute} size={26} />
+                                </Show>
+                                <Show when={playerStore.muted}
+
+                                    fallback={<p class='text-white  text-l'>{playerStore.masterVolume}</p>}
+                                >
+                                    <p class='text-white text-l'>0</p>
+                                </Show>
+                            </div>
                             <input type="range" min="0" max="100" value={playerStore.masterVolume}
-                                onchange={(e) => {
+                                oninput={(e) => {
                                     console.log(e.currentTarget.value, playerRef?.volume);
                                     playerRef!.volume = parseInt(e.currentTarget.value) / 100
                                     playerStoreSetter({ masterVolume: parseInt(e.currentTarget.value) })
@@ -160,12 +171,12 @@ export const Controls = (props: PlayerControlProps) => {
                             <FaSolidBookOpen size={26} />
                             <TbLetterCase size={26} />
                             <div class="dropdown dropdown-top dropdown-end">
-                                <label tabindex="0" class="text-white m-1">1x</label>
-                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-32">
-                                    <li><a>0.5x</a></li>
-                                    <li><a>1x</a></li>
-                                    <li><a>1.5x</a></li>
-                                    <li><a>2x</a></li>
+                                <label tabindex="0" class="text-white m-1">{playerStore.playbackRate}x </label>
+                                <ul
+                                    tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-32">
+                                    <li onclick={() => handlePlaybackRate("0.75")}><a>0.75x</a></li>
+                                    <li onclick={() => handlePlaybackRate("1")}><a>1x</a></li>
+                                    <li onclick={() => handlePlaybackRate("1.25")}><a>1.25x</a></li>
                                 </ul>
                             </div>
                             <BsCollectionPlayFill size={26} />
