@@ -10,7 +10,7 @@ type EpisodeCollection = {
 export interface PlayerStore {
     currentVideoPath: string;
     currentSubtitlePath: string;
-    currentTime: string;
+    currentTime: number;
     playbackRate: number;
     masterVolume: number;
     muted: boolean;
@@ -27,6 +27,7 @@ export const PlayerStore = createStore<Partial<PlayerStore>>({
     masterVolume: 50,
     muted: false,
     paused: true,
+    currentTime: 0,
     showVerboseInfoAtPause: true,
     showPlayerBaseControls: true
 })
