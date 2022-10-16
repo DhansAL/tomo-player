@@ -2,3 +2,7 @@ PLACES THAT NEED IMPROVEMENTS.
 controls
 - need a way to access ref only when its not undefined.
 this solves one of the many things which is to be done
+
+- having different stores , one to store metadata, one to store player values, vol etc.
+reason, should we be storing entire state to our local storage or leveldb? 
+also clean up values . it bugs with volume etc rn 

@@ -1,6 +1,6 @@
 import { PlayerStore } from '@renderer/stores/PlayerStore'
 import { BsCollectionPlayFill } from 'solid-icons/bs'
-import { FaSolidBookOpen, FaSolidChevronLeft, FaSolidChevronRight, FaSolidForwardFast, FaSolidPause, FaSolidPlay, FaSolidVolumeHigh } from 'solid-icons/fa'
+import { FaSolidBookOpen, FaSolidChevronLeft, FaSolidChevronRight, FaSolidForwardFast, FaSolidPause, FaSolidPlay, FaSolidVolumeHigh, FaSolidVolumeOff, FaSolidVolumeXmark } from 'solid-icons/fa'
 import { TbLetterCase } from 'solid-icons/tb'
 import { createEffect, onMount, Show } from 'solid-js'
 import { SetStoreFunction } from 'solid-js/store/types/store'
@@ -73,6 +73,10 @@ export const Controls = (props: PlayerControlProps) => {
 
 
     // AUDIO
+    const handleMute = () => {
+        playerStoreSetter({ muted: !playerStore.muted })
+        playerRef!.muted = playerStore.muted!
+    }
 
 
 
@@ -134,11 +138,14 @@ export const Controls = (props: PlayerControlProps) => {
                             <FaSolidChevronLeft onclick={handleSmallRewind} size={26} />
                             <FaSolidChevronRight onclick={handleSmallForward} size={26} />
                             {/* volume */}
-                            <FaSolidVolumeHigh size={26} />
+                            <Show when={playerStore.muted}
+                                fallback={<FaSolidVolumeHigh onclick={handleMute} size={26} />}
+                            >
+                                <FaSolidVolumeXmark onclick={handleMute} size={26} />
+                            </Show>
                             <input type="range" min="0" max="100" value={playerStore.masterVolume}
                                 onchange={(e) => {
                                     console.log(e.currentTarget.value, playerRef?.volume);
-
                                     playerRef!.volume = parseInt(e.currentTarget.value) / 100
                                     playerStoreSetter({ masterVolume: parseInt(e.currentTarget.value) })
                                 }}
