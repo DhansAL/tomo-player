@@ -1,8 +1,6 @@
 // import { PlayerStore } from "@renderer/stores/PlayerStore"
-// import { unproxy } from "@renderer/utils/unProxy";
 import { Controls } from "@renderer/components/Player/Controls";
-import { initialPlayerValue } from "@renderer/constants/playerConstants";
-import { PlayerStore } from "@renderer/stores/PlayerStore";
+import { initialPlayerValue, PlayerStore } from "@renderer/stores/PlayerStore";
 import screenfull from "screenfull";
 
 
