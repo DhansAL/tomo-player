@@ -9,6 +9,7 @@ export const Navbar = () => {
                     <div class="tabs m-2 gap-2">
                         <A href="/" class="tab tab-lifted  tab-active">Home</A>
                         <A href="/player" class="tab tab-lifted">Player</A>
+                        <A href="/library" class="tab tab-lifted">Library</A>
                         <a class="tab tab-lifted">Tab 3</a>
                     </div>
                 </div>
